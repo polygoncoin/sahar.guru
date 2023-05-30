@@ -1,0 +1,188 @@
+<html>
+    <head>
+        <title></title>
+        <style>
+            html, body {
+                background-color:#ffe6ee;
+                margin: 0 0 0 0;
+            }
+            .header {
+                margin: 0 0 0 0;
+            }
+            .menu {
+                margin: 0 0 0 0;
+                padding: 5 0 5 0;
+                background-color: #cccccc;
+            }
+            .body {
+                background-color: #ffffe6;
+                margin: 0 0 0 0;
+            }
+            .gridListingRow {
+                margin: 0;
+                padding: 5 0 5 0;
+            }
+            .gridListingColumnLeft {
+                margin: 0;
+                padding: 5 10 5 0;
+            }
+            .gridListingColumn {
+                margin: 0;
+                padding: 5 10 5 10;
+            }
+            .gridListingColumnRight {
+                margin: 0;
+                padding: 5 0 5 10;
+            }
+            .productName {
+                margin: 0;
+                padding: 5 5 0 5;
+            }
+            .footer {
+                margin: 0 0 0 0;
+            }
+            .aboutUs {
+                margin: 0;
+                padding: 20 0 0 0;
+            }
+            .map {
+                margin: 0;
+                padding: 5 0 5 5;
+                width: 475;
+            }
+            .content {
+                max-width: 860px;
+                margin: auto;
+                padding: 0 0 0 0;
+            }
+            div.displayInlineBlock {
+                display: inline-block;
+            }
+        </style>
+    </head>
+    <body>
+        <!--Header start-->
+        <div class="header">
+            <div class="content">
+                <div class="displayInlineBlock" style="width: 100%;">
+                    <div class="displayInlineBlock" style="float: left;width: 270px;height: 70px; background-color: yellow;padding-left: 20px;"><h1>sahar.guru Logo</h1></div>
+                    <div class="displayInlineBlock" style="float: right;width: 468px;height: 60px; background-color: yellow;margin-top: 5px;">sahar.guru Ads...</div>
+                </div>
+            </div>
+        </div>
+        <!-- Menu row start-->
+        <div class="menu">
+            <div class="content">
+                <div>
+                    <style>
+                        .menu {
+                            position: relative;
+                        }
+                        .subMenu {
+                            position: absolute;
+                            display: none;
+                            background-color: #cccccc;
+                        }
+                    </style>
+                    <div class="menu displayInlineBlock">
+                        <span class="menuTitle">111111</span>
+                        <!-- Sub Menu start-->
+                        <div class="subMenu">
+                            snsnsnn
+                        </div>
+                        <!-- Sub Menu end-->
+                    </div>
+                    <div class="displayInlineBlock">|</div>
+                    <div class="menu displayInlineBlock">
+                        <span class="menuTitle">222222</span>
+                        <!-- Sub Menu start-->
+                        <div class="subMenu">
+                            snsnsnn
+                        </div>
+                        <!-- Sub Menu end-->
+                    </div>
+                    <div class="displayInlineBlock">|</div>
+                    <div class="menu displayInlineBlock">
+                        <span class="menuTitle">333333</span>
+                        <!-- Sub Menu start-->
+                        <div class="subMenu">
+                            snsnsnn
+                        </div>
+                        <!-- Sub Menu end-->
+                    </div>
+                </div>
+                <!-- Menu row end-->
+            </div>
+        </div>
+        <!--Menu end-->
+        <!--Body start-->
+        <div class="body">
+            <div class="content">
+                <div class="gridListingRow"></div>
+                <div class="gridListingRow">
+                    <div class="gridListingColumnLeft displayInlineBlock">
+                        <img src="pimage.jpg" width="200" height="200">
+                        <div class="productName">Product Name</div>
+                    </div><div class="gridListingColumn displayInlineBlock">
+                        <img src="pimage.jpg" width="200" height="200">
+                        <div class="productName">Product Name</div>
+                    </div><div class="gridListingColumn displayInlineBlock">
+                        <img src="pimage.jpg" width="200" height="200">
+                        <div class="productName">Product Name</div>
+                    </div><div class="gridListingColumnRight displayInlineBlock">
+                        <img src="pimage.jpg" width="200" height="200">
+                        <div class="productName">Product Name</div>
+                    </div>
+                </div>
+                <div class="gridListingRow">
+                    <div class="gridListingColumnLeft displayInlineBlock">
+                        <img src="pimage.jpg" width="200" height="200">
+                        <div class="productName">Product Name</div>
+                    </div><div class="gridListingColumn displayInlineBlock">
+                        <img src="pimage.jpg" width="200" height="200">
+                        <div class="productName">Product Name</div>
+                    </div><div class="gridListingColumn displayInlineBlock">
+                        <img src="pimage.jpg" width="200" height="200">
+                        <div class="productName">Product Name</div>
+                    </div><div class="gridListingColumnRight displayInlineBlock">
+                        <img src="pimage.jpg" width="200" height="200">
+                        <div class="productName">Product Name</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Body end-->
+        <!--Footer start-->
+        <div class="footer">
+            <div class="content">
+                <div class="aboutUs">
+                    <b>About Us</b>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+                    <p><a href="#" style="text-decoration: none;">&#129517;</a> C22, 829, Sector 8, Charkop Kandivali West, Mumbai - 400067.</p>
+                </div>
+                <div class="copyright">
+                    <p>Copyright &#169; sahar.guru - 2023</p>
+                </div>
+            </div>
+        </div>
+        <!--Footer start-->
+        <script>
+            var menuTitles = document.getElementsByClassName("menuTitle");
+            var subMenus = document.getElementsByClassName("subMenu");
+            for (var i=0; i<menuTitles.length; i++){
+                menuTitles[i].addEventListener("mouseover", mouseOver);
+                menuTitles[i].addEventListener("mouseout", mouseOut);
+                subMenus[i].addEventListener("mouseover", mouseOver);
+                subMenus[i].addEventListener("mouseout", mouseOut);
+            }                            
+            function mouseOver(event)
+            {
+                event.target.parentElement.children[1].style.display = "block";
+            }
+            function mouseOut(event)
+            {
+                event.target.parentElement.children[1].style.display = "none";
+            }
+        </script>
+</body>
+</html>

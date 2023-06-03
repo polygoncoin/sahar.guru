@@ -415,7 +415,7 @@ input[type="checkbox"]:checked::before {
                     } else {
                         color = partialColor;
                     }
-                    changeCheckboxBorderColor('backlink' + iPad, color);                    
+                    changeCheckboxBorderColor('backlink' + iPad, color);
                 } else if (j !== null) {
                     let jPad = pad('00', j, true);
                     if (checked && checkAllChecked('checkbox' + iPad)) {
@@ -423,12 +423,15 @@ input[type="checkbox"]:checked::before {
                     } else {
                         color = partialColor;
                     }
-                    changeCheckboxBorderColor('backlink' + iPad, color);                    
+                    changeCheckboxBorderColor('backlink' + iPad, color);
                 } else if (i !== null) {
                     let jPad = pad('00', j, true);
                     color = defaultColor;
-                    changeCheckboxBorderColor('checkbox' + iPad, color);                    
-                    changeCheckboxBorderColor('backlink' + iPad, color);                    
+                    changeCheckboxBorderColor('checkbox' + iPad, color);
+                    changeCheckboxBorderColor('backlink' + iPad, color);
+                } else {
+                    color = defaultColor;
+                    changeCheckboxBorderColor('checkbox', color);
                 }
             }
             function changeCheckboxBorderColor(className, color)

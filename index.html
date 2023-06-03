@@ -59,59 +59,71 @@
                 display: inline-block;
             }
         </style>
+                            <style>
+                        .menu {
+                            position: relative;
+                        }
+                        .padl {
+                            position: relative;
+                            padding-right: 10px;;
+                        }
+                        .subMenu {
+                            position: absolute;
+                            display: none;
+                            background-color: #ccccff;
+                            z-index: 2;
+                        }
+                        .collapse {
+                            border: 1px solid black;
+                            border-collapse: collapse;
+                            padding: 0px;
+                            margin: 0px;
+                        }
+                        .subMenus:hover, .subSubMenus:hover {
+                            background-color: #F5F5DC;
+                        }
+                        .hide {
+                            display: none;
+                        }
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+  color: #000000;
+  width: 15px;
+  height: 15px;
+  border: 1px solid;
+  display: grid;
+  place-content: center;
+}
+input[type="checkbox"]::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  transform: scale(0);
+  background-color: #5f894a;
+}
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+                    </style>
     </head>
     <body>
         <!--Header start-->
         <div class="header">
             <div class="content">
                 <div class="displayInlineBlock" style="width: 100%;">
-                    <div class="displayInlineBlock" style="float: left;width: 270px;height: 70px; background-color: yellow;padding-left: 20px;"><h1>sahar.guru Logo</h1></div>
-                    <div class="displayInlineBlock" style="float: right;width: 468px;height: 60px; background-color: yellow;margin-top: 5px;">sahar.guru Ads...</div>
+                    <div class="displayInlineBlock" style="float: left;width: 270px;height: 70px; background-color: yellow;padding-left: 20px;"><h1>Vendor Logo</h1></div>
+                    <div class="displayInlineBlock" style="float: right;width: 468px;height: 60px; background-color: yellow;margin-top: 5px;">Ads...</div>
                 </div>
             </div>
         </div>
-        <!-- Menu row start-->
+        <!-- Menu start-->
         <div class="menu">
             <div class="content">
-                <div>
-                    <style>
-                        .menu {
-                            position: relative;
-                        }
-                        .subMenu {
-                            position: absolute;
-                            display: none;
-                            background-color: #cccccc;
-                        }
-                    </style>
-                    <div class="menu displayInlineBlock">
-                        <span class="menuTitle">111111</span>
-                        <!-- Sub Menu start-->
-                        <div class="subMenu">
-                            snsnsnn
-                        </div>
-                        <!-- Sub Menu end-->
-                    </div>
-                    <div class="displayInlineBlock">|</div>
-                    <div class="menu displayInlineBlock">
-                        <span class="menuTitle">222222</span>
-                        <!-- Sub Menu start-->
-                        <div class="subMenu">
-                            snsnsnn
-                        </div>
-                        <!-- Sub Menu end-->
-                    </div>
-                    <div class="displayInlineBlock">|</div>
-                    <div class="menu displayInlineBlock">
-                        <span class="menuTitle">333333</span>
-                        <!-- Sub Menu start-->
-                        <div class="subMenu">
-                            snsnsnn
-                        </div>
-                        <!-- Sub Menu end-->
-                    </div>
-                </div>
-                <!-- Menu row end-->
+                <div id="menu"></div>
             </div>
         </div>
         <!--Menu end-->
@@ -158,7 +170,19 @@
                 <div class="aboutUs">
                     <b>About Us</b>
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-                    <p><a href="#" style="text-decoration: none;">&#129517;</a> C22, 829, Sector 8, Charkop Kandivali West, Mumbai - 400067.</p>
+                </div>
+                <div class="address">
+                    <b>Address</b>
+                    <p>
+                        C22, 829, Sector 8, Charkop Kandivali West, Mumbai - 400067.
+                        <a href="#" style="text-decoration: none;">Directions</a>
+                    </p>
+                </div>
+                <div class="timings">
+                    <b>Timings</b>
+                    <p>
+                        Mon - Sun Open 24 Hrs
+                    </p>
                 </div>
                 <div class="copyright">
                     <p>Copyright &#169; sahar.guru - 2023</p>
@@ -167,21 +191,264 @@
         </div>
         <!--Footer start-->
         <script>
-            var menuTitles = document.getElementsByClassName("menuTitle");
-            var subMenus = document.getElementsByClassName("subMenu");
-            for (var i=0; i<menuTitles.length; i++){
-                menuTitles[i].addEventListener("mouseover", mouseOver);
-                menuTitles[i].addEventListener("mouseout", mouseOut);
-                subMenus[i].addEventListener("mouseover", mouseOver);
-                subMenus[i].addEventListener("mouseout", mouseOut);
-            }                            
-            function mouseOver(event)
-            {
-                event.target.parentElement.children[1].style.display = "block";
+            function pad(pad, str, padLeft) {
+                if (typeof str === 'undefined') 
+                    return pad;
+                if (padLeft) {
+                    return (pad + str).slice(-pad.length);
+                } else {
+                    return (str + pad).substring(0, pad.length);
+                }
             }
-            function mouseOut(event)
+            var category = [
+                {
+                    "name": "Category 1",
+                    "subCategory": [
+                        {
+                            "name": "Category 2",
+                            "subCategory": [
+                                {
+                                    "name": "Category 3",
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Category 3",
+                            "subCategory": [
+                                {
+                                    "name": "Category 2",
+                                }
+                            ]
+                        },
+                    ]
+                },
+                {
+                    "name": "Category 2",
+                    "subCategory": [
+                        {
+                            "name": "Category 1",
+                            "subCategory": [
+                                {
+                                    "name": "Category 3",
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Category 3",
+                            "subCategory": [
+                                {
+                                    "name": "Category 1",
+                                }
+                            ]
+                        },
+                    ]
+                },
+                {
+                    "name": "Category 3",
+                    "subCategory": [
+                        {
+                            "name": "Category 2",
+                            "subCategory": [
+                                {
+                                    "name": "Category 1",
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Category 1",
+                            "subCategory": [
+                                {
+                                    "name": "Category 2",
+                                }
+                            ]
+                        },
+                    ]
+                }
+            ];
+            genMenu();
+            function genMenu()
             {
-                event.target.parentElement.children[1].style.display = "none";
+                var html = '' +
+                    '<div class="padl displayInlineBlock">' +
+                        '<div>' +
+                            '<span class="menuTitle">' +
+                                '<div style="float:left;" class="resetCheckbox"><input type="checkbox" checked style="color: #FF0000;" onClick="checkboxClicked(null, null, null, this.checked);"/></div>' +
+                            '</span>' +
+                        '</div>' +
+                    '</div>';
+                for(i in category) {
+                    iPad = pad('00', i, true);
+                    html += '' +
+                    '<div class="padl displayInlineBlock">' +
+                        '<div onmouseleave="hide(\'subMenu\', \'' + iPad + '\');">' +
+                            '<span class="menuTitle" onmouseenter="displaySubMenu(\'' + iPad + '\');">' +
+                                '<div style="float:left;"><input type="checkbox" checked class="checkbox backlink' + iPad + '" onClick="checkboxClicked(' + i + ', null, null, this.checked);"/></div>&nbsp;<span onClick="displayProduct(' + i + ',null,null, true)">' + category[i]['name'] + '</span>' +
+                            '</span>' +
+                            '<!-- Sub Menu start-->' +
+                            '<div class="subMenu" id="subMenu' + iPad + '">';
+                    //if (false) {
+                    if (category[i]['subCategory'] !== "undefined") {
+                        html += '' +
+                                '<table width="600" cellpadding="0" cellspacing="5">' +
+                                    '<tr>' +
+                                        '<td class="collapse" width="200" valign="top">' +
+                                            '<table width="200" cellpadding="0" cellspacing="2">';
+                        for(j in category[i]['subCategory']) {
+                            jPad = pad('00', j, true);
+                                                html += '' +
+                                                '<tr><td class="subMenus"><div style="float:left;"><input type="checkbox" checked class="checkbox checkbox' + iPad + ' backlink' + iPad + jPad + '" onClick="checkboxClicked(' + i + ',' + j + ', null, this.checked);"/></div>&nbsp;<span onmouseenter="displaySubSubMenu(\'' + iPad + jPad + '\');" onClick="displayProduct(' + i + ',' + j + ',null, true)">' + category[i]['subCategory'][j]['name'] + '</span></td></tr>';
+                        }
+                                            html += '' +
+                                            '</table>' +
+                                        '</td>' +
+                                        '<td class="collapse" width="400" valign="top">';
+                        for(j in category[i]['subCategory']) {
+                            jPad = pad('00', j, true);
+                                            html += '' +
+                                            '<div id="subSubMenu' + iPad + jPad + '" class="subSubMenu hide">';
+                            if (category[i]['subCategory'][j]['subCategory'] !== "undefined") {
+                                                html += '' +
+                                                '<table width="100%" cellpadding="0" cellspacing="2">' +
+                                                    '<tr>';
+                                for(k = 0, k_length = category[i]['subCategory'][j]['subCategory'].length; k < k_length; k++) {
+                                    kPad = pad('00', k, true);
+                                                        html += '' +
+                                                        '<td class="subSubMenus"><div style="float:left;"><input type="checkbox" class="checkbox checkbox' + iPad + ' checkbox' + iPad + jPad + '" checked onClick="checkboxClicked(' + i + ',' + j + ',' + k + ', this.checked);"/></div>&nbsp;<span onClick="displayProduct(' + i + ',' + j + ',' + k + ', true)">' + category[i]['subCategory'][j]['subCategory'][k]['name'] + '</span></td>';
+                                }
+                                                    html += '' +
+                                                    '</tr>' +
+                                                '</table>';
+                            }
+                                            html += '' +
+                                            '</div>';
+                        }
+                                        html += '' +
+                                        '</td>' +
+                                    '</tr>' +
+                                '</table>';
+                    }
+                            html += '' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>';
+                }
+                document.getElementById('menu').innerHTML = html;
+            }
+            
+            function displaySubMenu(id)
+            {
+                // var subSubMenus = document.getElementsByClassName('subSubMenu');
+                // for (let i = 0, i_length = subSubMenus.length; i < i_length; i++) {
+                //     subSubMenus[i].style.display = "none";
+                // }
+                document.getElementById('subMenu' + id).style.display = "block";
+            }
+            function displaySubSubMenu(id)
+            {
+                var subSubMenus = document.getElementsByClassName('subSubMenu');
+                for (let i = 0, i_length = subSubMenus.length; i < i_length; i++) {
+                    subSubMenus[i].style.display = "none";
+                }
+                document.getElementById('subSubMenu' + id).style.display = "block";
+            }
+            function display(id, primaryKey)
+            {
+                document.getElementById(id+primaryKey).style.display = "block";
+            }
+            function hide(id, primaryKey)
+            {
+                document.getElementById(id+primaryKey).style.display = "none";
+            }
+            function displayProduct(i, j, k, closeMenu)
+            {
+                if (closeMenu === true) {
+                    var subMenus = document.getElementsByClassName('subMenu');
+                    for (let i = 0, i_length = subMenus.length; i < i_length; i++) {
+                        subMenus[i].style.display = "none";
+                    }
+                }
+                return true;
+            }
+            function checkboxClicked(i, j, k, checked)
+            {
+                let kPad = pad('00', k, true);
+                if (k !== null) {
+                    ;
+                } else if (j !== null) {
+                    let iPad = pad('00', i, true);
+                    let jPad = pad('00', j, true);
+                    checkAllByClass('checkbox'+iPad+jPad, checked);
+                } else if (i !== null) {
+                    let iPad = pad('00', i, true);
+                    checkAllByClass('checkbox'+iPad, checked);
+                } else {
+                    checkAllByClass('checkbox', checked);
+                }
+                backlink(i, j, k, checked);
+                displayProduct(i, j, k, false);
+            }
+            function checkAllByClass(className, checked)
+            {
+                var checkboxes = document.getElementsByClassName(className);
+                for (let i = 0, i_length = checkboxes.length; i < i_length; i++) {
+                    checkboxes[i].checked = checked;
+                }
+            }
+            function backlink(i, j, k, checked)
+            {
+                var allChecked = null;
+                var color = null;
+                var partialColor = 'orange';
+                var defaultColor = '#000000';
+                if (k !== null) {
+                    let kPad = pad('00', k, true);
+                    let iPad = pad('00', i, true);
+                    let jPad = pad('00', j, true);
+                    if (checked && checkAllChecked('checkbox' + iPad + jPad)) {
+                        color = defaultColor;
+                    } else {
+                        color = partialColor;
+                    }
+                    changeCheckboxBorderColor('backlink' + iPad + jPad, color);
+                    if (checked && checkAllChecked('checkbox' + iPad)) {
+                        color = defaultColor;
+                    } else {
+                        color = partialColor;
+                    }
+                    changeCheckboxBorderColor('backlink' + iPad, color);                    
+                } else if (j !== null) {
+                    let jPad = pad('00', j, true);
+                    if (checked && checkAllChecked('checkbox' + iPad)) {
+                        color = defaultColor;
+                    } else {
+                        color = partialColor;
+                    }
+                    changeCheckboxBorderColor('backlink' + iPad, color);                    
+                } else if (i !== null) {
+                    let jPad = pad('00', j, true);
+                    color = defaultColor;
+                    changeCheckboxBorderColor('checkbox' + iPad, color);                    
+                    changeCheckboxBorderColor('backlink' + iPad, color);                    
+                }
+            }
+            function changeCheckboxBorderColor(className, color)
+            {
+                var checkboxes = document.getElementsByClassName(className);
+                for (let i = 0, i_length = checkboxes.length; i < i_length; i++) {
+                    checkboxes[i].style.color = color;
+                }
+            }
+            function checkAllChecked(className)
+            {
+                var checked = true;
+                var checkboxes = document.getElementsByClassName(className);
+                for (let i = 0, i_length = checkboxes.length; i < i_length; i++) {
+                    if (checkboxes[i].checked === false) {
+                        checked = false;
+                        break;
+                    }
+                }
+                return checked;
             }
         </script>
 </body>

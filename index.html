@@ -79,8 +79,14 @@
                             padding: 0px;
                             margin: 0px;
                         }
+                        .brand {
+                            border: 0px;
+                            background-color: #ffe6ee;
+                            padding: 0px;
+                            margin: 0px;
+                        }
                         .subMenus:hover, .subSubMenus:hover {
-                            background-color: #F5F5DC;
+                            background-color: #ffe6ee;
                         }
                         .hide {
                             display: none;
@@ -115,7 +121,7 @@ input[type="checkbox"]:checked::before {
         <div class="header">
             <div class="content">
                 <div class="displayInlineBlock" style="width: 100%;">
-                    <div class="displayInlineBlock" style="float: left;width: 270px;height: 70px; background-color: yellow;padding-left: 20px;"><h1>Vendor Logo</h1></div>
+                    <div class="displayInlineBlock" style="float: left;width: 270px;height: 70px; background-color: yellow;padding-left: 20px;"><h1>Customer Logo</h1></div>
                     <div class="displayInlineBlock" style="float: right;width: 468px;height: 60px; background-color: yellow;margin-top: 5px;">Ads...</div>
                 </div>
             </div>
@@ -289,14 +295,23 @@ input[type="checkbox"]:checked::before {
                     //if (false) {
                     if (category[i]['subCategory'] !== "undefined") {
                         html += '' +
-                                '<table width="600" cellpadding="0" cellspacing="5">' +
+                                '<table width="600" height="200" cellpadding="0" cellspacing="5">' +
                                     '<tr>' +
                                         '<td class="collapse" width="200" valign="top">' +
                                             '<table width="200" cellpadding="0" cellspacing="2">';
                         for(j in category[i]['subCategory']) {
                             jPad = pad('00', j, true);
                                                 html += '' +
-                                                '<tr><td class="subMenus"><div style="float:left;"><input type="checkbox" checked class="checkbox checkbox' + iPad + ' backlink' + iPad + jPad + '" onClick="checkboxClicked(' + i + ',' + j + ', null, this.checked);"/></div>&nbsp;<span onmouseenter="displaySubSubMenu(\'' + iPad + jPad + '\');" onClick="displayProduct(' + i + ',' + j + ',null, true)">' + category[i]['subCategory'][j]['name'] + '</span></td></tr>';
+                                                '<tr>' +
+                                                    '<td>' +
+                                                        '<table width="100%" cellpadding="0" cellspacing="2">' +
+                                                            '<tr>' +
+                                                                '<td width="17" align="center"><input type="checkbox" checked class="checkbox checkbox' + iPad + ' backlink' + iPad + jPad + '" onClick="checkboxClicked(' + i + ',' + j + ', null, this.checked);"/></td>' +
+                                                                '<td class="subMenus" align="left" onmouseenter="displaySubSubMenu(\'' + iPad + jPad + '\');" onClick="displayProduct(' + i + ',' + j + ',null, true)">' + category[i]['subCategory'][j]['name'] + '</td>' +
+                                                            '</tr>' +
+                                                        '</table>'
+                                                    '</td>' +
+                                                '</tr>';
                         }
                                             html += '' +
                                             '</table>' +
@@ -309,13 +324,28 @@ input[type="checkbox"]:checked::before {
                             if (category[i]['subCategory'][j]['subCategory'] !== "undefined") {
                                                 html += '' +
                                                 '<table width="100%" cellpadding="0" cellspacing="2">' +
-                                                    '<tr>';
+                                                    '<tr>' +
+                                                        '<td valign="top">' +
+                                                            '<table width="100%" cellpadding="0" cellspacing="2">' +
+                                                                '<tr>';
                                 for(k = 0, k_length = category[i]['subCategory'][j]['subCategory'].length; k < k_length; k++) {
                                     kPad = pad('00', k, true);
                                                         html += '' +
-                                                        '<td class="subSubMenus"><div style="float:left;"><input type="checkbox" class="checkbox checkbox' + iPad + ' checkbox' + iPad + jPad + '" checked onClick="checkboxClicked(' + i + ',' + j + ',' + k + ', this.checked);"/></div>&nbsp;<span onClick="displayProduct(' + i + ',' + j + ',' + k + ', true)">' + category[i]['subCategory'][j]['subCategory'][k]['name'] + '</span></td>';
+                                                        '<tr>' +
+                                                            '<td>' +
+                                                                '<table width="100%" cellpadding="0" cellspacing="2">' +
+                                                                    '<tr>' +
+                                                                        '<td width="17" align="center"><input type="checkbox" class="checkbox checkbox' + iPad + ' checkbox' + iPad + jPad + '" checked onClick="checkboxClicked(' + i + ',' + j + ',' + k + ', this.checked);"/></td>' +
+                                                                        '<td class="subSubMenus" align="left" onClick="displayProduct(' + i + ',' + j + ',' + k + ', true)">' + category[i]['subCategory'][j]['subCategory'][k]['name'] + '</td>' +
+                                                                    '</tr>' +
+                                                                '</table>'
+                                                            '</td>' +
+                                                        '</tr>';
                                 }
                                                     html += '' +
+                                                                '</tr>' +
+                                                            '</table>' +
+                                                        '</td>' +
                                                     '</tr>' +
                                                 '</table>';
                             }
@@ -323,6 +353,19 @@ input[type="checkbox"]:checked::before {
                                             '</div>';
                         }
                                         html += '' +
+                                        '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                        '<td height="50" valign="top" colspan="2" class="collapse">' +
+                                            '<table width="100%" cellpadding="0" cellspacing="5">' +
+                                                '<tr>' +
+                                                    '<td width="120" height="50" class="brand" align="center">Brand 1</td>' +
+                                                    '<td width="120" height="50" class="brand" align="center">Brand 2</td>' +
+                                                    '<td width="120" height="50" class="brand" align="center">Brand 3</td>' +
+                                                    '<td width="120" height="50" class="brand" align="center">Brand 4</td>' +
+                                                    '<td width="120" height="50" class="brand" align="center">Brand 5</td>' +
+                                                '</tr>' +
+                                            '</table>' +
                                         '</td>' +
                                     '</tr>' +
                                 '</table>';

@@ -135,39 +135,7 @@ input[type="checkbox"]:checked::before {
         <!--Menu end-->
         <!--Body start-->
         <div class="body">
-            <div class="content">
-                <div class="gridListingRow"></div>
-                <div class="gridListingRow">
-                    <div class="gridListingColumnLeft displayInlineBlock">
-                        <img src="pimage.jpg" width="200" height="200">
-                        <div class="productName">Product Name</div>
-                    </div><div class="gridListingColumn displayInlineBlock">
-                        <img src="pimage.jpg" width="200" height="200">
-                        <div class="productName">Product Name</div>
-                    </div><div class="gridListingColumn displayInlineBlock">
-                        <img src="pimage.jpg" width="200" height="200">
-                        <div class="productName">Product Name</div>
-                    </div><div class="gridListingColumnRight displayInlineBlock">
-                        <img src="pimage.jpg" width="200" height="200">
-                        <div class="productName">Product Name</div>
-                    </div>
-                </div>
-                <div class="gridListingRow">
-                    <div class="gridListingColumnLeft displayInlineBlock">
-                        <img src="pimage.jpg" width="200" height="200">
-                        <div class="productName">Product Name</div>
-                    </div><div class="gridListingColumn displayInlineBlock">
-                        <img src="pimage.jpg" width="200" height="200">
-                        <div class="productName">Product Name</div>
-                    </div><div class="gridListingColumn displayInlineBlock">
-                        <img src="pimage.jpg" width="200" height="200">
-                        <div class="productName">Product Name</div>
-                    </div><div class="gridListingColumnRight displayInlineBlock">
-                        <img src="pimage.jpg" width="200" height="200">
-                        <div class="productName">Product Name</div>
-                    </div>
-                </div>
-            </div>
+            <div class="content" id="products"></div>
         </div>
         <!--Body end-->
         <!--Footer start-->
@@ -433,6 +401,7 @@ input[type="checkbox"]:checked::before {
                     '</div>';
                 }
                 document.getElementById('menu').innerHTML = html;
+                displayProduct(null, null, null, false);
             }
             
             function displaySubMenu(id)
@@ -461,13 +430,78 @@ input[type="checkbox"]:checked::before {
             }
             function displayProduct(i, j, k, closeMenu)
             {
+                // Close Menu code
                 if (closeMenu === true) {
                     var subMenus = document.getElementsByClassName('subMenu');
                     for (let i = 0, i_length = subMenus.length; i < i_length; i++) {
                         subMenus[i].style.display = "none";
                     }
                 }
-                return true;
+                console.log(i);
+                console.log(j);
+                console.log(k);
+                var productIds = [];
+                // Display Product
+                for (index in products) {
+                    switch (true) {
+                        case k !== null:
+                            if (
+                                (typeof products[index]['categoryIds'][2] !== "undefined") && k === products[index]['categoryIds'][2] &&
+                                (typeof products[index]['categoryIds'][1] !== "undefined") && j === products[index]['categoryIds'][1] &&
+                                (typeof products[index]['categoryIds'][0] !== "undefined") && i === products[index]['categoryIds'][0]
+                            ) {
+                                productIds[index] = index;
+                            }
+                            console.log('k');
+                            break;
+                        case j !== null:
+                            if (
+                                (typeof products[index]['categoryIds'][1] !== "undefined") && j === products[index]['categoryIds'][1] &&
+                                (typeof products[index]['categoryIds'][0] !== "undefined") && i === products[index]['categoryIds'][0]
+                            ) {
+                                productIds[index] = index;
+                            }
+                            console.log('j');
+                            break;
+                        case i !== null:
+                            if ((typeof products[index]['categoryIds'][0] !== "undefined") && i === products[index]['categoryIds'][0]) {
+                                productIds[index] = index;
+                            }
+                        console.log('i');
+                            break;
+                        default:
+                            productIds[index] = index;
+                            break;
+                    }
+                }
+                var i = 0;
+                var tagClass = '';
+                var html = '<div class="gridListingRow"></div>';
+                for (index  in productIds) {
+                    if (i%4 === 0) {
+                        html += '<div class=" gridListingRow">';
+                    }
+                    if (i%4 === 0) {
+                        tagClass = 'gridListingColumnLeft';
+                    } else if (i%4 === 3) {
+                        tagClass = 'gridListingColumnRight';
+                    } else {
+                        tagClass = 'gridListingColumn';
+                    }
+                    html += '' +
+                        '<div class="' + tagClass + ' displayInlineBlock">' +
+                            '<img src="pimage.jpg" width="200" height="200">' +
+                            '<div class="productName">' + products[index]['productName'] + '</div>' +
+                        '</div>';
+                    if (i%4 === 3) {
+                        html += '</div>';
+                    }
+                    i++;
+                }
+                if (i%4 !== 3) {
+                    html += '</div>';
+                }
+                document.getElementById('products').innerHTML = html;
             }
             function checkboxClicked(i, j, k, checked)
             {

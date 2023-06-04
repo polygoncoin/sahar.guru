@@ -285,21 +285,21 @@ input[type="checkbox"]:checked::before {
             };
             var categoryHierarchy = {};
             for(i in products) {
-                console.log(products[i]);
                 switch (products[i]['categoryIds'].length) {
                     case 3:
                         var zero = products[i]['categoryIds'][0];
                         var one = products[i]['categoryIds'][1];
                         var two = products[i]['categoryIds'][2];
-                        var name = category[two];
                         if (typeof categoryHierarchy[zero] === "undefined") {
                             categoryHierarchy[zero] = {};
+                            categoryHierarchy[zero]['name'] = category[zero];
                         }
                         if (typeof categoryHierarchy[zero]['subCategory'] === "undefined") {
                             categoryHierarchy[zero]['subCategory'] = {};
                         }
                         if (typeof categoryHierarchy[zero]['subCategory'][one] === "undefined") {
                             categoryHierarchy[zero]['subCategory'][one] = {};
+                            categoryHierarchy[zero]['subCategory'][one]['name'] = category[one];
                         }
                         if (typeof categoryHierarchy[zero]['subCategory'][one]['subCategory'] === "undefined") {
                             categoryHierarchy[zero]['subCategory'][one]['subCategory'] = {};
@@ -307,11 +307,10 @@ input[type="checkbox"]:checked::before {
                         if (typeof categoryHierarchy[zero]['subCategory'][one]['subCategory'][two] === "undefined") {
                             categoryHierarchy[zero]['subCategory'][one]['subCategory'][two] = {};
                         }
-                        categoryHierarchy[zero]['subCategory'][one]['subCategory'][two]['name'] = name;
+                        categoryHierarchy[zero]['subCategory'][one]['subCategory'][two]['name'] = category[two];
                     case 2:
                         var zero = products[i]['categoryIds'][0];
                         var one = products[i]['categoryIds'][1];
-                        var name = category[one];
                         if (typeof categoryHierarchy[zero] === "undefined") {
                             categoryHierarchy[zero] = {};
                         }
@@ -321,14 +320,13 @@ input[type="checkbox"]:checked::before {
                         if (typeof categoryHierarchy[zero]['subCategory'][one] === "undefined") {
                             categoryHierarchy[zero]['subCategory'][one] = {};
                         }
-                        categoryHierarchy[zero]['subCategory'][one]['name'] = name;
+                        categoryHierarchy[zero]['subCategory'][one]['name'] = category[one];
                     case 1:
                         var zero = products[i]['categoryIds'][0];
-                        var name = category[zero];
                         if (typeof categoryHierarchy[zero] === "undefined") {
                             categoryHierarchy[zero] = {};
                         }
-                        categoryHierarchy[zero]['name'] = name;
+                        categoryHierarchy[zero]['name'] = category[zero];
                 }
             }
             genMenu();

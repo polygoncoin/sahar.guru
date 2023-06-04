@@ -191,7 +191,7 @@ input[type="checkbox"]:checked::before {
             };
             var products = {
                 '1' : {
-                    "categoryIds": [1],
+                    "categoryIds": [1],// THREE CATEGORIES list is COMPULASARY.
                     "brandId": 1,
                     "productName": 'Product Name 1',
                     "productImage": '',
@@ -253,49 +253,34 @@ input[type="checkbox"]:checked::before {
             };
             var categoryHierarchy = {};
             for(i in products) {
-                switch (products[i]['categoryIds'].length) {
-                    case 3:
-                        var zero = products[i]['categoryIds'][0];
-                        var one = products[i]['categoryIds'][1];
-                        var two = products[i]['categoryIds'][2];
-                        if (typeof categoryHierarchy[zero] === "undefined") {
-                            categoryHierarchy[zero] = {};
-                            categoryHierarchy[zero]['name'] = category[zero];
-                        }
-                        if (typeof categoryHierarchy[zero]['subCategory'] === "undefined") {
-                            categoryHierarchy[zero]['subCategory'] = {};
-                        }
-                        if (typeof categoryHierarchy[zero]['subCategory'][one] === "undefined") {
-                            categoryHierarchy[zero]['subCategory'][one] = {};
-                            categoryHierarchy[zero]['subCategory'][one]['name'] = category[one];
-                        }
-                        if (typeof categoryHierarchy[zero]['subCategory'][one]['subCategory'] === "undefined") {
-                            categoryHierarchy[zero]['subCategory'][one]['subCategory'] = {};
-                        }
-                        if (typeof categoryHierarchy[zero]['subCategory'][one]['subCategory'][two] === "undefined") {
-                            categoryHierarchy[zero]['subCategory'][one]['subCategory'][two] = {};
-                        }
-                        categoryHierarchy[zero]['subCategory'][one]['subCategory'][two]['name'] = category[two];
-                    case 2:
-                        var zero = products[i]['categoryIds'][0];
-                        var one = products[i]['categoryIds'][1];
-                        if (typeof categoryHierarchy[zero] === "undefined") {
-                            categoryHierarchy[zero] = {};
-                        }
-                        if (typeof categoryHierarchy[zero]['subCategory'] === "undefined") {
-                            categoryHierarchy[zero]['subCategory'] = {};
-                        }
-                        if (typeof categoryHierarchy[zero]['subCategory'][one] === "undefined") {
-                            categoryHierarchy[zero]['subCategory'][one] = {};
-                        }
-                        categoryHierarchy[zero]['subCategory'][one]['name'] = category[one];
-                    case 1:
-                        var zero = products[i]['categoryIds'][0];
-                        if (typeof categoryHierarchy[zero] === "undefined") {
-                            categoryHierarchy[zero] = {};
-                        }
-                        categoryHierarchy[zero]['name'] = category[zero];
+                if (
+                    (typeof products[i]['categoryIds'][0] === "undefined") ||
+                    (typeof products[i]['categoryIds'][1] === "undefined") ||
+                    (typeof products[i]['categoryIds'][2] === "undefined")
+                ) {
+                    continue;
                 }
+                var zero = products[i]['categoryIds'][0];
+                var one = products[i]['categoryIds'][1];
+                var two = products[i]['categoryIds'][2];
+                if (typeof categoryHierarchy[zero] === "undefined") {
+                    categoryHierarchy[zero] = {};
+                    categoryHierarchy[zero]['name'] = category[zero];
+                }
+                if (typeof categoryHierarchy[zero]['subCategory'] === "undefined") {
+                    categoryHierarchy[zero]['subCategory'] = {};
+                }
+                if (typeof categoryHierarchy[zero]['subCategory'][one] === "undefined") {
+                    categoryHierarchy[zero]['subCategory'][one] = {};
+                    categoryHierarchy[zero]['subCategory'][one]['name'] = category[one];
+                }
+                if (typeof categoryHierarchy[zero]['subCategory'][one]['subCategory'] === "undefined") {
+                    categoryHierarchy[zero]['subCategory'][one]['subCategory'] = {};
+                }
+                if (typeof categoryHierarchy[zero]['subCategory'][one]['subCategory'][two] === "undefined") {
+                    categoryHierarchy[zero]['subCategory'][one]['subCategory'][two] = {};
+                }
+                categoryHierarchy[zero]['subCategory'][one]['subCategory'][two]['name'] = category[two];
             }
             genMenu();
             function genMenu()
@@ -400,6 +385,7 @@ input[type="checkbox"]:checked::before {
                         '</div>' +
                     '</div>';
                 }
+                html += '<div class="padl displayInlineBlock"><button>Filter</button></div>';
                 document.getElementById('menu').innerHTML = html;
                 displayProduct(null, null, null, false);
             }
@@ -437,6 +423,72 @@ input[type="checkbox"]:checked::before {
                         subMenus[i].style.display = "none";
                     }
                 }
+                var productIds = [];
+                // Display Product
+                for (index in products) {
+                    switch (true) {
+                        case k !== null:
+                            if (
+                                (typeof products[index]['categoryIds'][2] !== "undefined") && k === products[index]['categoryIds'][2] &&
+                                (typeof products[index]['categoryIds'][1] !== "undefined") && j === products[index]['categoryIds'][1] &&
+                                (typeof products[index]['categoryIds'][0] !== "undefined") && i === products[index]['categoryIds'][0]
+                            ) {
+                                productIds[index] = index;
+                            }
+                            break;
+                        case j !== null:
+                            if (
+                                (typeof products[index]['categoryIds'][1] !== "undefined") && j === products[index]['categoryIds'][1] &&
+                                (typeof products[index]['categoryIds'][0] !== "undefined") && i === products[index]['categoryIds'][0]
+                            ) {
+                                productIds[index] = index;
+                            }
+                            break;
+                        case i !== null:
+                            if ((typeof products[index]['categoryIds'][0] !== "undefined") && i === products[index]['categoryIds'][0]) {
+                                productIds[index] = index;
+                            }
+                            break;
+                        default:
+                            productIds[index] = index;
+                            break;
+                    }
+                }
+                generateProductHtml(productIds);
+            }
+            function generateProductHtml(productIds)
+            {
+                var i = 0;
+                var tagClass = '';
+                var html = '<div class="gridListingRow"></div>';
+                for (index  in productIds) {
+                    if (i%4 === 0) {
+                        html += '<div class=" gridListingRow">';
+                    }
+                    if (i%4 === 0) {
+                        tagClass = 'gridListingColumnLeft';
+                    } else if (i%4 === 3) {
+                        tagClass = 'gridListingColumnRight';
+                    } else {
+                        tagClass = 'gridListingColumn';
+                    }
+                    html += '' +
+                        '<div class="' + tagClass + ' displayInlineBlock">' +
+                            '<img src="pimage.jpg" width="200" height="200">' +
+                            '<div class="productName">' + products[index]['productName'] + '</div>' +
+                        '</div>';
+                    if (i%4 === 3) {
+                        html += '</div>';
+                    }
+                    i++;
+                }
+                if (i%4 !== 3) {
+                    html += '</div>';
+                }
+                document.getElementById('products').innerHTML = html;
+            }
+            function displayCheckBoxProduct()
+            {
                 var productIds = [];
                 // Display Product
                 for (index in products) {
@@ -513,7 +565,6 @@ input[type="checkbox"]:checked::before {
                     checkAllByClass('checkbox', checked);
                 }
                 backlink(i, j, k, checked);
-                displayProduct(i, j, k, false);
             }
             function checkAllByClass(className, checked)
             {

@@ -504,32 +504,36 @@ input[type="checkbox"]:checked::before {
             }
             function generateProductHtml(productIds)
             {
-                var i = 0;
-                var tagClass = '';
-                var html = '<div class="gridListingRow"></div>';
-                for (index  in productIds) {
-                    if (i%4 === 0) {
-                        html += '<div class=" gridListingRow">';
+                if (productIds.length === 0) {
+                    var html = '<p align="center" style="color:red;">Zero product found.</p>';
+                } else {
+                    var i = 0;
+                    var tagClass = '';
+                    var html = '<div class="gridListingRow"></div>';
+                    for (index  in productIds) {
+                        if (i%4 === 0) {
+                            html += '<div class="gridListingRow">';
+                        }
+                        if (i%4 === 0) {
+                            tagClass = 'gridListingColumnLeft';
+                        } else if (i%4 === 3) {
+                            tagClass = 'gridListingColumnRight';
+                        } else {
+                            tagClass = 'gridListingColumn';
+                        }
+                        html += '' +
+                            '<div class="' + tagClass + ' displayInlineBlock">' +
+                                '<img src="pimage.jpg" width="200" height="200">' +
+                                '<div class="productName">' + products[index]['productName'] + '</div>' +
+                            '</div>';
+                        if (i%4 === 3) {
+                            html += '</div>';
+                        }
+                        i++;
                     }
-                    if (i%4 === 0) {
-                        tagClass = 'gridListingColumnLeft';
-                    } else if (i%4 === 3) {
-                        tagClass = 'gridListingColumnRight';
-                    } else {
-                        tagClass = 'gridListingColumn';
-                    }
-                    html += '' +
-                        '<div class="' + tagClass + ' displayInlineBlock">' +
-                            '<img src="pimage.jpg" width="200" height="200">' +
-                            '<div class="productName">' + products[index]['productName'] + '</div>' +
-                        '</div>';
-                    if (i%4 === 3) {
+                    if (i%4 !== 3) {
                         html += '</div>';
                     }
-                    i++;
-                }
-                if (i%4 !== 3) {
-                    html += '</div>';
                 }
                 document.getElementById('products').innerHTML = html;
             }

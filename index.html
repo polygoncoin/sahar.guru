@@ -437,9 +437,6 @@ input[type="checkbox"]:checked::before {
                         subMenus[i].style.display = "none";
                     }
                 }
-                console.log(i);
-                console.log(j);
-                console.log(k);
                 var productIds = [];
                 // Display Product
                 for (index in products) {
@@ -452,7 +449,6 @@ input[type="checkbox"]:checked::before {
                             ) {
                                 productIds[index] = index;
                             }
-                            console.log('k');
                             break;
                         case j !== null:
                             if (
@@ -461,13 +457,11 @@ input[type="checkbox"]:checked::before {
                             ) {
                                 productIds[index] = index;
                             }
-                            console.log('j');
                             break;
                         case i !== null:
                             if ((typeof products[index]['categoryIds'][0] !== "undefined") && i === products[index]['categoryIds'][0]) {
                                 productIds[index] = index;
                             }
-                        console.log('i');
                             break;
                         default:
                             productIds[index] = index;

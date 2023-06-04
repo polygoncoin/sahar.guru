@@ -65,7 +65,7 @@
                         }
                         .padl {
                             position: relative;
-                            padding-right: 10px;;
+                            padding-left: 10px;;
                         }
                         .subMenu {
                             position: absolute;
@@ -120,7 +120,7 @@ input[type="checkbox"]:checked::before {
   padding: 3 3 0 3;
   background-color:#C3C39A;
   text-align: right;
-  width: 72px;
+  width: 70px;
 }
                     </style>
     </head>
@@ -294,10 +294,10 @@ input[type="checkbox"]:checked::before {
             function genMenu()
             {
                 var html = '' +
-                    '<div class="padl displayInlineBlock">' +
+                    '<div class="displayInlineBlock">' +
                         '<div>' +
-                            '<span class="menuTitle">' +
-                                '<div style="float:left;" class="resetCheckbox"><input type="checkbox" checked style="color: #FF0000;" onClick="checkboxClicked(null, null, null, this.checked);"/></div>' +
+                            '<span>' +
+                                '<div style="float:right;"><input type="checkbox" checked style="color: #FF0000;" onClick="checkboxClicked(null, null, null, this.checked);"/></div><span><b>Filter&nbsp;::&nbsp;</b></span>' +
                             '</span>' +
                         '</div>' +
                     '</div>';
@@ -306,7 +306,7 @@ input[type="checkbox"]:checked::before {
                     html += '' +
                     '<div class="padl displayInlineBlock">' +
                         '<div onmouseleave="hide(\'subMenu\', \'' + iPad + '\');">' +
-                            '<span class="menuTitle" onmouseenter="displaySubMenu(\'' + iPad + '\');">' +
+                            '<span onmouseenter="displaySubMenu(\'' + iPad + '\');">' +
                                 '<div style="float:left;"><input type="checkbox" checked class="checkbox backlink' + iPad + '" onClick="checkboxClicked(' + i + ', null, null, this.checked);"/></div>&nbsp;<span onClick="displayProduct(' + i + ',null,null, true)">' + categoryHierarchy[i]['name'] + '</span>' +
                             '</span>' +
                             '<!-- Sub Menu start-->' +
@@ -401,9 +401,16 @@ input[type="checkbox"]:checked::before {
                 html += '' +
                     '<div class="padl displayInlineBlock">' +
                         '<div class="filter" onClick="displayCheckBoxProduct();">' +
-                            '<div style="float:left;"><input type="checkbox" checked disabled/></div>simplify' +
+                            '<div style="float:left;"><input type="checkbox" checked disabled/></div>Submit' +
                         '</div>' +
+                    '</div>' +
+                    '<div class="displayInlineBlock" style="float:right;">' +
+                        '<table><tr>' +
+                            '<td><input type="text" id="search" placeholder="Search"/></td>' +
+                            '<td onClick="saarchProduct();"><button>Submit</button</td>' +
+                        '</tr></table>' +
                     '</div>';
+
                 document.getElementById('menu').innerHTML = html;
                 displayProduct(null, null, null, false);
             }

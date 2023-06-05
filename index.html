@@ -183,14 +183,14 @@ input[type="checkbox"]:checked::before {
                     return (str + pad).substring(0, pad.length);
                 }
             }
-            var brand = {
+            var brands = {
                 '1': 'Brand 1',
                 '2': 'Brand 2',
                 '3': 'Brand 3',
                 '4': 'Brand 4',
                 '5': 'Brand 5',
             };
-            var category = {
+            var categories = {
                 '1': 'Category 1',
                 '2': 'Category 2',
                 '3': 'Category 3',
@@ -199,19 +199,19 @@ input[type="checkbox"]:checked::before {
             };
             var products = {
                 '1' : {
-                    "categoryIds": [1],// THREE CATEGORIES list is COMPULASARY.
+                    "categoryIds": [1,2,3],// THREE CATEGORIES list is COMPULASARY.
                     "brandId": 1,
                     "productName": 'Product Name 1',
                     "productImage": '',
                 },
                 '2' : {
-                    "categoryIds": [2],
+                    "categoryIds": [2,3,4],
                     "brandId": 1,
                     "productName": 'Product Name 2',
                     "productImage": '',
                 },
                 '3' : {
-                    "categoryIds": [3],
+                    "categoryIds": [3,4,5],
                     "brandId": 1,
                     "productName": 'Product Name 3',
                     "productImage": '',
@@ -235,30 +235,31 @@ input[type="checkbox"]:checked::before {
                     "productImage": '',
                 },
                 '7' : {
-                    "categoryIds": [1,2],
+                    "categoryIds": [1,2,3],
                     "brandId": 1,
                     "productName": 'Product Name 7',
                     "productImage": '',
                 },
                 '8' : {
-                    "categoryIds": [2,3],
+                    "categoryIds": [2,3,4],
                     "brandId": 1,
                     "productName": 'Product Name 8',
                     "productImage": '',
                 },
                 '9' : {
-                    "categoryIds": [3,4],
+                    "categoryIds": [3,4,5],
                     "brandId": 1,
                     "productName": 'Product Name 9',
                     "productImage": '',
                 },
                 '10' : {
-                    "categoryIds": [4,5],
+                    "categoryIds": [1,4,5],
                     "brandId": 1,
                     "productName": 'Product Name 10',
                     "productImage": '',
                 },
             };
+            // Generating category Hierarchy array
             var categoryHierarchy = {};
             for(i in products) {
                 if (
@@ -273,14 +274,14 @@ input[type="checkbox"]:checked::before {
                 var two = products[i]['categoryIds'][2];
                 if (typeof categoryHierarchy[zero] === "undefined") {
                     categoryHierarchy[zero] = {};
-                    categoryHierarchy[zero]['name'] = category[zero];
+                    categoryHierarchy[zero]['name'] = categories[zero];
                 }
                 if (typeof categoryHierarchy[zero]['subCategory'] === "undefined") {
                     categoryHierarchy[zero]['subCategory'] = {};
                 }
                 if (typeof categoryHierarchy[zero]['subCategory'][one] === "undefined") {
                     categoryHierarchy[zero]['subCategory'][one] = {};
-                    categoryHierarchy[zero]['subCategory'][one]['name'] = category[one];
+                    categoryHierarchy[zero]['subCategory'][one]['name'] = categories[one];
                 }
                 if (typeof categoryHierarchy[zero]['subCategory'][one]['subCategory'] === "undefined") {
                     categoryHierarchy[zero]['subCategory'][one]['subCategory'] = {};
@@ -288,11 +289,12 @@ input[type="checkbox"]:checked::before {
                 if (typeof categoryHierarchy[zero]['subCategory'][one]['subCategory'][two] === "undefined") {
                     categoryHierarchy[zero]['subCategory'][one]['subCategory'][two] = {};
                 }
-                categoryHierarchy[zero]['subCategory'][one]['subCategory'][two]['name'] = category[two];
+                categoryHierarchy[zero]['subCategory'][one]['subCategory'][two]['name'] = categories[two];
             }
             genMenu();
             function genMenu()
             {
+                var is = {};
                 var html = '' +
                     '<div class="displayInlineBlock">' +
                         '<div>' +
@@ -302,6 +304,7 @@ input[type="checkbox"]:checked::before {
                         '</div>' +
                     '</div>';
                 for(i in categoryHierarchy) {
+                    is[i] = i;
                     iPad = pad('00', i, true);
                     html += '' +
                     '<div class="padl displayInlineBlock">' +
@@ -353,7 +356,7 @@ input[type="checkbox"]:checked::before {
                                                             '<td>' +
                                                                 '<table width="100%" cellpadding="0" cellspacing="2">' +
                                                                     '<tr>' +
-                                                                        '<td width="17" align="center"><input type="checkbox" id="checkboxId' + iPad + jPad + kPad + '" class="checkbox checkbox' + iPad + ' checkbox' + iPad + jPad +'" checked onClick="checkboxClicked(' + i + ',' + j + ',' + k + ', this.checked);"/></td>' +
+                                                                        '<td width="17" align="center"><input type="checkbox" id="checkboxId' + iPad + jPad + kPad + '" value="[' + i + ',' + j + ',' + k + ']" class="brands' + iPad + ' checkbox checkbox' + iPad + ' checkbox' + iPad + jPad +'" checked onClick="checkboxClicked(' + i + ',' + j + ',' + k + ', this.checked);"/></td>' +
                                                                         '<td class="subSubMenus" align="left" onClick="displayProduct(' + i + ',' + j + ',' + k + ', true)">' + categoryHierarchy[i]['subCategory'][j]['subCategory'][k]['name'] + '</td>' +
                                                                     '</tr>' +
                                                                 '</table>'
@@ -374,21 +377,7 @@ input[type="checkbox"]:checked::before {
                                         '</td>' +
                                     '</tr>' +
                                     '<tr>' +
-                                        '<td height="50" valign="top" colspan="2" class="collapse" id="brands' + iPad + '">' +
-                                            '<table width="100%" cellpadding="0" cellspacing="5">' +
-                                                '<tr>' +
-                                                    '<td width="150" class="brand" align="left">Brand 1</td>' +
-                                                    '<td width="150" class="brand" align="left">Brand 2</td>' +
-                                                    '<td width="150" class="brand" align="left">Brand 3</td>' +
-                                                    '<td width="150" class="brand" align="left">Brand 4</td>' +
-                                                '</tr>' +
-                                                '<tr>' +
-                                                    '<td width="150" class="brand" align="left">Brand 1</td>' +
-                                                    '<td width="150" class="brand" align="left">Brand 2</td>' +
-                                                    '<td width="150" class="brand" align="left">Brand 3</td>' +
-                                                    '<td width="150" class="brand" align="left">Brand 4</td>' +
-                                                '</tr>' +
-                                            '</table>' +
+                                        '<td height="27" valign="top" colspan="2" class="collapse" id="brands' + iPad + '">' +
                                         '</td>' +
                                     '</tr>' +
                                 '</table>';
@@ -413,14 +402,12 @@ input[type="checkbox"]:checked::before {
 
                 document.getElementById('menu').innerHTML = html;
                 displayProduct(null, null, null, false);
+                for(index in is) {
+                    updateBrands(index);
+                }
             }
-            
             function displaySubMenu(id)
             {
-                // var subSubMenus = document.getElementsByClassName('subSubMenu');
-                // for (let i = 0, i_length = subSubMenus.length; i < i_length; i++) {
-                //     subSubMenus[i].style.display = "none";
-                // }
                 document.getElementById('subMenu' + id).style.display = "block";
             }
             function displaySubSubMenu(id)
@@ -451,13 +438,6 @@ input[type="checkbox"]:checked::before {
                 var productIds = [];
                 // Display Product
                 for (index in products) {
-                    if (
-                        (typeof products[index]['categoryIds'][2] === "undefined") ||
-                        (typeof products[index]['categoryIds'][1] === "undefined") ||
-                        (typeof products[index]['categoryIds'][0] === "undefined")
-                    ) {
-                        continue;
-                    }
                     switch (true) {
                         case k !== null:
                             if (
@@ -493,13 +473,6 @@ input[type="checkbox"]:checked::before {
                 var productIds = [];
                 // Display Product
                 for (index in products) {
-                    if (
-                        (typeof products[index]['categoryIds'][2] === "undefined") ||
-                        (typeof products[index]['categoryIds'][1] === "undefined") ||
-                        (typeof products[index]['categoryIds'][0] === "undefined")
-                    ) {
-                        continue;
-                    }
                     let kPad = pad('00', products[index]['categoryIds'][2], true);
                     let jPad = pad('00', products[index]['categoryIds'][1], true);
                     let iPad = pad('00', products[index]['categoryIds'][0], true);
@@ -560,6 +533,75 @@ input[type="checkbox"]:checked::before {
                     checkAllByClass('checkbox', checked);
                 }
                 backlink(i, j, k, checked);
+                updateBrands(i);
+            }
+            function updateBrands(i)
+            {
+                if (i === "null") {
+                    document.getElementById('brands' + i).innerHTML = '';
+                    return;
+                }
+                let iPad = pad('00', i, true);
+                var arr = {};
+                var checkboxes = document.getElementsByClassName('brands' + iPad);
+                for (let i = 0, j = 0, i_length = checkboxes.length; i < i_length; i++) {
+                    if (checkboxes[i].checked) {
+                        var json = JSON.parse(checkboxes[i].value);
+                        if (typeof arr[json[0]] === "undefined") {
+                            arr[json[0]] = {};
+                        }
+                        if (typeof arr[json[0]][json[1]] === "undefined") {
+                            arr[json[0]][json[1]] = {};
+                        }
+                        if (typeof arr[json[0]][json[1]][json[2]] === "undefined") {
+                            arr[json[0]][json[1]][json[2]] = {};
+                        }
+                    }
+                }
+                var brandCount = [];
+                for(index in products) {
+                    i = products[index]['categoryIds'][0];
+                    j = products[index]['categoryIds'][1];
+                    k = products[index]['categoryIds'][2];
+                    if (
+                        (typeof arr[i] !== "undefined") &&
+                        (typeof arr[i][j] !== "undefined") &&
+                        (typeof arr[i][j][k] !== "undefined")                        
+                    ) {
+                        if (typeof brandCount[products[index]['brandId']] === "undefined") {
+                            brandCount[products[index]['brandId']] = 0;
+                        }
+                        brandCount[products[index]['brandId']]++;
+                    }
+                }
+                var html = '';
+                if (brandCount.length > 0) {
+                    var html = '<table width="100%" cellpadding="0" cellspacing="5">';
+                    var i = 0;
+                    for(index in brands) {
+                        if (typeof brandCount[index] !== "undefined") {
+                            if (i%4 === 0) {
+                                html += '<tr>';
+                            }
+                            html += '<td width="150" class="brand" align="left">' + brands[index] + ' (' + brandCount[index] + ')</td>';
+                            if (i%4 === 3) {
+                                html += '<tr>';
+                            }
+                            i++;
+                        }
+                    }
+                    for (i = i%4; i < 4; i++) {
+                        if (i%4 === 0) {
+                            html += '<tr>';
+                        }
+                        html += '<td width="150" class="brand">&nbsp;</td>';
+                        if (i%4 === 3) {
+                            html += '<tr>';
+                        }
+                    }
+                    html += '</table>';
+                }
+                document.getElementById('brands' + iPad).innerHTML = html;
             }
             function checkAllByClass(className, checked)
             {

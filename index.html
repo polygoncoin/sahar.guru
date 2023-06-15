@@ -1,7 +1,588 @@
 <html>
     <head>
         <title></title>
-        <style>
+            <script>
+                function pad(pad, str, padLeft) {
+    pad = '0000000000';
+    if (typeof str === 'undefined') 
+        return pad;
+    if (padLeft) {
+        return (pad + str).slice(-pad.length);
+    } else {
+        return (str + pad).substring(0, pad.length);
+    }
+}
+var brands = {
+    '1': 'Brand 1',
+    '2': 'Brand 2',
+    '3': 'Brand 3',
+    '4': 'Brand 4',
+    '5': 'Brand 5',
+};
+var category = {
+    '1': 'Category 1',
+    '2': 'Category 2',
+    '3': 'Category 3',
+    '4': 'Category 4',
+    '5': 'Category 5',
+};
+var products = {
+    '1' : {
+        "categoryIds": [1,2,3],// THREE CATEGORIES list is COMPULASARY.
+        "brandId": 1,
+        "productName": 'Product Name 1',
+        "productImage": '',
+    },
+    '2' : {
+        "categoryIds": [2,3,4],
+        "brandId": 2,
+        "productName": 'Product Name 2',
+        "productImage": '',
+    },
+    '3' : {
+        "categoryIds": [3,4,5],
+        "brandId": 2,
+        "productName": 'Product Name 3',
+        "productImage": '',
+    },
+    '4' : {
+        "categoryIds": [1,2,3],
+        "brandId": 2,
+        "productName": 'Product Name 4',
+        "productImage": '',
+    },
+    '5' : {
+        "categoryIds": [1,3,4],
+        "brandId": 1,
+        "productName": 'Product Name 5',
+        "productImage": '',
+    },
+    '6' : {
+        "categoryIds": [3,4,5],
+        "brandId": 5,
+        "productName": 'Product Name 6',
+        "productImage": '',
+    },
+    '7' : {
+        "categoryIds": [1,2,3],
+        "brandId": 4,
+        "productName": 'Product Name 7',
+        "productImage": '',
+    },
+    '8' : {
+        "categoryIds": [2,3,4],
+        "brandId": 3,
+        "productName": 'Product Name 8',
+        "productImage": '',
+    },
+    '9' : {
+        "categoryIds": [3,4,5],
+        "brandId": 2,
+        "productName": 'Product Name 9',
+        "productImage": '',
+    },
+    '10' : {
+        "categoryIds": [1,4,5],
+        "brandId": 1,
+        "productName": 'Product Name 10',
+        "productImage": '',
+    },
+};
+
+var MENUAPP = (function(categories, brands, products)
+{
+    var partialColor = 'orange';
+    var defaultColor = '#000000';
+
+    var categoryHierarchy = {};
+    // Generating category Hierarchy array
+    var generateCategoryHierarchy = function ()
+    {
+        for(i in products) {
+            if (
+                (typeof products[i]['categoryIds'][0] === "undefined") ||
+                (typeof products[i]['categoryIds'][1] === "undefined") ||
+                (typeof products[i]['categoryIds'][2] === "undefined")
+            ) {
+                continue;
+            }
+            var zero = products[i]['categoryIds'][0];
+            var one = products[i]['categoryIds'][1];
+            var two = products[i]['categoryIds'][2];
+            if (typeof categoryHierarchy[zero] === "undefined") {
+                categoryHierarchy[zero] = {};
+                categoryHierarchy[zero]['name'] = categories[zero];
+            }
+            if (typeof categoryHierarchy[zero]['subCategory'] === "undefined") {
+                categoryHierarchy[zero]['subCategory'] = {};
+            }
+            if (typeof categoryHierarchy[zero]['subCategory'][one] === "undefined") {
+                categoryHierarchy[zero]['subCategory'][one] = {};
+                categoryHierarchy[zero]['subCategory'][one]['name'] = categories[one];
+            }
+            if (typeof categoryHierarchy[zero]['subCategory'][one]['subCategory'] === "undefined") {
+                categoryHierarchy[zero]['subCategory'][one]['subCategory'] = {};
+            }
+            if (typeof categoryHierarchy[zero]['subCategory'][one]['subCategory'][two] === "undefined") {
+                categoryHierarchy[zero]['subCategory'][one]['subCategory'][two] = {};
+            }
+            categoryHierarchy[zero]['subCategory'][one]['subCategory'][two]['name'] = categories[two];
+        }
+    },
+    display = function(id, primaryKey)
+    {
+        document.getElementById(id+primaryKey).style.display = "block";
+    },
+    hide = function(id, primaryKey)
+    {
+        document.getElementById(id+primaryKey).style.display = "none";
+    },
+    displaySubMenu = function(id)
+    {
+        document.getElementById('subMenu' + id).style.display = "block";
+    },
+    displaySubSubMenu = function(id)
+    {
+        var subSubMenus = document.getElementsByClassName('subSubMenu');
+        for (let i = 0, i_length = subSubMenus.length; i < i_length; i++) {
+            subSubMenus[i].style.display = "none";
+        }
+        document.getElementById('subSubMenu' + id).style.display = "block";
+    },
+    generateProductHtml = function(productIds)
+    {
+        if (productIds.length === 0) {
+            var html = '<p align="center" style="color:red;">Zero product found.</p>';
+        } else {
+            var i = 0;
+            var tagClass = '';
+            var html = '<div class="gridListingRow"></div>';
+            for (index  in productIds) {
+                if (i%4 === 0) {
+                    html += '<div class="gridListingRow">';
+                }
+                if (i%4 === 0) {
+                    tagClass = 'gridListingColumnLeft';
+                } else if (i%4 === 3) {
+                    tagClass = 'gridListingColumnRight';
+                } else {
+                    tagClass = 'gridListingColumn';
+                }
+                html += '' +
+                    '<div class="' + tagClass + ' displayInlineBlock">' +
+                        '<img src="pimage.jpg" width="200" height="200">' +
+                        '<div class="productName">' + products[index]['productName'] + '</div>' +
+                    '</div>';
+                if (i%4 === 3) {
+                    html += '</div>';
+                }
+                i++;
+            }
+            if (i%4 !== 3) {
+                html += '</div>';
+            }
+        }
+        document.getElementById('products').innerHTML = html;
+    },
+    displayProduct = function(i, j, k, closeMenu)
+    {
+        // Close Menu code
+        if (closeMenu === true) {
+            var subMenus = document.getElementsByClassName('subMenu');
+            for (let i = 0, i_length = subMenus.length; i < i_length; i++) {
+                subMenus[i].style.display = "none";
+            }
+        }
+        var productIds = [];
+        // Display Product
+        for (index in products) {
+            switch (true) {
+                case k !== null:
+                    if (
+                        k === products[index]['categoryIds'][2] &&
+                        j === products[index]['categoryIds'][1] &&
+                        i === products[index]['categoryIds'][0]
+                    ) {
+                        productIds[index] = index;
+                    }
+                    break;
+                case j !== null:
+                    if (
+                        j === products[index]['categoryIds'][1] &&
+                        i === products[index]['categoryIds'][0]
+                    ) {
+                        productIds[index] = index;
+                    }
+                    break;
+                case i !== null:
+                    if (i === products[index]['categoryIds'][0]) {
+                        productIds[index] = index;
+                    }
+                    break;
+                default:
+                    productIds[index] = index;
+                    break;
+            }
+        }
+        this.generateProductHtml(productIds);
+    },
+    checkboxIdChecked = function(id)
+    {
+        var checked = false;
+        var checkbox = document.getElementById(id);
+        if (typeof checkbox !== "null") {
+            checked = checkbox.checked;
+        }
+        return checked;
+    },
+    setCheckboxStatusByClass = function(className, status)
+    {
+        var checkboxes = document.getElementsByClassName(className);
+        for (let i = 0, i_length = checkboxes.length; i < i_length; i++) {
+            checkboxes[i].checked = status;
+        }
+    },
+    checkCheckboxClassChecked = function(className)
+    {
+        var checked = true;
+        var checkboxes = document.getElementsByClassName(className);
+        for (let i = 0, i_length = checkboxes.length; i < i_length; i++) {
+            if (checkboxes[i].checked === false) {
+                checked = false;
+                break;
+            }
+        }
+        return checked;
+    },
+    displayCheckBoxProduct = function(mode)
+    {
+        if (!checkCheckboxClassChecked('searchCheckbox') && mode === 'inline') {
+            return;
+        }
+        var productIds = [];
+        // Display Product
+        for (index in products) {
+            let kPad = pad('00', products[index]['categoryIds'][2], true);
+            let jPad = pad('00', products[index]['categoryIds'][1], true);
+            let iPad = pad('00', products[index]['categoryIds'][0], true);
+            if (this.checkboxIdChecked('checkboxId' + iPad + jPad + kPad)) {
+                productIds[index] = index;
+            }
+        }
+        this.generateProductHtml(productIds);
+    },
+    updateBrands = function(categoryId)
+    {
+        if (categoryId === "null") {
+            document.getElementById('brands' + i).innerHTML = '';
+            return;
+        }
+        let iPad = pad('00', categoryId, true);
+        var arr = {};
+        var checkboxes = document.getElementsByClassName('brands' + iPad);
+        for (let i = 0, j = 0, i_length = checkboxes.length; i < i_length; i++) {
+            if (checkboxes[i].checked) {
+                var json = JSON.parse(checkboxes[i].value);
+                if (typeof arr[json[0]] === "undefined") {
+                    arr[json[0]] = {};
+                }
+                if (typeof arr[json[0]][json[1]] === "undefined") {
+                    arr[json[0]][json[1]] = {};
+                }
+                if (typeof arr[json[0]][json[1]][json[2]] === "undefined") {
+                    arr[json[0]][json[1]][json[2]] = {};
+                }
+            }
+        }
+        var brandCount = [];
+        for(index in products) {
+            i = products[index]['categoryIds'][0];
+            j = products[index]['categoryIds'][1];
+            k = products[index]['categoryIds'][2];
+            if (
+                (typeof arr[i] !== "undefined") &&
+                (typeof arr[i][j] !== "undefined") &&
+                (typeof arr[i][j][k] !== "undefined")                        
+            ) {
+                if (typeof brandCount[products[index]['brandId']] === "undefined") {
+                    brandCount[products[index]['brandId']] = 0;
+                }
+                brandCount[products[index]['brandId']]++;
+            }
+        }
+        var html = '';
+        if (brandCount.length > 0) {
+            var html = '<table width="100%" cellpadding="0" cellspacing="5">';
+            var i = 0;
+            for(index in brands) {
+                if (typeof brandCount[index] !== "undefined") {
+                    if (i%4 === 0) {
+                        html += '<tr>';
+                    }
+                    html += '<td width="150" class="brand" align="left" onCLick="displayBrandProducts(' + categoryId + ',' + index + ')">' + brands[index] + ' (' + brandCount[index] + ')</td>';
+                    if (i%4 === 3) {
+                        html += '<tr>';
+                    }
+                    i++;
+                }
+            }
+            for (i = i%4; i < 4; i++) {
+                if (i%4 === 0) {
+                    html += '<tr>';
+                }
+                html += '<td width="150">&nbsp;</td>';
+                if (i%4 === 3) {
+                    html += '<tr>';
+                }
+            }
+            html += '</table>';
+        }
+        document.getElementById('brands' + iPad).innerHTML = html;
+    },
+    changeCheckboxBorderColor = function(className, color)
+    {
+        var checkboxes = document.getElementsByClassName(className);
+        for (let i = 0, i_length = checkboxes.length; i < i_length; i++) {
+            checkboxes[i].style.color = color;
+        }
+    },
+    backlink = function(i, j, k, checked)
+    {
+        var allChecked = null;
+        var color = null;
+        if (k !== null) {
+            let kPad = pad('00', k, true);
+            let jPad = pad('00', j, true);
+            let iPad = pad('00', i, true);
+            if (checked && this.checkCheckboxClassChecked('checkbox' + iPad + jPad)) {
+                color = defaultColor;
+            } else {
+                color = partialColor;
+            }
+            this.changeCheckboxBorderColor('backlink' + iPad + jPad, color);
+            if (checked && this.checkCheckboxClassChecked('checkbox' + iPad)) {
+                color = defaultColor;
+            } else {
+                color = partialColor;
+            }
+            this.changeCheckboxBorderColor('backlink' + iPad, color);
+        } else if (j !== null) {
+            let iPad = pad('00', i, true);
+            if (checked && this.checkCheckboxClassChecked('checkbox' + iPad)) {
+                color = defaultColor;
+            } else {
+                color = partialColor;
+            }
+            this.changeCheckboxBorderColor('backlink' + iPad, color);
+        } else if (i !== null) {
+            let iPad = pad('00', i, true);
+            color = defaultColor;
+            this.changeCheckboxBorderColor('checkbox' + iPad, color);
+            this.changeCheckboxBorderColor('backlink' + iPad, color);
+        } else {
+            color = defaultColor;
+            this.changeCheckboxBorderColor('checkbox', color);
+        }
+    },
+    checkboxClicked = function(i, j, k, checked)
+    {
+        let kPad = pad('00', k, true);
+        if (k !== null) {
+            ;
+        } else if (j !== null) {
+            let iPad = pad('00', i, true);
+            let jPad = pad('00', j, true);
+            this.setCheckboxStatusByClass('checkbox'+iPad+jPad, checked);
+        } else if (i !== null) {
+            let iPad = pad('00', i, true);
+            this.setCheckboxStatusByClass('checkbox'+iPad, checked);
+        } else {
+            this.setCheckboxStatusByClass('checkbox', checked);
+        }
+        this.backlink(i, j, k, checked);
+        this.updateBrands(i);
+        this.displayCheckBoxProduct('inline');
+    },
+    displayBrandProducts = function(categoryId, brandId)
+    {
+        let iPad = pad('00', categoryId, true);
+        var arr = {};
+        var checkboxes = document.getElementsByClassName('brands' + iPad);
+        for (let i = 0, j = 0, i_length = checkboxes.length; i < i_length; i++) {
+            if (checkboxes[i].checked) {
+                var json = JSON.parse(checkboxes[i].value);
+                if (typeof arr[json[0]] === "undefined") {
+                    arr[json[0]] = {};
+                }
+                if (typeof arr[json[0]][json[1]] === "undefined") {
+                    arr[json[0]][json[1]] = {};
+                }
+                if (typeof arr[json[0]][json[1]][json[2]] === "undefined") {
+                    arr[json[0]][json[1]][json[2]] = {};
+                }
+            }
+        }
+        var productIds = [];
+        for(index in products) {
+            i = products[index]['categoryIds'][0];
+            j = products[index]['categoryIds'][1];
+            k = products[index]['categoryIds'][2];
+            if (
+                brandId === products[index]['brandId'] &&
+                (typeof arr[i] !== "undefined") &&
+                (typeof arr[i][j] !== "undefined") &&
+                (typeof arr[i][j][k] !== "undefined")
+            ) {
+                productIds[index] = index;
+            }
+        }
+        this.generateProductHtml(productIds);
+    },
+    genMenu = function genMenu()
+    {
+        var is = {};
+        var html = `
+            '<div class="displayInlineBlock">
+                <div>
+                    <span>
+                        <div style="float:right;"><input type="checkbox" checked style="color: #FF0000;" onClick="obj.checkboxClicked(null, null, null, this.checked);"/></div><span><b>Filter&nbsp;::&nbsp;</b></span>
+                    </span>
+                </div>
+            </div>`;
+        for(i in categoryHierarchy) {
+            is[i] = i;
+            iPad = pad('00', i, true);
+            html += `
+            <div class="padl displayInlineBlock">
+                <div onmouseleave="obj.hide('subMenu', '${iPad}');">
+                    <span onmouseenter="obj.displaySubMenu('${iPad}');">
+                        <div style="float:left;"><input type="checkbox" checked class="checkbox backlink${iPad}" onClick="obj.checkboxClicked(${i}, null, null, this.checked);"/></div>&nbsp;<span onClick="obj.displayProduct(${i},null,null, true)">${categoryHierarchy[i]['name']}</span>
+                    </span>
+                    <!-- Sub Menu start-->
+                    <div class="subMenu" id="subMenu${iPad}">`;
+            if (typeof categoryHierarchy[i]['subCategory'] !== "undefined") {
+                html += `
+                        <table width="600" height="200" cellpadding="0" cellspacing="5">
+                            <tr>
+                                <td class="collapse" width="200" valign="top">
+                                    <table width="200" cellpadding="0" cellspacing="2">`;
+                for(j in categoryHierarchy[i]['subCategory']) {
+                    jPad = pad('00', j, true);
+                                        html += `
+                                        <tr>
+                                            <td>
+                                                <table width="100%" cellpadding="0" cellspacing="2">
+                                                    <tr>
+                                                        <td width="17" align="center"><input type="checkbox" checked class="checkbox checkbox${iPad} backlink${iPad}${jPad}" onClick="obj.checkboxClicked(${i}, ${j}, null, this.checked);"/></td>
+                                                        <td class="subMenus" align="left" onmouseenter="obj.displaySubSubMenu('${iPad}${jPad}');" onClick="obj.displayProduct(${i}, ${j},null, true)">${categoryHierarchy[i]['subCategory'][j]['name']}</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>`;
+                }
+                                    html += `
+                                    </table>
+                                </td>
+                                <td class="collapse" width="400" valign="top">`;
+                for(j in categoryHierarchy[i]['subCategory']) {
+                    jPad = pad('00', j, true);
+                                    html += `
+                                    <div id="subSubMenu${iPad}${jPad}" class="subSubMenu hide">`;
+                    if (typeof categoryHierarchy[i]['subCategory'][j]['subCategory'] !== "undefined") {
+                                        html += `
+                                        <table width="100%" cellpadding="0" cellspacing="2">
+                                            <tr>
+                                                <td valign="top">
+                                                    <table width="100%" cellpadding="0" cellspacing="2">
+                                                        <tr>`;
+                        for(k in categoryHierarchy[i]['subCategory'][j]['subCategory']) {
+                            kPad = pad('00', k, true);
+                                                html += `
+                                                <tr>
+                                                    <td>
+                                                        <table width="100%" cellpadding="0" cellspacing="2">
+                                                            <tr>
+                                                                <td width="17" align="center"><input type="checkbox" id="checkboxId${iPad}${jPad}${kPad}" value="[${i}, ${j}, ${k}]" class="brands${iPad} checkbox checkbox${iPad} checkbox${iPad}${jPad}" checked onClick="obj.checkboxClicked(${i}, ${j}, ${k}, this.checked);"/></td>
+                                                                <td class="subSubMenus" align="left" onClick="obj.displayProduct(${i}, ${j}, ${k}, true)">${categoryHierarchy[i]['subCategory'][j]['subCategory'][k]['name']}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>`;
+                        }
+                                            html += `
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>`;
+                    }
+                                    html += `
+                                    </div>`;
+                }
+                                html += `
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="27" valign="top" colspan="2" class="collapse" id="brands${iPad}">
+                                </td>
+                            </tr>
+                        </table>`;
+            }
+                    html += `
+                    </div>
+                </div>
+            </div>`;
+        }
+        html += `
+            <div class="padl displayInlineBlock">
+                <div class="filter">
+                    <div style="float:left;"><input type="checkbox" class="searchCheckbox" style="color: #FF0000;"/></div><span onClick="obj.displayCheckBoxProduct('search');" class="searchSpan">Search</span>
+                </div>
+            </div>
+            <div class="displayInlineBlock" style="float:right;">
+                <input type="text" placeholder="Search.." id="search" onkeyup="filterFunction()">
+                <div id="searchResults" style="display:none">
+                    <span>About</span>
+                    <span>Base</span>
+                    <span>Blog</span>
+                    <span>Contact</span>
+                    <span>Custom</span>
+                    <span>Support</span>
+                    <span>Tools</span>
+                </div>
+            </div>`;
+
+        document.getElementById('menu').innerHTML = html;
+        this.displayProduct(null, null, null, false);
+        for(index in is) {
+            this.updateBrands(index);
+        }
+    };
+
+    var nsp = {};
+    
+    nsp.generateCategoryHierarchy = generateCategoryHierarchy;
+    nsp.display = display;
+    nsp.hide = hide;
+    nsp.displaySubMenu = displaySubMenu;
+    nsp.displaySubSubMenu = displaySubSubMenu;
+    nsp.generateProductHtml = generateProductHtml;
+    nsp.displayProduct = displayProduct;
+    nsp.checkboxIdChecked = checkboxIdChecked;
+    nsp.displayCheckBoxProduct = displayCheckBoxProduct;
+    nsp.updateBrands = updateBrands;
+    nsp.setCheckboxStatusByClass = setCheckboxStatusByClass;
+    nsp.checkCheckboxClassChecked = checkCheckboxClassChecked;
+    nsp.changeCheckboxBorderColor = changeCheckboxBorderColor;
+    nsp.backlink = backlink ;
+    nsp.checkboxClicked = checkboxClicked;
+    nsp.displayBrandProducts = displayBrandProducts;
+    nsp.genMenu = genMenu;
+
+    return nsp;
+});
+            </script>
+            <style>
             html, body {
                 background-color:#ffe6ee;
                 margin: 0 0 0 0;
@@ -123,6 +704,21 @@ input[type="checkbox"]:checked::before {
   width: 70px;
 }
                     </style>
+<style>
+#searchResults {
+  background-color: #f6f6f6;
+  border: 1px solid #ddd;
+  z-index: 1;
+}
+#searchResults span {
+  color: black;
+  padding: 0;
+  text-decoration: none;
+  display: block;
+}
+#searchResults span:hover {background-color: #f1f1f1}
+.show {display:block;}
+</style>
     </head>
     <body>
         <!--Header start-->
@@ -172,512 +768,27 @@ input[type="checkbox"]:checked::before {
             </div>
         </div>
         <!--Footer start-->
-        <script>
-            function pad(pad, str, padLeft) {
-                pad = '0000000000';
-                if (typeof str === 'undefined') 
-                    return pad;
-                if (padLeft) {
-                    return (pad + str).slice(-pad.length);
-                } else {
-                    return (str + pad).substring(0, pad.length);
-                }
-            }
-            var brands = {
-                '1': 'Brand 1',
-                '2': 'Brand 2',
-                '3': 'Brand 3',
-                '4': 'Brand 4',
-                '5': 'Brand 5',
-            };
-            var categories = {
-                '1': 'Category 1',
-                '2': 'Category 2',
-                '3': 'Category 3',
-                '4': 'Category 4',
-                '5': 'Category 5',
-            };
-            var products = {
-                '1' : {
-                    "categoryIds": [1,2,3],// THREE CATEGORIES list is COMPULASARY.
-                    "brandId": 1,
-                    "productName": 'Product Name 1',
-                    "productImage": '',
-                },
-                '2' : {
-                    "categoryIds": [2,3,4],
-                    "brandId": 1,
-                    "productName": 'Product Name 2',
-                    "productImage": '',
-                },
-                '3' : {
-                    "categoryIds": [3,4,5],
-                    "brandId": 1,
-                    "productName": 'Product Name 3',
-                    "productImage": '',
-                },
-                '4' : {
-                    "categoryIds": [1,2,3],
-                    "brandId": 1,
-                    "productName": 'Product Name 4',
-                    "productImage": '',
-                },
-                '5' : {
-                    "categoryIds": [1,3,4],
-                    "brandId": 1,
-                    "productName": 'Product Name 5',
-                    "productImage": '',
-                },
-                '6' : {
-                    "categoryIds": [3,4,5],
-                    "brandId": 1,
-                    "productName": 'Product Name 6',
-                    "productImage": '',
-                },
-                '7' : {
-                    "categoryIds": [1,2,3],
-                    "brandId": 1,
-                    "productName": 'Product Name 7',
-                    "productImage": '',
-                },
-                '8' : {
-                    "categoryIds": [2,3,4],
-                    "brandId": 1,
-                    "productName": 'Product Name 8',
-                    "productImage": '',
-                },
-                '9' : {
-                    "categoryIds": [3,4,5],
-                    "brandId": 1,
-                    "productName": 'Product Name 9',
-                    "productImage": '',
-                },
-                '10' : {
-                    "categoryIds": [1,4,5],
-                    "brandId": 1,
-                    "productName": 'Product Name 10',
-                    "productImage": '',
-                },
-            };
-            // Generating category Hierarchy array
-            var categoryHierarchy = {};
-            for(i in products) {
-                if (
-                    (typeof products[i]['categoryIds'][0] === "undefined") ||
-                    (typeof products[i]['categoryIds'][1] === "undefined") ||
-                    (typeof products[i]['categoryIds'][2] === "undefined")
-                ) {
-                    continue;
-                }
-                var zero = products[i]['categoryIds'][0];
-                var one = products[i]['categoryIds'][1];
-                var two = products[i]['categoryIds'][2];
-                if (typeof categoryHierarchy[zero] === "undefined") {
-                    categoryHierarchy[zero] = {};
-                    categoryHierarchy[zero]['name'] = categories[zero];
-                }
-                if (typeof categoryHierarchy[zero]['subCategory'] === "undefined") {
-                    categoryHierarchy[zero]['subCategory'] = {};
-                }
-                if (typeof categoryHierarchy[zero]['subCategory'][one] === "undefined") {
-                    categoryHierarchy[zero]['subCategory'][one] = {};
-                    categoryHierarchy[zero]['subCategory'][one]['name'] = categories[one];
-                }
-                if (typeof categoryHierarchy[zero]['subCategory'][one]['subCategory'] === "undefined") {
-                    categoryHierarchy[zero]['subCategory'][one]['subCategory'] = {};
-                }
-                if (typeof categoryHierarchy[zero]['subCategory'][one]['subCategory'][two] === "undefined") {
-                    categoryHierarchy[zero]['subCategory'][one]['subCategory'][two] = {};
-                }
-                categoryHierarchy[zero]['subCategory'][one]['subCategory'][two]['name'] = categories[two];
-            }
-            genMenu();
-            function genMenu()
-            {
-                var is = {};
-                var html = '' +
-                    '<div class="displayInlineBlock">' +
-                        '<div>' +
-                            '<span>' +
-                                '<div style="float:right;"><input type="checkbox" checked style="color: #FF0000;" onClick="checkboxClicked(null, null, null, this.checked);"/></div><span><b>Filter&nbsp;::&nbsp;</b></span>' +
-                            '</span>' +
-                        '</div>' +
-                    '</div>';
-                for(i in categoryHierarchy) {
-                    is[i] = i;
-                    iPad = pad('00', i, true);
-                    html += '' +
-                    '<div class="padl displayInlineBlock">' +
-                        '<div onmouseleave="hide(\'subMenu\', \'' + iPad + '\');">' +
-                            '<span onmouseenter="displaySubMenu(\'' + iPad + '\');">' +
-                                '<div style="float:left;"><input type="checkbox" checked class="checkbox backlink' + iPad + '" onClick="checkboxClicked(' + i + ', null, null, this.checked);"/></div>&nbsp;<span onClick="displayProduct(' + i + ',null,null, true)">' + categoryHierarchy[i]['name'] + '</span>' +
-                            '</span>' +
-                            '<!-- Sub Menu start-->' +
-                            '<div class="subMenu" id="subMenu' + iPad + '">';
-                    if (typeof categoryHierarchy[i]['subCategory'] !== "undefined") {
-                        html += '' +
-                                '<table width="600" height="200" cellpadding="0" cellspacing="5">' +
-                                    '<tr>' +
-                                        '<td class="collapse" width="200" valign="top">' +
-                                            '<table width="200" cellpadding="0" cellspacing="2">';
-                        for(j in categoryHierarchy[i]['subCategory']) {
-                            jPad = pad('00', j, true);
-                                                html += '' +
-                                                '<tr>' +
-                                                    '<td>' +
-                                                        '<table width="100%" cellpadding="0" cellspacing="2">' +
-                                                            '<tr>' +
-                                                                '<td width="17" align="center"><input type="checkbox" checked class="checkbox checkbox' + iPad + ' backlink' + iPad + jPad + '" onClick="checkboxClicked(' + i + ',' + j + ', null, this.checked);"/></td>' +
-                                                                '<td class="subMenus" align="left" onmouseenter="displaySubSubMenu(\'' + iPad + jPad + '\');" onClick="displayProduct(' + i + ',' + j + ',null, true)">' + categoryHierarchy[i]['subCategory'][j]['name'] + '</td>' +
-                                                            '</tr>' +
-                                                        '</table>'
-                                                    '</td>' +
-                                                '</tr>';
-                        }
-                                            html += '' +
-                                            '</table>' +
-                                        '</td>' +
-                                        '<td class="collapse" width="400" valign="top">';
-                        for(j in categoryHierarchy[i]['subCategory']) {
-                            jPad = pad('00', j, true);
-                                            html += '' +
-                                            '<div id="subSubMenu' + iPad + jPad + '" class="subSubMenu hide">';
-                            if (typeof categoryHierarchy[i]['subCategory'][j]['subCategory'] !== "undefined") {
-                                                html += '' +
-                                                '<table width="100%" cellpadding="0" cellspacing="2">' +
-                                                    '<tr>' +
-                                                        '<td valign="top">' +
-                                                            '<table width="100%" cellpadding="0" cellspacing="2">' +
-                                                                '<tr>';
-                                for(k in categoryHierarchy[i]['subCategory'][j]['subCategory']) {
-                                    kPad = pad('00', k, true);
-                                                        html += '' +
-                                                        '<tr>' +
-                                                            '<td>' +
-                                                                '<table width="100%" cellpadding="0" cellspacing="2">' +
-                                                                    '<tr>' +
-                                                                        '<td width="17" align="center"><input type="checkbox" id="checkboxId' + iPad + jPad + kPad + '" value="[' + i + ',' + j + ',' + k + ']" class="brands' + iPad + ' checkbox checkbox' + iPad + ' checkbox' + iPad + jPad +'" checked onClick="checkboxClicked(' + i + ',' + j + ',' + k + ', this.checked);"/></td>' +
-                                                                        '<td class="subSubMenus" align="left" onClick="displayProduct(' + i + ',' + j + ',' + k + ', true)">' + categoryHierarchy[i]['subCategory'][j]['subCategory'][k]['name'] + '</td>' +
-                                                                    '</tr>' +
-                                                                '</table>'
-                                                            '</td>' +
-                                                        '</tr>';
-                                }
-                                                    html += '' +
-                                                                '</tr>' +
-                                                            '</table>' +
-                                                        '</td>' +
-                                                    '</tr>' +
-                                                '</table>';
-                            }
-                                            html += '' +
-                                            '</div>';
-                        }
-                                        html += '' +
-                                        '</td>' +
-                                    '</tr>' +
-                                    '<tr>' +
-                                        '<td height="27" valign="top" colspan="2" class="collapse" id="brands' + iPad + '">' +
-                                        '</td>' +
-                                    '</tr>' +
-                                '</table>';
-                    }
-                            html += '' +
-                            '</div>' +
-                        '</div>' +
-                    '</div>';
-                }
-                html += '' +
-                    '<div class="padl displayInlineBlock">' +
-                        '<div class="filter" onClick="displayCheckBoxProduct();">' +
-                            '<div style="float:left;"><input type="checkbox" checked disabled/></div>Submit' +
-                        '</div>' +
-                    '</div>' +
-                    '<div class="displayInlineBlock" style="float:right;">' +
-                        '<table><tr>' +
-                            '<td><input type="text" id="search" placeholder="Search"/></td>' +
-                            '<td onClick="saarchProduct();"><button>Submit</button</td>' +
-                        '</tr></table>' +
-                    '</div>';
+<script>
 
-                document.getElementById('menu').innerHTML = html;
-                displayProduct(null, null, null, false);
-                for(index in is) {
-                    updateBrands(index);
-                }
-            }
-            function displaySubMenu(id)
-            {
-                document.getElementById('subMenu' + id).style.display = "block";
-            }
-            function displaySubSubMenu(id)
-            {
-                var subSubMenus = document.getElementsByClassName('subSubMenu');
-                for (let i = 0, i_length = subSubMenus.length; i < i_length; i++) {
-                    subSubMenus[i].style.display = "none";
-                }
-                document.getElementById('subSubMenu' + id).style.display = "block";
-            }
-            function display(id, primaryKey)
-            {
-                document.getElementById(id+primaryKey).style.display = "block";
-            }
-            function hide(id, primaryKey)
-            {
-                document.getElementById(id+primaryKey).style.display = "none";
-            }
-            function displayProduct(i, j, k, closeMenu)
-            {
-                // Close Menu code
-                if (closeMenu === true) {
-                    var subMenus = document.getElementsByClassName('subMenu');
-                    for (let i = 0, i_length = subMenus.length; i < i_length; i++) {
-                        subMenus[i].style.display = "none";
-                    }
-                }
-                var productIds = [];
-                // Display Product
-                for (index in products) {
-                    switch (true) {
-                        case k !== null:
-                            if (
-                                k === products[index]['categoryIds'][2] &&
-                                j === products[index]['categoryIds'][1] &&
-                                i === products[index]['categoryIds'][0]
-                            ) {
-                                productIds[index] = index;
-                            }
-                            break;
-                        case j !== null:
-                            if (
-                                j === products[index]['categoryIds'][1] &&
-                                i === products[index]['categoryIds'][0]
-                            ) {
-                                productIds[index] = index;
-                            }
-                            break;
-                        case i !== null:
-                            if (i === products[index]['categoryIds'][0]) {
-                                productIds[index] = index;
-                            }
-                            break;
-                        default:
-                            productIds[index] = index;
-                            break;
-                    }
-                }
-                generateProductHtml(productIds);
-            }
-            function displayCheckBoxProduct()
-            {
-                var productIds = [];
-                // Display Product
-                for (index in products) {
-                    let kPad = pad('00', products[index]['categoryIds'][2], true);
-                    let jPad = pad('00', products[index]['categoryIds'][1], true);
-                    let iPad = pad('00', products[index]['categoryIds'][0], true);
-                    if (checkboxIdChecked('checkboxId' + iPad + jPad + kPad)) {
-                        productIds[index] = index;
-                    }
-                }
-                generateProductHtml(productIds);
-            }
-            function generateProductHtml(productIds)
-            {
-                if (productIds.length === 0) {
-                    var html = '<p align="center" style="color:red;">Zero product found.</p>';
-                } else {
-                    var i = 0;
-                    var tagClass = '';
-                    var html = '<div class="gridListingRow"></div>';
-                    for (index  in productIds) {
-                        if (i%4 === 0) {
-                            html += '<div class="gridListingRow">';
-                        }
-                        if (i%4 === 0) {
-                            tagClass = 'gridListingColumnLeft';
-                        } else if (i%4 === 3) {
-                            tagClass = 'gridListingColumnRight';
-                        } else {
-                            tagClass = 'gridListingColumn';
-                        }
-                        html += '' +
-                            '<div class="' + tagClass + ' displayInlineBlock">' +
-                                '<img src="pimage.jpg" width="200" height="200">' +
-                                '<div class="productName">' + products[index]['productName'] + '</div>' +
-                            '</div>';
-                        if (i%4 === 3) {
-                            html += '</div>';
-                        }
-                        i++;
-                    }
-                    if (i%4 !== 3) {
-                        html += '</div>';
-                    }
-                }
-                document.getElementById('products').innerHTML = html;
-            }
-            function checkboxClicked(i, j, k, checked)
-            {
-                let kPad = pad('00', k, true);
-                if (k !== null) {
-                    ;
-                } else if (j !== null) {
-                    let iPad = pad('00', i, true);
-                    let jPad = pad('00', j, true);
-                    checkAllByClass('checkbox'+iPad+jPad, checked);
-                } else if (i !== null) {
-                    let iPad = pad('00', i, true);
-                    checkAllByClass('checkbox'+iPad, checked);
-                } else {
-                    checkAllByClass('checkbox', checked);
-                }
-                backlink(i, j, k, checked);
-                updateBrands(i);
-            }
-            function updateBrands(i)
-            {
-                if (i === "null") {
-                    document.getElementById('brands' + i).innerHTML = '';
-                    return;
-                }
-                let iPad = pad('00', i, true);
-                var arr = {};
-                var checkboxes = document.getElementsByClassName('brands' + iPad);
-                for (let i = 0, j = 0, i_length = checkboxes.length; i < i_length; i++) {
-                    if (checkboxes[i].checked) {
-                        var json = JSON.parse(checkboxes[i].value);
-                        if (typeof arr[json[0]] === "undefined") {
-                            arr[json[0]] = {};
-                        }
-                        if (typeof arr[json[0]][json[1]] === "undefined") {
-                            arr[json[0]][json[1]] = {};
-                        }
-                        if (typeof arr[json[0]][json[1]][json[2]] === "undefined") {
-                            arr[json[0]][json[1]][json[2]] = {};
-                        }
-                    }
-                }
-                var brandCount = [];
-                for(index in products) {
-                    i = products[index]['categoryIds'][0];
-                    j = products[index]['categoryIds'][1];
-                    k = products[index]['categoryIds'][2];
-                    if (
-                        (typeof arr[i] !== "undefined") &&
-                        (typeof arr[i][j] !== "undefined") &&
-                        (typeof arr[i][j][k] !== "undefined")                        
-                    ) {
-                        if (typeof brandCount[products[index]['brandId']] === "undefined") {
-                            brandCount[products[index]['brandId']] = 0;
-                        }
-                        brandCount[products[index]['brandId']]++;
-                    }
-                }
-                var html = '';
-                if (brandCount.length > 0) {
-                    var html = '<table width="100%" cellpadding="0" cellspacing="5">';
-                    var i = 0;
-                    for(index in brands) {
-                        if (typeof brandCount[index] !== "undefined") {
-                            if (i%4 === 0) {
-                                html += '<tr>';
-                            }
-                            html += '<td width="150" class="brand" align="left">' + brands[index] + ' (' + brandCount[index] + ')</td>';
-                            if (i%4 === 3) {
-                                html += '<tr>';
-                            }
-                            i++;
-                        }
-                    }
-                    for (i = i%4; i < 4; i++) {
-                        if (i%4 === 0) {
-                            html += '<tr>';
-                        }
-                        html += '<td width="150" class="brand">&nbsp;</td>';
-                        if (i%4 === 3) {
-                            html += '<tr>';
-                        }
-                    }
-                    html += '</table>';
-                }
-                document.getElementById('brands' + iPad).innerHTML = html;
-            }
-            function checkAllByClass(className, checked)
-            {
-                var checkboxes = document.getElementsByClassName(className);
-                for (let i = 0, i_length = checkboxes.length; i < i_length; i++) {
-                    checkboxes[i].checked = checked;
-                }
-            }
-            function backlink(i, j, k, checked)
-            {
-                var allChecked = null;
-                var color = null;
-                var partialColor = 'orange';
-                var defaultColor = '#000000';
-                if (k !== null) {
-                    let kPad = pad('00', k, true);
-                    let jPad = pad('00', j, true);
-                    let iPad = pad('00', i, true);
-                    if (checked && checkAllChecked('checkbox' + iPad + jPad)) {
-                        color = defaultColor;
-                    } else {
-                        color = partialColor;
-                    }
-                    changeCheckboxBorderColor('backlink' + iPad + jPad, color);
-                    if (checked && checkAllChecked('checkbox' + iPad)) {
-                        color = defaultColor;
-                    } else {
-                        color = partialColor;
-                    }
-                    changeCheckboxBorderColor('backlink' + iPad, color);
-                } else if (j !== null) {
-                    let iPad = pad('00', i, true);
-                    if (checked && checkAllChecked('checkbox' + iPad)) {
-                        color = defaultColor;
-                    } else {
-                        color = partialColor;
-                    }
-                    changeCheckboxBorderColor('backlink' + iPad, color);
-                } else if (i !== null) {
-                    let iPad = pad('00', i, true);
-                    color = defaultColor;
-                    changeCheckboxBorderColor('checkbox' + iPad, color);
-                    changeCheckboxBorderColor('backlink' + iPad, color);
-                } else {
-                    color = defaultColor;
-                    changeCheckboxBorderColor('checkbox', color);
-                }
-            }
-            function changeCheckboxBorderColor(className, color)
-            {
-                var checkboxes = document.getElementsByClassName(className);
-                for (let i = 0, i_length = checkboxes.length; i < i_length; i++) {
-                    checkboxes[i].style.color = color;
-                }
-            }
-            function checkAllChecked(className)
-            {
-                var checked = true;
-                var checkboxes = document.getElementsByClassName(className);
-                for (let i = 0, i_length = checkboxes.length; i < i_length; i++) {
-                    if (checkboxes[i].checked === false) {
-                        checked = false;
-                        break;
-                    }
-                }
-                return checked;
-            }
-            function checkboxIdChecked(id)
-            {
-                var checked = false;
-                var checkbox = document.getElementById(id);
-                if (typeof checkbox !== "null") {
-                    checked = checkbox.checked;
-                }
-                return checked;
-            }
+var obj = MENUAPP(category, brands, products);
+obj.generateCategoryHierarchy();
+obj.genMenu();;
+
+function filterFunction() {
+  var input, filter, ul, li, a, i;
+  input = document.getElementById("search");
+  filter = input.value.toUpperCase();
+  div = document.getElementById("searchResults");
+  spans = div.getElementsByTagName("span");
+  for (i = 0; i < spans.length; i++) {
+    txtValue = spans[i].textContent || a[i].innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        spans[i].style.display = "";
+    } else {
+        spans[i].style.display = "none";
+    }
+  }
+}
         </script>
 </body>
 </html>

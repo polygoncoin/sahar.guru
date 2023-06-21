@@ -259,20 +259,21 @@ var MENUAPP = (function(categories, brands, products)
     },
     displayCheckBoxProduct = function(mode)
     {
-        if (!checkCheckboxClassChecked('searchCheckbox') && mode === 'inline') {
-            return;
-        }
         var productIds = [];
-        // Display Product
-        for (index in products) {
-            let kPad = pad('00', products[index]['categoryIds'][2], true);
-            let jPad = pad('00', products[index]['categoryIds'][1], true);
-            let iPad = pad('00', products[index]['categoryIds'][0], true);
-            if (this.checkboxIdChecked(`categoryCheckboxId-${iPad}-${jPad}-${kPad}`)) {
-                productIds[index] = index;
+        if (this.checkboxIdChecked('searchCheckbox') && mode === 'inline') {
+            if (this.checkboxIdChecked('allCategoryCheckbox')) {
+                // Display Product
+                for (index in products) {
+                    let kPad = pad('00', products[index]['categoryIds'][2], true);
+                    let jPad = pad('00', products[index]['categoryIds'][1], true);
+                    let iPad = pad('00', products[index]['categoryIds'][0], true);
+                    if (this.checkboxIdChecked(`categoryCheckboxId-${iPad}-${jPad}-${kPad}`)) {
+                        productIds[index] = index;
+                    }
+                }
             }
+            this.generateProductHtml(productIds);
         }
-        this.generateProductHtml(productIds);
     },
     updateBrands = function(categoryId)
     {
@@ -451,7 +452,7 @@ var MENUAPP = (function(categories, brands, products)
             '<div class="displayInlineBlock">
                 <div>
                     <span>
-                        <div style="float:right;"><input type="checkbox" checked style="color: #FF0000;" onClick="obj.checkboxClicked(null, null, null, this.checked);"/></div><span><b>Filter&nbsp;::&nbsp;</b></span>
+                        <div style="float:right;"><input type="checkbox" id="allCategoryCheckbox" checked style="color: #FF0000;" onClick="obj.checkboxClicked(null, null, null, this.checked);"/></div><span><b>Filter&nbsp;::&nbsp;</b></span>
                     </span>
                 </div>
             </div>`;
@@ -508,7 +509,7 @@ var MENUAPP = (function(categories, brands, products)
                                                     <td>
                                                         <table width="100%" cellpadding="0" cellspacing="2">
                                                             <tr>
-                                                                <td width="17" align="center"><input type="checkbox" id="categoryCheckboxId-${iPad}-${jPad}-${kPad}" value="[${i}, ${j}, ${k}]" class="brands-${iPad} checkbox categoryCheckbox-${iPad} categoryCheckbox-${iPad}-${jPad}" checked onClick="obj.checkboxClicked(${i}, ${j}, ${k}, this.checked);"/></td>
+                                                                <td width="17" align="center"><input type="checkbox" id="categoryCheckboxId-${iPad}-${jPad}-${kPad}" value="[${i}, ${j}, ${k}]" class="brands-${iPad} categoryCheckbox categoryCheckbox-${iPad} categoryCheckbox-${iPad}-${jPad}" checked onClick="obj.checkboxClicked(${i}, ${j}, ${k}, this.checked);"/></td>
                                                                 <td class="subSubMenus" align="left" onClick="obj.displayProduct(${i}, ${j}, ${k}, true)">${categoryHierarchy[i]['subCategory'][j]['subCategory'][k]['name']}</td>
                                                             </tr>
                                                         </table>
@@ -542,12 +543,12 @@ var MENUAPP = (function(categories, brands, products)
         html += `
             <div class="padl displayInlineBlock">
                 <div class="filter">
-                    <div style="float:left;"><input type="checkbox" class="searchCheckbox" style="color: #FF0000;"/></div><span onClick="obj.displayCheckBoxProduct('search');" class="searchSpan">Search</span>
+                    <div style="float:left;"><input type="checkbox" id="searchCheckbox" style="color: #FF0000;"/></div><span onClick="obj.displayCheckBoxProduct('search');" class="searchSpan">Search</span>
                 </div>
             </div>
             <div class="displayInlineBlock" style="float:right;">
                 <input type="text" placeholder="Search.." id="search" onkeyup="filterFunction()">
-                <div id="searchResults" style="display:none">
+                <div id="searchResults">
                     <span>About</span>
                     <span>Base</span>
                     <span>Blog</span>
@@ -712,15 +713,17 @@ input[type="checkbox"]:checked::before {
                     </style>
 <style>
 #searchResults {
+  position: absolute;
   background-color: #f6f6f6;
   border: 1px solid #ddd;
-  z-index: 1;
+  z-index: 100;
 }
 #searchResults span {
   color: black;
   padding: 0;
   text-decoration: none;
   display: block;
+  width: 144px;
 }
 #searchResults span:hover {background-color: #f1f1f1}
 .show {display:block;}
@@ -778,7 +781,7 @@ input[type="checkbox"]:checked::before {
 
 var obj = MENUAPP(category, brands, products);
 obj.generateCategoryHierarchy();
-obj.genMenu();;
+obj.genMenu();
 
 function filterFunction() {
   var input, filter, ul, li, a, i;

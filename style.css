@@ -1,0 +1,133 @@
+html, body {
+    background-color:#ffe6ee;
+    margin: 0 0 0 0;
+}
+.header {
+    margin: 0 0 0 0;
+}
+.menu {
+    margin: 0 0 0 0;
+    padding: 5 0 5 0;
+    background-color: #cccccc;
+}
+.body {
+    background-color: #ffffe6;
+    margin: 0 0 0 0;
+}
+.gridListingRow {
+    margin: 0;
+    padding: 5 0 5 0;
+}
+.gridListingColumnLeft {
+    margin: 0;
+    padding: 5 10 5 0;
+}
+.gridListingColumn {
+    margin: 0;
+    padding: 5 10 5 10;
+}
+.gridListingColumnRight {
+    margin: 0;
+    padding: 5 0 5 10;
+}
+.productName {
+    margin: 0;
+    padding: 5 5 0 5;
+}
+.footer {
+    margin: 0 0 0 0;
+}
+.aboutUs {
+    margin: 0;
+    padding: 20 0 0 0;
+}
+.map {
+    margin: 0;
+    padding: 5 0 5 5;
+    width: 475;
+}
+.content {
+    max-width: 860px;
+    margin: auto;
+    padding: 0 0 0 0;
+}
+div.displayInlineBlock {
+    display: inline-block;
+}
+.menu {
+    position: relative;
+}
+.padl {
+    position: relative;
+    padding-left: 10px;;
+}
+.subMenu {
+    position: absolute;
+    display: none;
+    background-color: #ffe6ee;
+    z-index: 2;
+}
+.collapse {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 0px;
+    margin: 0px;
+}
+.brand {
+    border: 0px;
+    background-color: #ffffe6;
+    padding: 3px;
+    margin: 0px;
+}
+.subMenus:hover, .subSubMenus:hover {
+    background-color: #C3C39A;
+}
+.hide {
+    display: none;
+}
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+    padding: 0;
+    color: #000000;
+    width: 15px;
+    height: 15px;
+    border: 1px solid;
+    display: grid;
+    place-content: center;
+}
+input[type="checkbox"]::before {
+    content: "";
+    width: 9px;
+    height: 9px;
+    transform: scale(0);
+    background-color: #5f894a;
+}
+input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}
+.filter {
+    border: 2px solid #5f894a;
+    cursor: pointer;
+    margin: 0;
+    padding: 3 3 0 3;
+    background-color:#C3C39A;
+    text-align: right;
+    width: 70px;
+}
+#searchResults {
+    position: absolute;
+    background-color: #f6f6f6;
+    border: 1px solid #ddd;
+    z-index: 100;
+}
+#searchResults span {
+    color: black;
+    padding: 0;
+    text-decoration: none;
+    display: block;
+    width: 144px;
+}
+#searchResults span:hover {background-color: #f1f1f1}
+.show {display:block;}

@@ -1,3 +1,4 @@
+"use strict"
 var MENUAPP = (function(categories, brands, products)
 {
     var categoryCheckboxId = 'cid';
@@ -6,6 +7,8 @@ var MENUAPP = (function(categories, brands, products)
 
     var brandCheckboxId = 'bid';
     var brandCheckboxClass = 'bcl';
+
+    var breadcrumbDetails = [];
 
     // Product Detail Keys
     /* THREE CATEGORIES list is COMPULASARY.
@@ -24,8 +27,8 @@ var MENUAPP = (function(categories, brands, products)
     // Generating category Hierarchy array
     var generateCategoryHierarchy = function ()
     {
-        for (index in products) {
-            for (categoryIdsIndex in products[index][categoryIdsKey]) {
+        for (let index in products) {
+            for (let categoryIdsIndex in products[index][categoryIdsKey]) {
                 let categoryIds = products[index][categoryIdsKey][categoryIdsIndex];
                 if (
                     (typeof categoryIds[0] === "undefined") ||
@@ -129,7 +132,7 @@ var MENUAPP = (function(categories, brands, products)
             var i = 0;
             var tagClass = '';
             var html = '<div class="gridListingRow"></div>';
-            for (index  in productIds) {
+            for (let index  in productIds) {
                 if (i%4 === 0) {
                     html += '<div class="gridListingRow">';
                 }
@@ -168,25 +171,49 @@ var MENUAPP = (function(categories, brands, products)
         }
         return brandIds;
     },
-    setCategoryBreadcrum = function(categoryId, subCategoryId, subSubCategoryId)
+    setCategoryBreadcrum = function(categoryId, subCategoryId, subSubCategoryId, closeMenu)
     {
+        let categoryIdOld = null;
+        let subCategoryIdOld = null;
+        let subSubCategoryIdOld = null;
+        if (closeMenu === 'from-breadcrumb') {
+            categoryIdOld = breadcrumbDetails[0];
+            subCategoryIdOld = breadcrumbDetails[1];
+            subSubCategoryIdOld = breadcrumbDetails[2];
+        } else if (closeMenu === true) {
+            breadcrumbDetails = [categoryId, subCategoryId, subSubCategoryId];
+            categoryIdOld = categoryId;
+            subCategoryIdOld = subCategoryId;
+            subSubCategoryIdOld = subSubCategoryId;
+        } else {
+            breadcrumbDetails = [];
+        }
         var breadcrumHtml = '';
-        if (categoryId !== null) {
-            breadcrumHtml = 'Categories ::'
-            if (subCategoryId === null) {
-                breadcrumHtml += ` ${categories[categoryId]}`;
+        if (categoryIdOld !== null) {
+            breadcrumHtml = 'Categories ::';
+            if (
+                (subCategoryIdOld !== null) && (subCategoryId === null)
+            ) {
+                breadcrumHtml += ` ${categories[categoryIdOld]}`;
             } else {
-                breadcrumHtml += ` <a href="javascript:void();" onClick="obj.displayCategoryProducts(${categoryId}, null, null, false);">${categories[categoryId]}</a>`;
+                breadcrumHtml += ` <a href="javascript:void(0);" onClick="obj.displayCategoryProducts(${categoryIdOld}, null, null, 'from-breadcrumb');">${categories[categoryIdOld]}</a>`;
             }
-            if (subCategoryId !== null) {
-                if (subSubCategoryId === null) {
-                    breadcrumHtml += ` &gt; ${categories[subCategoryId]}`;
-                } else {
-                    breadcrumHtml += ` &gt; <a href="javascript:void();" onClick="obj.displayCategoryProducts(${categoryId}, ${subCategoryId}, null, false);">${categories[subCategoryId]}</a>`;
-                }
-                if (subSubCategoryId !== null) {
-                    breadcrumHtml += ` &gt; ${categories[subSubCategoryId]}`;
-                }                    
+        }
+        if (subCategoryIdOld !== null) {
+            if (
+                ((subCategoryIdOld !== null) && (subCategoryId === null)) ||
+                ((subSubCategoryIdOld !== null) && (subSubCategoryId !== null))
+            ) {
+                breadcrumHtml += ` &gt; <a href="javascript:void(0);" onClick="obj.displayCategoryProducts(${categoryIdOld}, ${subCategoryIdOld}, null, 'from-breadcrumb');">${categories[subCategoryIdOld]}</a>`;
+            } else {
+                breadcrumHtml += ` &gt; ${categories[subCategoryIdOld]}`;
+            }
+        }
+        if (subSubCategoryIdOld !== null) {
+            if (subSubCategoryId === null) {
+                breadcrumHtml += ` &gt; <a href="javascript:void(0);" onClick="obj.displayCategoryProducts(${categoryIdOld}, ${subCategoryIdOld}, ${subSubCategoryIdOld}, 'from-breadcrumb');">${categories[subSubCategoryIdOld]}</a>`;
+            } else {
+                breadcrumHtml += ` &gt; ${categories[subSubCategoryIdOld]}`;
             }
         }
         document.getElementById('breadcrum').innerHTML = breadcrumHtml;
@@ -201,12 +228,12 @@ var MENUAPP = (function(categories, brands, products)
     },
     displayCategoryProducts = function(categoryId, subCategoryId, subSubCategoryId, closeMenu)
     {
-        this.setCategoryBreadcrum(categoryId, subCategoryId, subSubCategoryId);
+        this.setCategoryBreadcrum(categoryId, subCategoryId, subSubCategoryId, closeMenu);
         // Close Menu code
         if (closeMenu === true) {
             this.hideClass('subMenu');
         }
-        showAllProducts = false;
+        let showAllProducts = false;
         if (
             categoryId === null &&
             subCategoryId === null &&
@@ -214,9 +241,9 @@ var MENUAPP = (function(categories, brands, products)
         ) {
             showAllProducts = true;
         }
-        var brandIds = getActiveBrandIds();
-        var productIds = [];
-        for (index in products) {
+        let brandIds = getActiveBrandIds();
+        let productIds = [];
+        for (let index in products) {
             if (brandIds.indexOf(products[index][brandIdKey]) === -1) {
                 continue;
             }
@@ -224,8 +251,8 @@ var MENUAPP = (function(categories, brands, products)
                 productIds[index] = index;
                 continue;
             }
-            $found = false;
-            for (categoryIdsIndex in products[index][categoryIdsKey]) {
+            let found = false;
+            for (let categoryIdsIndex in products[index][categoryIdsKey]) {
                 let categoryIds = products[index][categoryIdsKey][categoryIdsIndex];
                 switch (true) {
                     case subSubCategoryId !== null:
@@ -236,7 +263,7 @@ var MENUAPP = (function(categories, brands, products)
                         ) {
                             productIds[index] = index;
                         }
-                        $found = true;
+                        found = true;
                         break;
                     case subCategoryId !== null:
                         if (
@@ -245,23 +272,23 @@ var MENUAPP = (function(categories, brands, products)
                         ) {
                             productIds[index] = index;
                         }
-                        $found = true;
+                        found = true;
                         break;
                     case categoryId !== null:
                         if (categoryId === categoryIds[0]) {
                             productIds[index] = index;
                         }
-                        $found = true;
+                        found = true;
                         break;
                 }
-                if ($found) break;
+                if (found) break;
             }
         }
         this.generateProductHtml(productIds);
     },
     displayCheckboxProducts = function(mode)
     {
-        this.setCategoryBreadcrum(null, null, null);
+        this.setCategoryBreadcrum(null, null, null, false);
         if (
             (this.isCheckboxIdChecked('searchCheckbox') && mode === 'inline') ||
             (!this.isCheckboxIdChecked('searchCheckbox') && mode === 'search')
@@ -271,11 +298,11 @@ var MENUAPP = (function(categories, brands, products)
                 // Display Product
                 var brandIds = getActiveBrandIds();
                 var productIds = [];
-                for (index in products) {
+                for (let index in products) {
                     if (brandIds.indexOf(products[index][brandIdKey]) === -1) {
                         continue;
                     }
-                    for (categoryIdsIndex in products[index][categoryIdsKey]) {
+                    for (let categoryIdsIndex in products[index][categoryIdsKey]) {
                         let categoryIds = products[index][categoryIdsKey][categoryIdsIndex];
                         if (this.isCheckboxIdChecked(`${categoryCheckboxId}-${categoryIds[0]}-${categoryIds[1]}-${categoryIds[2]}`)) {
                             productIds[index] = index;
@@ -314,7 +341,7 @@ var MENUAPP = (function(categories, brands, products)
     updateBrands = function(categoryId)
     {
         if (categoryId === null) {
-            var categoryBrands = document.getElementsByClassName(categoryBrandsClass);
+            let categoryBrands = document.getElementsByClassName(categoryBrandsClass);
             for (let index = 0, index_length = categoryBrands.length; index < index_length; index++) {
                 categoryBrands[index].innerHTML = '';
             }
@@ -323,9 +350,9 @@ var MENUAPP = (function(categories, brands, products)
         let selectedCategories = this.getSelectedCategories(categoryId);
         var brandIds = getActiveBrandIds();
         var brandCount = [];
-        for (index in products) {
+        for (let index in products) {
             let found = false;
-            for (categoryIdsIndex in products[index][categoryIdsKey]) {
+            for (let categoryIdsIndex in products[index][categoryIdsKey]) {
                 let categoryIds = products[index][categoryIdsKey][categoryIdsIndex];
                 if (
                     typeof selectedCategories[categoryIds[0]] !== "undefined" &&
@@ -351,7 +378,7 @@ var MENUAPP = (function(categories, brands, products)
         if (brandCount.length > 0) {
             var html = '<table width="100%" cellpadding="0" cellspacing="5">';
             var i = 0;
-            for (brandId in brands) {
+            for (let brandId in brands) {
                 if (typeof brandCount[brandId] !== "undefined") {
                     if (i%4 === 0) {
                         html += '<tr>';
@@ -451,7 +478,7 @@ var MENUAPP = (function(categories, brands, products)
     },
     categoryCheckboxClicked = function(categoryId, subCategoryId, subSubCategoryId, checked)
     {
-        this.setCategoryBreadcrum(null, null, null);
+        this.setCategoryBreadcrum(null, null, null, false);
         if (categoryId === null) {
             var checkboxes = document.getElementsByClassName(categoryCheckboxClass);
             for (let index = 0, index_length = checkboxes.length; index < index_length; index++) {
@@ -507,7 +534,7 @@ var MENUAPP = (function(categories, brands, products)
         let selectedCategories = this.getSelectedCategories(categoryId);
         var brandIds = getActiveBrandIds();
         var productIds = [];
-        for (index in products) {
+        for (let index in products) {
             let found = false;
             for (categoryIdsIndex in products[index][categoryIdsKey]) {
                 let categoryIds = products[index][categoryIdsKey][categoryIdsIndex];
@@ -532,7 +559,7 @@ var MENUAPP = (function(categories, brands, products)
     {
         this.setBrandBreadcrum(brandId);
         var productIds = [];
-        for (index in products) {
+        for (let index in products) {
             if (brandId == products[index][brandIdKey]) {
                 productIds[index] = index;
             }
@@ -568,13 +595,13 @@ var MENUAPP = (function(categories, brands, products)
                     </span>
                 </div>
             </div>`;
-        for (categoryId in categoryHierarchy) {
+        for (let categoryId in categoryHierarchy) {
             is[categoryId] = categoryId;
             html += `
             <div class="padl displayInlineBlock">
                 <div onmouseleave="obj.hideId('subMenu-${categoryId}');">
                     <span onmouseenter="obj.displayId('subMenu-${categoryId}');">
-                        <div style="float:left;"><input type="checkbox" ${this.getCategoryCheckboxAttributes(categoryId, null, null)}/></div>&nbsp;<span onClick="obj.displayCategoryProducts(${categoryId},null,null, true)"><a href="javascript:void();">${categoryHierarchy[categoryId]['name']}</a></span>
+                        <div style="float:left;"><input type="checkbox" ${this.getCategoryCheckboxAttributes(categoryId, null, null)}/></div>&nbsp;<span onClick="obj.displayCategoryProducts(${categoryId},null,null, true)"><a href="javascript:void(0);">${categoryHierarchy[categoryId]['name']}</a></span>
                     </span>
                     <!-- Sub Menu start-->
                     <div class="subMenu" id="subMenu-${categoryId}">`;
@@ -584,14 +611,14 @@ var MENUAPP = (function(categories, brands, products)
                             <tr>
                                 <td class="collapse" width="200" valign="top">
                                     <table width="200" cellpadding="0" cellspacing="2">`;
-                for (subCategoryId in categoryHierarchy[categoryId]['subCategory']) {
+                for (let subCategoryId in categoryHierarchy[categoryId]['subCategory']) {
                                         html += `
                                         <tr>
                                             <td>
                                                 <table width="100%" cellpadding="0" cellspacing="2">
                                                     <tr>
                                                         <td width="17" align="center"><input type="checkbox" ${this.getCategoryCheckboxAttributes(categoryId, subCategoryId, null)}/></td>
-                                                        <td class="subMenus" align="left" onmouseenter="obj.hideClass('subSubMenu');obj.displayId('subSubMenu-${categoryId}-${subCategoryId}');" onClick="obj.displayCategoryProducts(${categoryId}, ${subCategoryId},null, true)"><a href="javascript:void();">${categoryHierarchy[categoryId]['subCategory'][subCategoryId]['name']}</a></td>
+                                                        <td class="subMenus" align="left" onmouseenter="obj.hideClass('subSubMenu');obj.displayId('subSubMenu-${categoryId}-${subCategoryId}');" onClick="obj.displayCategoryProducts(${categoryId}, ${subCategoryId},null, true)"><a href="javascript:void(0);">${categoryHierarchy[categoryId]['subCategory'][subCategoryId]['name']}</a></td>
                                                     </tr>
                                                 </table>
                                             </td>
@@ -601,7 +628,7 @@ var MENUAPP = (function(categories, brands, products)
                                     </table>
                                 </td>
                                 <td class="collapse" width="400" valign="top">`;
-                for (subCategoryId in categoryHierarchy[categoryId]['subCategory']) {
+                for (let subCategoryId in categoryHierarchy[categoryId]['subCategory']) {
                                     html += `
                                     <div id="subSubMenu-${categoryId}-${subCategoryId}" class="subSubMenu hide">`;
                     if (typeof categoryHierarchy[categoryId]['subCategory'][subCategoryId]['subCategory'] !== "undefined") {
@@ -611,14 +638,14 @@ var MENUAPP = (function(categories, brands, products)
                                                 <td valign="top">
                                                     <table width="100%" cellpadding="0" cellspacing="2">
                                                         <tr>`;
-                        for (subSubCategoryId in categoryHierarchy[categoryId]['subCategory'][subCategoryId]['subCategory']) {
+                        for (let subSubCategoryId in categoryHierarchy[categoryId]['subCategory'][subCategoryId]['subCategory']) {
                                                 html += `
                                                 <tr>
                                                     <td>
                                                         <table width="100%" cellpadding="0" cellspacing="2">
                                                             <tr>
                                                                 <td width="17" align="center"><input type="checkbox" ${this.getCategoryCheckboxAttributes(categoryId, subCategoryId, subSubCategoryId)}/></td>
-                                                                <td class="subSubMenus" align="left" onClick="obj.displayCategoryProducts(${categoryId}, ${subCategoryId}, ${subSubCategoryId}, true)"><a href="javascript:void();">${categoryHierarchy[categoryId]['subCategory'][subCategoryId]['subCategory'][subSubCategoryId]['name']}</a></td>
+                                                                <td class="subSubMenus" align="left" onClick="obj.displayCategoryProducts(${categoryId}, ${subCategoryId}, ${subSubCategoryId}, true)"><a href="javascript:void(0);">${categoryHierarchy[categoryId]['subCategory'][subCategoryId]['subCategory'][subSubCategoryId]['name']}</a></td>
                                                             </tr>
                                                         </table>
                                                     </td>
@@ -658,14 +685,14 @@ var MENUAPP = (function(categories, brands, products)
                     <div class="subMenu" id="subMenu-brand">`;
                     html += `
                         <table width="200" cellpadding="0" cellspacing="5">`;
-                for (brandId in brands) {
+                for (let brandId in brands) {
                         html += `
                             <tr>
                                 <td width="200" valign="top">
                                     <table width="100%" cellpadding="0" cellspacing="2">
                                         <tr>
                                             <td width="17" align="center"><input type="checkbox" id="${brandCheckboxId}-${brandId}" class="${brandCheckboxClass} ${brandCheckboxClass}-${brandId}" checked  value="${brandId}" onClick="obj.brandCheckboxClicked(${brandId}, this.checked);"/></td>
-                                            <td class="subMenus" align="left" onClick="obj.displayBrandProducts(${brandId})"><a href="javascript:void();">${brands[brandId]}</a></td>
+                                            <td class="subMenus" align="left" onClick="obj.displayBrandProducts(${brandId})"><a href="javascript:void(0);">${brands[brandId]}</a></td>
                                         </tr>
                                     </table>
                                 </td>
@@ -696,7 +723,7 @@ var MENUAPP = (function(categories, brands, products)
 
         document.getElementById('menu').innerHTML = html;
         this.displayCategoryProducts(null, null, null, false);
-        for (index in is) {
+        for (let index in is) {
             this.updateBrands(index);
         }
     };

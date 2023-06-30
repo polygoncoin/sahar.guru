@@ -532,7 +532,7 @@ var MENUAPP = (function(categories, brands, products)
             <div class="padl displayInlineBlock">
                 <div onmouseleave="obj.hideId('subMenu-${categoryId}');">
                     <span onmouseenter="obj.displayId('subMenu-${categoryId}');">
-                        <div style="float:left;"><input type="checkbox" ${this.getCategoryCheckboxAttributes(categoryId, null, null)}/></div>&nbsp;<span onClick="obj.displayCategoryProducts(${categoryId},null,null, true)">${categoryHierarchy[categoryId]['name']}</span>
+                        <div style="float:left;"><input type="checkbox" ${this.getCategoryCheckboxAttributes(categoryId, null, null)}/></div>&nbsp;<span onClick="obj.displayCategoryProducts(${categoryId},null,null, true)"><a href="javascript:void();">${categoryHierarchy[categoryId]['name']}</a></span>
                     </span>
                     <!-- Sub Menu start-->
                     <div class="subMenu" id="subMenu-${categoryId}">`;
@@ -549,7 +549,7 @@ var MENUAPP = (function(categories, brands, products)
                                                 <table width="100%" cellpadding="0" cellspacing="2">
                                                     <tr>
                                                         <td width="17" align="center"><input type="checkbox" ${this.getCategoryCheckboxAttributes(categoryId, subCategoryId, null)}/></td>
-                                                        <td class="subMenus" align="left" onmouseenter="obj.hideClass('subSubMenu');obj.displayId('subSubMenu-${categoryId}-${subCategoryId}');" onClick="obj.displayCategoryProducts(${categoryId}, ${subCategoryId},null, true)">${categoryHierarchy[categoryId]['subCategory'][subCategoryId]['name']}</td>
+                                                        <td class="subMenus" align="left" onmouseenter="obj.hideClass('subSubMenu');obj.displayId('subSubMenu-${categoryId}-${subCategoryId}');" onClick="obj.displayCategoryProducts(${categoryId}, ${subCategoryId},null, true)"><a href="javascript:void();">${categoryHierarchy[categoryId]['subCategory'][subCategoryId]['name']}</a></td>
                                                     </tr>
                                                 </table>
                                             </td>
@@ -576,7 +576,7 @@ var MENUAPP = (function(categories, brands, products)
                                                         <table width="100%" cellpadding="0" cellspacing="2">
                                                             <tr>
                                                                 <td width="17" align="center"><input type="checkbox" ${this.getCategoryCheckboxAttributes(categoryId, subCategoryId, subSubCategoryId)}/></td>
-                                                                <td class="subSubMenus" align="left" onClick="obj.displayCategoryProducts(${categoryId}, ${subCategoryId}, ${subSubCategoryId}, true)">${categoryHierarchy[categoryId]['subCategory'][subCategoryId]['subCategory'][subSubCategoryId]['name']}</td>
+                                                                <td class="subSubMenus" align="left" onClick="obj.displayCategoryProducts(${categoryId}, ${subCategoryId}, ${subSubCategoryId}, true)"><a href="javascript:void();">${categoryHierarchy[categoryId]['subCategory'][subCategoryId]['subCategory'][subSubCategoryId]['name']}</a></td>
                                                             </tr>
                                                         </table>
                                                     </td>
@@ -623,7 +623,7 @@ var MENUAPP = (function(categories, brands, products)
                                     <table width="100%" cellpadding="0" cellspacing="2">
                                         <tr>
                                             <td width="17" align="center"><input type="checkbox" id="${brandCheckboxId}-${brandId}" class="${brandCheckboxClass} ${brandCheckboxClass}-${brandId}" checked  value="${brandId}" onClick="obj.brandCheckboxClicked(${brandId}, this.checked);"/></td>
-                                            <td class="subMenus" align="left" onClick="obj.displayBrandProducts(${brandId})">${brands[brandId]}</td>
+                                            <td class="subMenus" align="left" onClick="obj.displayBrandProducts(${brandId})"><a href="javascript:void();">${brands[brandId]}</a></td>
                                         </tr>
                                     </table>
                                 </td>
@@ -662,18 +662,18 @@ var MENUAPP = (function(categories, brands, products)
     var nsp = {};
     
     nsp.generateCategoryHierarchy = generateCategoryHierarchy;
-    nsp.displayId = displayId;
     nsp.hideId = hideId;
     nsp.hideClass = hideClass;
-    nsp.generateProductHtml = generateProductHtml;
-    nsp.getActiveBrandIds = getActiveBrandIds;
-    nsp.displayCategoryProducts = displayCategoryProducts;
-    nsp.getFullIdOrClassName = getFullIdOrClassName;
-    nsp.getCategoryJson = getCategoryJson;
+    nsp.displayId = displayId;
     nsp.isCheckboxIdChecked = isCheckboxIdChecked;
     nsp.isCheckboxClassChecked = isCheckboxClassChecked;
-    nsp.displayCheckboxProducts = displayCheckboxProducts;
+    nsp.getActiveBrandIds = getActiveBrandIds;
+    nsp.getFullIdOrClassName = getFullIdOrClassName;
+    nsp.getCategoryJson = getCategoryJson;
     nsp.getSelectedCategories = getSelectedCategories;
+    nsp.generateProductHtml = generateProductHtml;
+    nsp.displayCategoryProducts = displayCategoryProducts;
+    nsp.displayCheckboxProducts = displayCheckboxProducts;
     nsp.updateBrands = updateBrands;
     nsp.adjustCategoryCheckbox = adjustCategoryCheckbox;
     nsp.adjustBrandCheckbox = adjustBrandCheckbox;

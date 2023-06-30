@@ -1,5 +1,21 @@
 var MENUAPP = (function(categories, brands, products)
 {
+    var categoryCheckboxId = 'cid';
+    var categoryCheckboxClass = 'ccl';
+    var categoryBrandsClass = 'cb'
+
+    var brandCheckboxId = 'bid';
+    var brandCheckboxClass = 'bcl';
+
+    // Product Detail Keys
+    /* THREE CATEGORIES list is COMPULASARY.
+     * A product can belong to multiple category hierarchies of 3 level.
+     */
+    var categoryIdsKey = 'categoryIds';
+    var brandIdKey = 'brandId';
+    var productNameKey = 'productName';
+    var productImageKey = 'productImage';
+
     var partialColor = 'orange';
     var defaultColor = '#000000';
 
@@ -8,69 +24,102 @@ var MENUAPP = (function(categories, brands, products)
     // Generating category Hierarchy array
     var generateCategoryHierarchy = function ()
     {
-        for(i in products) {
-            if (
-                (typeof products[i]['categoryIds'][0] === "undefined") ||
-                (typeof products[i]['categoryIds'][1] === "undefined") ||
-                (typeof products[i]['categoryIds'][2] === "undefined")
-            ) {
-                continue;
+        for(index in products) {
+            for (categoryIdsIndex in products[index][categoryIdsKey]) {
+                let categoryIds = products[index][categoryIdsKey][categoryIdsIndex];
+                if (
+                    (typeof categoryIds[0] === "undefined") ||
+                    (typeof categoryIds[1] === "undefined") ||
+                    (typeof categoryIds[2] === "undefined")
+                ) {
+                    continue;
+                }
+                let categoryId = categoryIds[0];
+                let subCategoryId = categoryIds[1];
+                let subSubCategoryId = categoryIds[2];
+                if (typeof categoryHierarchy[categoryId] === "undefined") {
+                    categoryHierarchy[categoryId] = {};
+                    categoryHierarchy[categoryId]['name'] = categories[categoryId];
+                }
+                if (typeof categoryHierarchy[categoryId]['subCategory'] === "undefined") {
+                    categoryHierarchy[categoryId]['subCategory'] = {};
+                }
+                if (typeof categoryHierarchy[categoryId]['subCategory'][subCategoryId] === "undefined") {
+                    categoryHierarchy[categoryId]['subCategory'][subCategoryId] = {};
+                    categoryHierarchy[categoryId]['subCategory'][subCategoryId]['name'] = categories[subCategoryId];
+                }
+                if (typeof categoryHierarchy[categoryId]['subCategory'][subCategoryId]['subCategory'] === "undefined") {
+                    categoryHierarchy[categoryId]['subCategory'][subCategoryId]['subCategory'] = {};
+                }
+                if (typeof categoryHierarchy[categoryId]['subCategory'][subCategoryId]['subCategory'][subSubCategoryId] === "undefined") {
+                    categoryHierarchy[categoryId]['subCategory'][subCategoryId]['subCategory'][subSubCategoryId] = {};
+                }
+                categoryHierarchy[categoryId]['subCategory'][subCategoryId]['subCategory'][subSubCategoryId]['name'] = categories[subSubCategoryId];
             }
-            var zero = products[i]['categoryIds'][0];
-            var one = products[i]['categoryIds'][1];
-            var two = products[i]['categoryIds'][2];
-            if (typeof categoryHierarchy[zero] === "undefined") {
-                categoryHierarchy[zero] = {};
-                categoryHierarchy[zero]['name'] = categories[zero];
-            }
-            if (typeof categoryHierarchy[zero]['subCategory'] === "undefined") {
-                categoryHierarchy[zero]['subCategory'] = {};
-            }
-            if (typeof categoryHierarchy[zero]['subCategory'][one] === "undefined") {
-                categoryHierarchy[zero]['subCategory'][one] = {};
-                categoryHierarchy[zero]['subCategory'][one]['name'] = categories[one];
-            }
-            if (typeof categoryHierarchy[zero]['subCategory'][one]['subCategory'] === "undefined") {
-                categoryHierarchy[zero]['subCategory'][one]['subCategory'] = {};
-            }
-            if (typeof categoryHierarchy[zero]['subCategory'][one]['subCategory'][two] === "undefined") {
-                categoryHierarchy[zero]['subCategory'][one]['subCategory'][two] = {};
-            }
-            categoryHierarchy[zero]['subCategory'][one]['subCategory'][two]['name'] = categories[two];
         }
     },
-    pad = function(pad, str, padLeft) {
-        pad = '0000000000';
-        if (typeof str === 'undefined') 
-            return pad;
-        if (padLeft) {
-            return (pad + str).slice(-pad.length);
-        } else {
-            return (str + pad).substring(0, pad.length);
-        }
-    },
-    display = function(id)
-    {
-        document.getElementById(id).style.display = "block";
-    },
-    hide = function(id)
+    hideId = function(id)
     {
         document.getElementById(id).style.display = "none";
     },
-    displaySubMenu = function(id)
+    hideClass = function(className)
     {
-        this.display(`subMenu-${id}`);
-    },
-    displaySubSubMenu = function(i, j)
-    {
-        let iPad = this.pad('00', i, true);
-        let jPad = this.pad('00', j, true);
-
-        var subSubMenus = document.getElementsByClassName('subSubMenu');
-        for (let i = 0, i_length = subSubMenus.length; i < i_length; i++) {
-            subSubMenus[i].style.display = "none";
+        var objs = document.getElementsByClassName(className);
+        for (let index = 0, index_length = objs.length; index < index_length; index++) {
+            objs[index].style.display = "none";
         }
-        this.display(`subSubMenu-${iPad}-${jPad}`);
+    },
+    displayId = function(id)
+    {
+        document.getElementById(id).style.display = "block";
+    },
+    isCheckboxIdChecked = function(id)
+    {
+        var checked = false;
+        var checkbox = document.getElementById(id);
+        if (typeof checkbox !== "undefined") {
+            checked = checkbox.checked;
+        }
+        return checked;
+    },
+    isCheckboxClassChecked = function(className)
+    {
+        var checked = true;
+        var checkboxes = document.getElementsByClassName(className);
+        for (let index = 0, index_length = checkboxes.length; index < index_length; index++) {
+            if (!checkboxes[index].checked) {
+                checked = false;
+            }
+        }
+        return checked;
+    },
+    getFullIdOrClassName = function(className, categoryId, subCategoryId, subSubCategoryId)
+    {
+        if (categoryId !== null) {
+            className += '-'+categoryId;
+        }
+        if (subCategoryId !== null) {
+            className += '-'+subCategoryId;
+        }
+        if (subSubCategoryId !== null) {
+            className += '-'+subSubCategoryId;
+        }
+        return className;
+    },
+    getCategoryJson = function(categoryId, subCategoryId, subSubCategoryId)
+    {
+        let json = '[';
+        if (categoryId !== null) {
+            json += categoryId;
+        }
+        if (subCategoryId !== null) {
+            json += ','+subCategoryId;
+        }
+        if (subSubCategoryId !== null) {
+            json += ','+subSubCategoryId;
+        }
+        json += ']'
+        return json;
     },
     generateProductHtml = function(productIds)
     {
@@ -91,11 +140,11 @@ var MENUAPP = (function(categories, brands, products)
                 } else {
                     tagClass = 'gridListingColumn';
                 }
-                html += '' +
-                    '<div class="' + tagClass + ' displayInlineBlock">' +
-                        '<img src="pimage.jpg" width="200" height="200">' +
-                        '<div class="productName">' + products[index]['productName'] + '</div>' +
-                    '</div>';
+                html += `<div class="${tagClass} displayInlineBlock">
+                        <img src="pimage.jpg" width="200" height="200">
+                        <div class="productName">${products[index][productNameKey]}</div>
+                        <div class="productName">${brands[products[index][brandIdKey]]}</div>
+                    </div>`;
                 if (i%4 === 3) {
                     html += '</div>';
                 }
@@ -107,149 +156,174 @@ var MENUAPP = (function(categories, brands, products)
         }
         document.getElementById('products').innerHTML = html;
     },
-    displayProduct = function(i, j, k, closeMenu)
+    getActiveBrandIds = function()
+    {
+        var checkboxes = document.getElementsByClassName(brandCheckboxClass);
+        var brandIds = [];
+        var i = 0;
+        for (let index = 0, i_length = checkboxes.length; index < i_length; index++) {
+            if (checkboxes[index].checked) {
+                brandIds[i++] = parseInt(checkboxes[index].value);
+            }
+        }
+        return brandIds;
+    },
+    displayCategoryProducts = function(categoryId, subCategoryId, subSubCategoryId, closeMenu)
     {
         // Close Menu code
         if (closeMenu === true) {
-            var subMenus = document.getElementsByClassName('subMenu');
-            for (let i = 0, i_length = subMenus.length; i < i_length; i++) {
-                subMenus[i].style.display = "none";
-            }
+            this.hideClass('subMenu');
         }
+        showAllProducts = false;
+        if (
+            categoryId === null &&
+            subCategoryId === null &&
+            subSubCategoryId === null
+        ) {
+            showAllProducts = true;
+        }
+        var brandIds = getActiveBrandIds();
         var productIds = [];
-        // Display Product
         for (index in products) {
-            switch (true) {
-                case k !== null:
-                    if (
-                        k === products[index]['categoryIds'][2] &&
-                        j === products[index]['categoryIds'][1] &&
-                        i === products[index]['categoryIds'][0]
-                    ) {
-                        productIds[index] = index;
-                    }
-                    break;
-                case j !== null:
-                    if (
-                        j === products[index]['categoryIds'][1] &&
-                        i === products[index]['categoryIds'][0]
-                    ) {
-                        productIds[index] = index;
-                    }
-                    break;
-                case i !== null:
-                    if (i === products[index]['categoryIds'][0]) {
-                        productIds[index] = index;
-                    }
-                    break;
-                default:
-                    productIds[index] = index;
-                    break;
+            if (brandIds.indexOf(products[index][brandIdKey]) === -1) {
+                continue;
+            }
+            if (showAllProducts) {
+                productIds[index] = index;
+                continue;
+            }
+            $found = false;
+            for (categoryIdsIndex in products[index][categoryIdsKey]) {
+                let categoryIds = products[index][categoryIdsKey][categoryIdsIndex];
+                switch (true) {
+                    case subSubCategoryId !== null:
+                        if (
+                            subSubCategoryId === categoryIds[2] &&
+                            subCategoryId === categoryIds[1] &&
+                            categoryId === categoryIds[0]
+                        ) {
+                            productIds[index] = index;
+                        }
+                        $found = true;
+                        break;
+                    case subCategoryId !== null:
+                        if (
+                            subCategoryId === categoryIds[1] &&
+                            categoryId === categoryIds[0]
+                        ) {
+                            productIds[index] = index;
+                        }
+                        $found = true;
+                        break;
+                    case categoryId !== null:
+                        if (categoryId === categoryIds[0]) {
+                            productIds[index] = index;
+                        }
+                        $found = true;
+                        break;
+                }
+                if ($found) break;
             }
         }
         this.generateProductHtml(productIds);
     },
-    checkboxIdChecked = function(id)
-    {
-        var checked = false;
-        var checkbox = document.getElementById(id);
-        if (typeof checkbox !== "null") {
-            checked = checkbox.checked;
-        }
-        return checked;
-    },
-    setCheckboxStatusByClass = function(className, status)
-    {
-        var checkboxes = document.getElementsByClassName(className);
-        for (let i = 0, i_length = checkboxes.length; i < i_length; i++) {
-            checkboxes[i].checked = status;
-        }
-    },
-    checkCheckboxClassChecked = function(className)
-    {
-        var checked = true;
-        var checkboxes = document.getElementsByClassName(className);
-        for (let i = 0, i_length = checkboxes.length; i < i_length; i++) {
-            if (checkboxes[i].checked === false) {
-                checked = false;
-                break;
-            }
-        }
-        return checked;
-    },
-    displayCheckboxProduct = function(mode)
+    displayCheckboxProducts = function(mode)
     {
         if (
-            (this.checkboxIdChecked('searchCheckbox') && mode === 'inline') ||
-            (!this.checkboxIdChecked('searchCheckbox') && mode === 'search')
+            (this.isCheckboxIdChecked('searchCheckbox') && mode === 'inline') ||
+            (!this.isCheckboxIdChecked('searchCheckbox') && mode === 'search')
         ) {
             var productIds = [];
-            if (this.checkboxIdChecked('allCategoryCheckbox')) {
+            if (this.isCheckboxIdChecked(categoryCheckboxId)) {
                 // Display Product
+                var brandIds = getActiveBrandIds();
+                var productIds = [];
                 for (index in products) {
-                    let kPad = this.pad('00', products[index]['categoryIds'][2], true);
-                    let jPad = this.pad('00', products[index]['categoryIds'][1], true);
-                    let iPad = this.pad('00', products[index]['categoryIds'][0], true);
-                    if (this.checkboxIdChecked(`categoryCheckboxId-${iPad}-${jPad}-${kPad}`)) {
-                        productIds[index] = index;
+                    if (brandIds.indexOf(products[index][brandIdKey]) === -1) {
+                        continue;
+                    }
+                    for (categoryIdsIndex in products[index][categoryIdsKey]) {
+                        let categoryIds = products[index][categoryIdsKey][categoryIdsIndex];
+                        if (this.isCheckboxIdChecked(`${categoryCheckboxId}-${categoryIds[0]}-${categoryIds[1]}-${categoryIds[2]}`)) {
+                            productIds[index] = index;
+                            break;
+                        }
                     }
                 }
             }
             this.generateProductHtml(productIds);
         }
     },
+    getSelectedCategories = function(categoryId)
+    {
+        let selectedCategories = {};
+        let className = this.getFullIdOrClassName(categoryCheckboxClass, categoryId, null, null);
+        var checkboxes = document.getElementsByClassName(className);
+        for (let index = 0, index_length = checkboxes.length; index < index_length; index++) {
+            if (checkboxes[index].checked) {
+                let json = JSON.parse(checkboxes[index].value);
+                if (json.length === 3) {
+                    if (typeof selectedCategories[json[0]] === "undefined") {
+                        selectedCategories[json[0]] = {};
+                    }
+                    if (typeof selectedCategories[json[0]][json[1]] === "undefined") {
+                        selectedCategories[json[0]][json[1]] = {};
+                    }
+                    if (typeof selectedCategories[json[0]][json[1]][json[2]] === "undefined") {
+                        selectedCategories[json[0]][json[1]][json[2]] = {};
+                    }
+                    selectedCategories[json[0]][json[1]][json[2]] = true;
+                }
+            }
+        }
+        return selectedCategories;
+    },
     updateBrands = function(categoryId)
     {
         if (categoryId === null) {
-            var brands = document.getElementsByClassName('brands');
-            for (let i = 0, i_length = brands.length; i < i_length; i++) {
-                brands[i].innerHTML = '';
+            var categoryBrands = document.getElementsByClassName(categoryBrandsClass);
+            for (let index = 0, index_length = categoryBrands.length; index < index_length; index++) {
+                categoryBrands[index].innerHTML = '';
             }
             return;
         }
-        let iPad = this.pad('00', categoryId, true);
-        var arr = {};
-        var checkboxes = document.getElementsByClassName(`brands-${iPad}`);
-        for (let i = 0, j = 0, i_length = checkboxes.length; i < i_length; i++) {
-            if (checkboxes[i].checked) {
-                var json = JSON.parse(checkboxes[i].value);
-                if (typeof arr[json[0]] === "undefined") {
-                    arr[json[0]] = {};
-                }
-                if (typeof arr[json[0]][json[1]] === "undefined") {
-                    arr[json[0]][json[1]] = {};
-                }
-                if (typeof arr[json[0]][json[1]][json[2]] === "undefined") {
-                    arr[json[0]][json[1]][json[2]] = {};
+        let selectedCategories = this.getSelectedCategories(categoryId);
+        var brandIds = getActiveBrandIds();
+        var brandCount = [];
+        for (index in products) {
+            let found = false;
+            for (categoryIdsIndex in products[index][categoryIdsKey]) {
+                let categoryIds = products[index][categoryIdsKey][categoryIdsIndex];
+                if (
+                    typeof selectedCategories[categoryIds[0]] !== "undefined" &&
+                    typeof selectedCategories[categoryIds[0]][categoryIds[1]] !== "undefined" &&
+                    typeof selectedCategories[categoryIds[0]][categoryIds[1]][categoryIds[2]] !== "undefined"
+                ) {
+                    found = true;
+                    break;
                 }
             }
-        }
-        var brandCount = [];
-        for(index in products) {
-            i = products[index]['categoryIds'][0];
-            j = products[index]['categoryIds'][1];
-            k = products[index]['categoryIds'][2];
-            if (
-                (typeof arr[i] !== "undefined") &&
-                (typeof arr[i][j] !== "undefined") &&
-                (typeof arr[i][j][k] !== "undefined")                        
-            ) {
-                if (typeof brandCount[products[index]['brandId']] === "undefined") {
-                    brandCount[products[index]['brandId']] = 0;
+            if (found) {
+                let brandId = products[index][brandIdKey];
+                if (brandIds.indexOf(brandId) === -1) {
+                    continue;
                 }
-                brandCount[products[index]['brandId']]++;
+                if (typeof brandCount[brandId] === "undefined") {
+                    brandCount[brandId] = 0;
+                }
+                brandCount[brandId]++;
             }
         }
         var html = '';
         if (brandCount.length > 0) {
             var html = '<table width="100%" cellpadding="0" cellspacing="5">';
             var i = 0;
-            for(index in brands) {
-                if (typeof brandCount[index] !== "undefined") {
+            for (brandId in brands) {
+                if (typeof brandCount[brandId] !== "undefined") {
                     if (i%4 === 0) {
                         html += '<tr>';
                     }
-                    html += '<td width="150" class="brand" align="left" onCLick="displayBrandProducts(' + categoryId + ',' + index + ')">' + brands[index] + ' (' + brandCount[index] + ')</td>';
+                    html += `<td width="150" class="brand" align="left" onClick="obj.displayCategoryBrandProducts(${categoryId}, ${brandId})">${brands[brandId]} (${brandCount[brandId]})</td>`;
                     if (i%4 === 3) {
                         html += '<tr>';
                     }
@@ -267,144 +341,215 @@ var MENUAPP = (function(categories, brands, products)
             }
             html += '</table>';
         }
-        document.getElementById(`brands-${iPad}`).innerHTML = html;
+        document.getElementById(`${categoryBrandsClass}-${categoryId}`).innerHTML = html;
     },
-    changeCheckboxBorderColor = function(className, color)
+    adjustCategoryCheckbox = function(categoryId, subCategoryId, subSubCategoryId)
     {
+        let id = this.getFullIdOrClassName(categoryCheckboxId, categoryId, subCategoryId, subSubCategoryId);
+        let className = this.getFullIdOrClassName(categoryCheckboxClass, categoryId, subCategoryId, subSubCategoryId);
+        let json = this.getCategoryJson(categoryId, subCategoryId, subSubCategoryId);
+        let allChecked = true;
+        let allUnChecked = true;
         var checkboxes = document.getElementsByClassName(className);
-        for (let i = 0, i_length = checkboxes.length; i < i_length; i++) {
-            checkboxes[i].style.color = color;
+        for (let index = 0, index_length = checkboxes.length; index < index_length; index++) {
+            if (subSubCategoryId === null && json === checkboxes[index].value) {
+                 continue;
+            }
+            if (checkboxes[index].checked) {
+                allUnChecked = false;
+            } else {
+                allChecked = false;
+            }
         }
-    },
-    backlink = function(i, j, k, checked)
-    {
-        var allChecked = null;
-        var color = null;
-        if (k !== null) {
-            let kPad = this.pad('00', k, true);
-            let jPad = this.pad('00', j, true);
-            let iPad = this.pad('00', i, true);
-            if (checked && this.checkCheckboxClassChecked(`categoryCheckbox-${iPad}-${jPad}`)) {
-                color = defaultColor;
-            } else {
-                color = partialColor;
-            }
-            this.changeCheckboxBorderColor(`categoryBacklink-${iPad}-${jPad}`, color);
-            if (checked && this.checkCheckboxClassChecked(`categoryCheckbox-${iPad}`)) {
-                color = defaultColor;
-            } else {
-                color = partialColor;
-            }
-            this.changeCheckboxBorderColor(`categoryBacklink-${iPad}`, color);
-        } else if (j !== null) {
-            let iPad = this.pad('00', i, true);
-            if (checked && this.checkCheckboxClassChecked(`categoryCheckbox-${iPad}`)) {
-                color = defaultColor;
-            } else {
-                color = partialColor;
-            }
-            this.changeCheckboxBorderColor(`categoryBacklink-${iPad}`, color);
-        } else if (i !== null) {
-            let iPad = this.pad('00', i, true);
-            color = defaultColor;
-            this.changeCheckboxBorderColor(`categoryCheckbox-${iPad}`, color);
-            this.changeCheckboxBorderColor(`categoryBacklink-${iPad}`, color);
+        if (allChecked) {
+            document.getElementById(id).checked = true;
+        } else if (allUnChecked) {
+            document.getElementById(id).checked = false;
         } else {
-            color = defaultColor;
-            this.changeCheckboxBorderColor(`categoryCheckbox`, color);
+            document.getElementById(id).checked = true;
         }
-    },
-    checkboxClicked = function(i, j, k, checked)
-    {
-        let kPad = this.pad('00', k, true);
-        if (k !== null) {
-            ;
-        } else if (j !== null) {
-            let iPad = this.pad('00', i, true);
-            let jPad = this.pad('00', j, true);
-            this.setCheckboxStatusByClass(`categoryCheckbox-${iPad}-${jPad}`, checked);
-        } else if (i !== null) {
-            let iPad = this.pad('00', i, true);
-            this.setCheckboxStatusByClass(`categoryCheckbox-${iPad}`, checked);
-        } else {
-            this.setCheckboxStatusByClass(`categoryCheckbox`, checked);
-        }
-        this.backlink(i, j, k, checked);
-        this.updateBrands(i);
-        this.displayCheckboxProduct('inline');
-    },
-    displayBrandProducts = function(categoryId, brandId)
-    {
-        let iPad = this.pad('00', categoryId, true);
-        var arr = {};
-        var checkboxes = document.getElementsByClassName(`brands-${iPad}`);
-        for (let i = 0, j = 0, i_length = checkboxes.length; i < i_length; i++) {
-            if (checkboxes[i].checked) {
-                var json = JSON.parse(checkboxes[i].value);
-                if (typeof arr[json[0]] === "undefined") {
-                    arr[json[0]] = {};
-                }
-                if (typeof arr[json[0]][json[1]] === "undefined") {
-                    arr[json[0]][json[1]] = {};
-                }
-                if (typeof arr[json[0]][json[1]][json[2]] === "undefined") {
-                    arr[json[0]][json[1]][json[2]] = {};
-                }
+        if (id !== categoryCheckboxId) {
+            if (allChecked) {
+                document.getElementById(id).style.color = defaultColor;
+            } else if (allUnChecked) {
+                document.getElementById(id).style.color = defaultColor;
+            } else {
+                document.getElementById(id).style.color = partialColor;    
             }
         }
+        switch (true) {
+            case subSubCategoryId !== null:
+                this.adjustCategoryCheckbox(categoryId, subCategoryId, null);
+                break;
+            case subCategoryId !== null:
+                this.adjustCategoryCheckbox(categoryId, null, null);
+                break;
+            case categoryId !== null:
+                this.adjustCategoryCheckbox(null, null, null);
+                break;
+        }
+    },
+    adjustBrandCheckbox = function(brandId)
+    {
+        let className = brandCheckboxClass;
+        let allChecked = true;
+        let allUnChecked = true;
+        var checkboxes = document.getElementsByClassName(className);
+        for (let index = 0, index_length = checkboxes.length; index < index_length; index++) {
+            if (checkboxes[index].id === brandCheckboxId) {
+                 continue;
+            }
+            if (checkboxes[index].checked) {
+                allUnChecked = false;
+            } else {
+                allChecked = false;
+            }
+        }
+        if (allChecked) {
+            document.getElementById(brandCheckboxId).checked = true;
+            document.getElementById(brandCheckboxId).style.color = defaultColor;
+        } else if (allUnChecked) {
+            document.getElementById(brandCheckboxId).checked = false;
+            document.getElementById(brandCheckboxId).style.color = defaultColor;
+        } else {
+            document.getElementById(brandCheckboxId).checked = true;
+            document.getElementById(brandCheckboxId).style.color = partialColor;    
+        }
+    },
+    categoryCheckboxClicked = function(categoryId, subCategoryId, subSubCategoryId, checked)
+    {
+        if (categoryId === null) {
+            var checkboxes = document.getElementsByClassName(categoryCheckboxClass);
+            for (let index = 0, index_length = checkboxes.length; index < index_length; index++) {
+                if (checkboxes[index].id !== categoryCheckboxId) {
+                    checkboxes[index].checked = checked;
+                    checkboxes[index].style.color = defaultColor;
+                }
+            } 
+        } else {
+            var className = this.getFullIdOrClassName(categoryCheckboxClass, categoryId, subCategoryId, subSubCategoryId);
+            var checkboxes = document.getElementsByClassName(className);
+            for (let index = 0, index_length = checkboxes.length; index < index_length; index++) {
+                checkboxes[index].checked = checked;
+            }    
+            this.adjustCategoryCheckbox(categoryId, subCategoryId, subSubCategoryId);
+        }
+        this.updateBrands(categoryId);
+        this.displayCheckboxProducts('inline');
+    },
+    brandCheckboxClicked = function(brandId, checked)
+    {
+        var set = false;
+        if (brandId === null) {
+            set = true;
+        }
+        var checkboxes = document.getElementsByClassName(brandCheckboxClass);
+        var color = defaultColor;
+        for (let index = 0, index_length = checkboxes.length; index < index_length; index++) {
+            if (set) {
+                checkboxes[index].checked = checked;
+                continue;
+            } 
+            if (!checkboxes[index].checked) {
+                color = partialColor;
+                break;
+            }
+        }
+        this.adjustBrandCheckbox(brandId);
+        for(categoryId in categoryHierarchy) {
+            this.updateBrands(categoryId);
+        }
+        this.displayCheckboxProducts('inline');
+    },
+    displayCategoryBrandProducts = function(categoryId, brandId)
+    {
+        let selectedCategories = this.getSelectedCategories(categoryId);
+        var brandIds = getActiveBrandIds();
         var productIds = [];
-        for(index in products) {
-            i = products[index]['categoryIds'][0];
-            j = products[index]['categoryIds'][1];
-            k = products[index]['categoryIds'][2];
-            if (
-                brandId === products[index]['brandId'] &&
-                (typeof arr[i] !== "undefined") &&
-                (typeof arr[i][j] !== "undefined") &&
-                (typeof arr[i][j][k] !== "undefined")
-            ) {
+        for (index in products) {
+            let found = false;
+            for (categoryIdsIndex in products[index][categoryIdsKey]) {
+                let categoryIds = products[index][categoryIdsKey][categoryIdsIndex];
+                if (
+                    typeof selectedCategories[categoryIds[0]] !== "undefined" &&
+                    typeof selectedCategories[categoryIds[0]][categoryIds[1]] !== "undefined" &&
+                    typeof selectedCategories[categoryIds[0]][categoryIds[1]][categoryIds[2]] !== "undefined" &&
+                    brandId == products[index][brandIdKey] &&
+                    brandIds.indexOf(products[index][brandIdKey]) !== -1
+                ) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
                 productIds[index] = index;
             }
         }
         this.generateProductHtml(productIds);
     },
-    genMenu = function genMenu()
+    displayBrandProducts = function(brandId)
+    {
+        var productIds = [];
+        for (index in products) {
+            if (brandId == products[index][brandIdKey]) {
+                productIds[index] = index;
+            }
+        }
+        this.generateProductHtml(productIds);
+    },
+    getCategoryCheckboxAttributes = function(categoryId, subCategoryId, subSubCategoryId)
+    {
+        let id = this.getFullIdOrClassName(categoryCheckboxId, categoryId, subCategoryId, subSubCategoryId);
+        let className = categoryCheckboxClass;
+        let onClick = `obj.categoryCheckboxClicked(${categoryId}, ${subCategoryId}, ${subSubCategoryId}, this.checked);`;
+        if (categoryId !== null) {
+            className += ' '+this.getFullIdOrClassName(categoryCheckboxClass, categoryId, null, null);
+        }
+        if (subCategoryId !== null) {
+            className += ' '+this.getFullIdOrClassName(categoryCheckboxClass, categoryId, subCategoryId, null);
+        }
+        if (subSubCategoryId !== null) {
+            className += ' '+this.getFullIdOrClassName(categoryCheckboxClass, categoryId, subCategoryId, subSubCategoryId);
+        }
+        let val = this.getCategoryJson(categoryId, subCategoryId, subSubCategoryId);
+            
+        return `id="${id}" class="${className}" value="${val}" onClick="${onClick}" checked`;
+    },
+    genMenu = function()
     {
         var is = {};
         var html = `
             '<div class="displayInlineBlock">
                 <div>
                     <span>
-                        <div style="float:right;"><input type="checkbox" id="allCategoryCheckbox" checked style="color: #FF0000;" onClick="obj.checkboxClicked(null, null, null, this.checked);"/></div><span><b>Filter&nbsp;::&nbsp;</b></span>
+                        <div style="float:right;"><input type="checkbox" ${this.getCategoryCheckboxAttributes(null, null, null)} style="color: #FF0000;"/></div><span><b>Filter&nbsp;::&nbsp;</b></span>
                     </span>
                 </div>
             </div>`;
-        for(i in categoryHierarchy) {
-            is[i] = i;
-            iPad = this.pad('00', i, true);
+        for(categoryId in categoryHierarchy) {
+            is[categoryId] = categoryId;
             html += `
             <div class="padl displayInlineBlock">
-                <div onmouseleave="obj.hide('subMenu-${iPad}');">
-                    <span onmouseenter="obj.displaySubMenu('${iPad}');">
-                        <div style="float:left;"><input type="checkbox" checked class="categoryCheckbox categoryBacklink-${iPad}" onClick="obj.checkboxClicked(${i}, null, null, this.checked);"/></div>&nbsp;<span onClick="obj.displayProduct(${i},null,null, true)">${categoryHierarchy[i]['name']}</span>
+                <div onmouseleave="obj.hideId('subMenu-${categoryId}');">
+                    <span onmouseenter="obj.displayId('subMenu-${categoryId}');">
+                        <div style="float:left;"><input type="checkbox" ${this.getCategoryCheckboxAttributes(categoryId, null, null)}/></div>&nbsp;<span onClick="obj.displayCategoryProducts(${categoryId},null,null, true)">${categoryHierarchy[categoryId]['name']}</span>
                     </span>
                     <!-- Sub Menu start-->
-                    <div class="subMenu" id="subMenu-${iPad}">`;
-            if (typeof categoryHierarchy[i]['subCategory'] !== "undefined") {
+                    <div class="subMenu" id="subMenu-${categoryId}">`;
+            if (typeof categoryHierarchy[categoryId]['subCategory'] !== "undefined") {
                 html += `
                         <table width="600" height="200" cellpadding="0" cellspacing="5">
                             <tr>
                                 <td class="collapse" width="200" valign="top">
                                     <table width="200" cellpadding="0" cellspacing="2">`;
-                for(j in categoryHierarchy[i]['subCategory']) {
-                    jPad = this.pad('00', j, true);
+                for(subCategoryId in categoryHierarchy[categoryId]['subCategory']) {
                                         html += `
                                         <tr>
                                             <td>
                                                 <table width="100%" cellpadding="0" cellspacing="2">
                                                     <tr>
-                                                        <td width="17" align="center"><input type="checkbox" checked class="categoryCheckbox categoryCheckbox-${iPad} categoryBacklink-${iPad}-${jPad}" onClick="obj.checkboxClicked(${i}, ${j}, null, this.checked);"/></td>
-                                                        <td class="subMenus" align="left" onmouseenter="obj.displaySubSubMenu(${i}, ${j});" onClick="obj.displayProduct(${i}, ${j},null, true)">${categoryHierarchy[i]['subCategory'][j]['name']}</td>
+                                                        <td width="17" align="center"><input type="checkbox" ${this.getCategoryCheckboxAttributes(categoryId, subCategoryId, null)}/></td>
+                                                        <td class="subMenus" align="left" onmouseenter="obj.hideClass('subSubMenu');obj.displayId('subSubMenu-${categoryId}-${subCategoryId}');" onClick="obj.displayCategoryProducts(${categoryId}, ${subCategoryId},null, true)">${categoryHierarchy[categoryId]['subCategory'][subCategoryId]['name']}</td>
                                                     </tr>
                                                 </table>
                                             </td>
@@ -414,26 +559,24 @@ var MENUAPP = (function(categories, brands, products)
                                     </table>
                                 </td>
                                 <td class="collapse" width="400" valign="top">`;
-                for(j in categoryHierarchy[i]['subCategory']) {
-                    jPad = this.pad('00', j, true);
+                for(subCategoryId in categoryHierarchy[categoryId]['subCategory']) {
                                     html += `
-                                    <div id="subSubMenu-${iPad}-${jPad}" class="subSubMenu hide">`;
-                    if (typeof categoryHierarchy[i]['subCategory'][j]['subCategory'] !== "undefined") {
+                                    <div id="subSubMenu-${categoryId}-${subCategoryId}" class="subSubMenu hide">`;
+                    if (typeof categoryHierarchy[categoryId]['subCategory'][subCategoryId]['subCategory'] !== "undefined") {
                                         html += `
                                         <table width="100%" cellpadding="0" cellspacing="2">
                                             <tr>
                                                 <td valign="top">
                                                     <table width="100%" cellpadding="0" cellspacing="2">
                                                         <tr>`;
-                        for(k in categoryHierarchy[i]['subCategory'][j]['subCategory']) {
-                            kPad = this.pad('00', k, true);
+                        for(subSubCategoryId in categoryHierarchy[categoryId]['subCategory'][subCategoryId]['subCategory']) {
                                                 html += `
                                                 <tr>
                                                     <td>
                                                         <table width="100%" cellpadding="0" cellspacing="2">
                                                             <tr>
-                                                                <td width="17" align="center"><input type="checkbox" id="categoryCheckboxId-${iPad}-${jPad}-${kPad}" value="[${i}, ${j}, ${k}]" class="brands-${iPad} categoryCheckbox categoryCheckbox-${iPad} categoryCheckbox-${iPad}-${jPad}" checked onClick="obj.checkboxClicked(${i}, ${j}, ${k}, this.checked);"/></td>
-                                                                <td class="subSubMenus" align="left" onClick="obj.displayProduct(${i}, ${j}, ${k}, true)">${categoryHierarchy[i]['subCategory'][j]['subCategory'][k]['name']}</td>
+                                                                <td width="17" align="center"><input type="checkbox" ${this.getCategoryCheckboxAttributes(categoryId, subCategoryId, subSubCategoryId)}/></td>
+                                                                <td class="subSubMenus" align="left" onClick="obj.displayCategoryProducts(${categoryId}, ${subCategoryId}, ${subSubCategoryId}, true)">${categoryHierarchy[categoryId]['subCategory'][subCategoryId]['subCategory'][subSubCategoryId]['name']}</td>
                                                             </tr>
                                                         </table>
                                                     </td>
@@ -453,7 +596,7 @@ var MENUAPP = (function(categories, brands, products)
                                 </td>
                             </tr>
                             <tr>
-                                <td height="27" valign="top" colspan="2" class="collapse brands" id="brands-${iPad}">
+                                <td height="27" valign="top" colspan="2" class="collapse ${categoryBrandsClass}" id="${categoryBrandsClass}-${categoryId}">
                                 </td>
                             </tr>
                         </table>`;
@@ -465,8 +608,35 @@ var MENUAPP = (function(categories, brands, products)
         }
         html += `
             <div class="padl displayInlineBlock">
+                <div onmouseleave="obj.hideId('subMenu-brand');">
+                    <span onmouseenter="obj.displayId('subMenu-brand');">
+                        <div style="float:left;"><input type="checkbox" id="${brandCheckboxId}" class="${brandCheckboxClass}" checked class="brandBacklink" onClick="obj.brandCheckboxClicked(null, this.checked);"/></div>&nbsp;<span>Brands</span>
+                    </span>
+                    <!-- Sub Menu start-->
+                    <div class="subMenu" id="subMenu-brand">`;
+                    html += `
+                        <table width="200" cellpadding="0" cellspacing="5">`;
+                for(brandId in brands) {
+                        html += `
+                            <tr>
+                                <td width="200" valign="top">
+                                    <table width="100%" cellpadding="0" cellspacing="2">
+                                        <tr>
+                                            <td width="17" align="center"><input type="checkbox" id="${brandCheckboxId}-${brandId}" class="${brandCheckboxClass} ${brandCheckboxClass}-${brandId}" checked  value="${brandId}" onClick="obj.brandCheckboxClicked(${brandId}, this.checked);"/></td>
+                                            <td class="subMenus" align="left" onClick="obj.displayBrandProducts(${brandId})">${brands[brandId]}</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>`;
+                }
+                    html += `
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="padl displayInlineBlock">
                 <div class="filter">
-                    <div style="float:left;"><input type="checkbox" id="searchCheckbox" style="color: #FF0000;"/></div><span onClick="obj.displayCheckboxProduct('search');" class="searchSpan">Search</span>
+                    <div style="float:left;"><input type="checkbox" id="searchCheckbox" style="color: #FF0000;"/></div><span onClick="obj.displayCheckboxProducts('search');" class="searchSpan">Search</span>
                 </div>
             </div>
             <div class="displayInlineBlock" style="float:right;">
@@ -483,7 +653,7 @@ var MENUAPP = (function(categories, brands, products)
             </div>`;
 
         document.getElementById('menu').innerHTML = html;
-        this.displayProduct(null, null, null, false);
+        this.displayCategoryProducts(null, null, null, false);
         for(index in is) {
             this.updateBrands(index);
         }
@@ -492,22 +662,26 @@ var MENUAPP = (function(categories, brands, products)
     var nsp = {};
     
     nsp.generateCategoryHierarchy = generateCategoryHierarchy;
-    nsp.pad = pad;
-    nsp.display = display;
-    nsp.hide = hide;
-    nsp.displaySubMenu = displaySubMenu;
-    nsp.displaySubSubMenu = displaySubSubMenu;
+    nsp.displayId = displayId;
+    nsp.hideId = hideId;
+    nsp.hideClass = hideClass;
     nsp.generateProductHtml = generateProductHtml;
-    nsp.displayProduct = displayProduct;
-    nsp.checkboxIdChecked = checkboxIdChecked;
-    nsp.displayCheckboxProduct = displayCheckboxProduct;
+    nsp.getActiveBrandIds = getActiveBrandIds;
+    nsp.displayCategoryProducts = displayCategoryProducts;
+    nsp.getFullIdOrClassName = getFullIdOrClassName;
+    nsp.getCategoryJson = getCategoryJson;
+    nsp.isCheckboxIdChecked = isCheckboxIdChecked;
+    nsp.isCheckboxClassChecked = isCheckboxClassChecked;
+    nsp.displayCheckboxProducts = displayCheckboxProducts;
+    nsp.getSelectedCategories = getSelectedCategories;
     nsp.updateBrands = updateBrands;
-    nsp.setCheckboxStatusByClass = setCheckboxStatusByClass;
-    nsp.checkCheckboxClassChecked = checkCheckboxClassChecked;
-    nsp.changeCheckboxBorderColor = changeCheckboxBorderColor;
-    nsp.backlink = backlink ;
-    nsp.checkboxClicked = checkboxClicked;
+    nsp.adjustCategoryCheckbox = adjustCategoryCheckbox;
+    nsp.adjustBrandCheckbox = adjustBrandCheckbox;
+    nsp.categoryCheckboxClicked = categoryCheckboxClicked;
+    nsp.brandCheckboxClicked = brandCheckboxClicked;
+    nsp.displayCategoryBrandProducts = displayCategoryBrandProducts;
     nsp.displayBrandProducts = displayBrandProducts;
+    nsp.getCategoryCheckboxAttributes = getCategoryCheckboxAttributes;
     nsp.genMenu = genMenu;
 
     return nsp;

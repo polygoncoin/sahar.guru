@@ -168,8 +168,32 @@ var MENUAPP = (function(categories, brands, products)
         }
         return brandIds;
     },
+    setBreadcrum = function(categoryId, subCategoryId, subSubCategoryId)
+    {
+        var breadcrumHtml = '';
+        if (categoryId !== null) {
+            breadcrumHtml = 'Breadcrum:'
+            if (subCategoryId === null) {
+                breadcrumHtml += ` ${categories[categoryId]}`;
+            } else {
+                breadcrumHtml += ` <a href="javascript:void();" onClick="obj.displayCategoryProducts(${categoryId}, null, null, false);">${categories[categoryId]}</a>`;
+            }
+            if (subCategoryId !== null) {
+                if (subSubCategoryId === null) {
+                    breadcrumHtml += ` &gt; ${categories[subCategoryId]}`;
+                } else {
+                    breadcrumHtml += ` &gt; <a href="javascript:void();" onClick="obj.displayCategoryProducts(${categoryId}, ${subCategoryId}, null, false);">${categories[subCategoryId]}</a>`;
+                }
+                if (subSubCategoryId !== null) {
+                    breadcrumHtml += ` &gt; ${categories[subSubCategoryId]}`;
+                }                    
+            }
+        }
+        document.getElementById('breadcrum').innerHTML = breadcrumHtml;
+    }
     displayCategoryProducts = function(categoryId, subCategoryId, subSubCategoryId, closeMenu)
     {
+        this.setBreadcrum(categoryId, subCategoryId, subSubCategoryId);
         // Close Menu code
         if (closeMenu === true) {
             this.hideClass('subMenu');
@@ -229,6 +253,7 @@ var MENUAPP = (function(categories, brands, products)
     },
     displayCheckboxProducts = function(mode)
     {
+        this.setBreadcrum(null, null, null);
         if (
             (this.isCheckboxIdChecked('searchCheckbox') && mode === 'inline') ||
             (!this.isCheckboxIdChecked('searchCheckbox') && mode === 'search')
@@ -418,6 +443,7 @@ var MENUAPP = (function(categories, brands, products)
     },
     categoryCheckboxClicked = function(categoryId, subCategoryId, subSubCategoryId, checked)
     {
+        this.setBreadcrum(null, null, null);
         if (categoryId === null) {
             var checkboxes = document.getElementsByClassName(categoryCheckboxClass);
             for (let index = 0, index_length = checkboxes.length; index < index_length; index++) {
@@ -678,6 +704,7 @@ var MENUAPP = (function(categories, brands, products)
     nsp.getCategoryJson = getCategoryJson;
     nsp.getSelectedCategories = getSelectedCategories;
     nsp.generateProductHtml = generateProductHtml;
+    nsp.setBreadcrum = setBreadcrum;
     nsp.displayCategoryProducts = displayCategoryProducts;
     nsp.displayCheckboxProducts = displayCheckboxProducts;
     nsp.updateBrands = updateBrands;

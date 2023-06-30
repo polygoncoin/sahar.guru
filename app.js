@@ -172,7 +172,7 @@ var MENUAPP = (function(categories, brands, products)
     {
         var breadcrumHtml = '';
         if (categoryId !== null) {
-            breadcrumHtml = 'Breadcrum:'
+            breadcrumHtml = 'Breadcrum ::'
             if (subCategoryId === null) {
                 breadcrumHtml += ` ${categories[categoryId]}`;
             } else {

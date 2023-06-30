@@ -496,7 +496,7 @@ var MENUAPP = (function(categories, brands, products)
             this.adjustCategoryCheckbox(categoryId, subCategoryId, subSubCategoryId);
         }
         if (categoryId === null) {
-            for (categoryId in categoryHierarchy) {
+            for (let categoryId in categoryHierarchy) {
                 this.updateBrands(categoryId);
             }    
         } else {
@@ -524,7 +524,7 @@ var MENUAPP = (function(categories, brands, products)
             }
         }
         this.adjustBrandCheckbox(brandId);
-        for (categoryId in categoryHierarchy) {
+        for (let categoryId in categoryHierarchy) {
             this.updateBrands(categoryId);
         }
         this.displayCheckboxProducts('inline');
@@ -536,7 +536,7 @@ var MENUAPP = (function(categories, brands, products)
         var productIds = [];
         for (let index in products) {
             let found = false;
-            for (categoryIdsIndex in products[index][categoryIdsKey]) {
+            for (let categoryIdsIndex in products[index][categoryIdsKey]) {
                 let categoryIds = products[index][categoryIdsKey][categoryIdsIndex];
                 if (
                     typeof selectedCategories[categoryIds[0]] !== "undefined" &&

@@ -168,11 +168,11 @@ var MENUAPP = (function(categories, brands, products)
         }
         return brandIds;
     },
-    setBreadcrum = function(categoryId, subCategoryId, subSubCategoryId)
+    setCategoryBreadcrum = function(categoryId, subCategoryId, subSubCategoryId)
     {
         var breadcrumHtml = '';
         if (categoryId !== null) {
-            breadcrumHtml = 'Breadcrum ::'
+            breadcrumHtml = 'Categories ::'
             if (subCategoryId === null) {
                 breadcrumHtml += ` ${categories[categoryId]}`;
             } else {
@@ -190,10 +190,18 @@ var MENUAPP = (function(categories, brands, products)
             }
         }
         document.getElementById('breadcrum').innerHTML = breadcrumHtml;
-    }
+    },
+    setBrandBreadcrum = function(brandId)
+    {
+        var breadcrumHtml = '';
+        if (brandId !== null) {
+            breadcrumHtml = `Brand :: ${brands[brandId]}`;
+        }
+        document.getElementById('breadcrum').innerHTML = breadcrumHtml;
+    },
     displayCategoryProducts = function(categoryId, subCategoryId, subSubCategoryId, closeMenu)
     {
-        this.setBreadcrum(categoryId, subCategoryId, subSubCategoryId);
+        this.setCategoryBreadcrum(categoryId, subCategoryId, subSubCategoryId);
         // Close Menu code
         if (closeMenu === true) {
             this.hideClass('subMenu');
@@ -253,7 +261,7 @@ var MENUAPP = (function(categories, brands, products)
     },
     displayCheckboxProducts = function(mode)
     {
-        this.setBreadcrum(null, null, null);
+        this.setCategoryBreadcrum(null, null, null);
         if (
             (this.isCheckboxIdChecked('searchCheckbox') && mode === 'inline') ||
             (!this.isCheckboxIdChecked('searchCheckbox') && mode === 'search')
@@ -443,7 +451,7 @@ var MENUAPP = (function(categories, brands, products)
     },
     categoryCheckboxClicked = function(categoryId, subCategoryId, subSubCategoryId, checked)
     {
-        this.setBreadcrum(null, null, null);
+        this.setCategoryBreadcrum(null, null, null);
         if (categoryId === null) {
             var checkboxes = document.getElementsByClassName(categoryCheckboxClass);
             for (let index = 0, index_length = checkboxes.length; index < index_length; index++) {
@@ -471,6 +479,7 @@ var MENUAPP = (function(categories, brands, products)
     },
     brandCheckboxClicked = function(brandId, checked)
     {
+        this.setBrandBreadcrum(null);
         var set = false;
         if (brandId === null) {
             set = true;
@@ -521,6 +530,7 @@ var MENUAPP = (function(categories, brands, products)
     },
     displayBrandProducts = function(brandId)
     {
+        this.setBrandBreadcrum(brandId);
         var productIds = [];
         for (index in products) {
             if (brandId == products[index][brandIdKey]) {
@@ -704,7 +714,8 @@ var MENUAPP = (function(categories, brands, products)
     nsp.getCategoryJson = getCategoryJson;
     nsp.getSelectedCategories = getSelectedCategories;
     nsp.generateProductHtml = generateProductHtml;
-    nsp.setBreadcrum = setBreadcrum;
+    nsp.setCategoryBreadcrum = setCategoryBreadcrum;
+    nsp.setBrandBreadcrum = setBrandBreadcrum;
     nsp.displayCategoryProducts = displayCategoryProducts;
     nsp.displayCheckboxProducts = displayCheckboxProducts;
     nsp.updateBrands = updateBrands;

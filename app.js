@@ -24,7 +24,7 @@ var MENUAPP = (function(categories, brands, products)
     // Generating category Hierarchy array
     var generateCategoryHierarchy = function ()
     {
-        for(index in products) {
+        for (index in products) {
             for (categoryIdsIndex in products[index][categoryIdsKey]) {
                 let categoryIds = products[index][categoryIdsKey][categoryIdsIndex];
                 if (
@@ -65,7 +65,7 @@ var MENUAPP = (function(categories, brands, products)
     hideClass = function(className)
     {
         var objs = document.getElementsByClassName(className);
-        for (let index = 0, index_length = objs.length; index < index_length; index++) {
+        for (let index = 0, index_length = objs.length;index < index_length;index++) {
             objs[index].style.display = "none";
         }
     },
@@ -86,7 +86,7 @@ var MENUAPP = (function(categories, brands, products)
     {
         var checked = true;
         var checkboxes = document.getElementsByClassName(className);
-        for (let index = 0, index_length = checkboxes.length; index < index_length; index++) {
+        for (let index = 0, index_length = checkboxes.length;index < index_length;index++) {
             if (!checkboxes[index].checked) {
                 checked = false;
             }
@@ -140,7 +140,7 @@ var MENUAPP = (function(categories, brands, products)
                 } else {
                     tagClass = 'gridListingColumn';
                 }
-                html += `<div class="${tagClass} displayInlineBlock">
+                html += `<div class="${tagClass}displayInlineBlock">
                         <img src="pimage.jpg" width="200" height="200">
                         <div class="productName">${products[index][productNameKey]}</div>
                         <div class="productName">${brands[products[index][brandIdKey]]}</div>
@@ -161,7 +161,7 @@ var MENUAPP = (function(categories, brands, products)
         var checkboxes = document.getElementsByClassName(brandCheckboxClass);
         var brandIds = [];
         var i = 0;
-        for (let index = 0, i_length = checkboxes.length; index < i_length; index++) {
+        for (let index = 0, i_length = checkboxes.length;index < i_length;index++) {
             if (checkboxes[index].checked) {
                 brandIds[i++] = parseInt(checkboxes[index].value);
             }
@@ -259,7 +259,7 @@ var MENUAPP = (function(categories, brands, products)
         let selectedCategories = {};
         let className = this.getFullIdOrClassName(categoryCheckboxClass, categoryId, null, null);
         var checkboxes = document.getElementsByClassName(className);
-        for (let index = 0, index_length = checkboxes.length; index < index_length; index++) {
+        for (let index = 0, index_length = checkboxes.length;index < index_length;index++) {
             if (checkboxes[index].checked) {
                 let json = JSON.parse(checkboxes[index].value);
                 if (json.length === 3) {
@@ -282,7 +282,7 @@ var MENUAPP = (function(categories, brands, products)
     {
         if (categoryId === null) {
             var categoryBrands = document.getElementsByClassName(categoryBrandsClass);
-            for (let index = 0, index_length = categoryBrands.length; index < index_length; index++) {
+            for (let index = 0, index_length = categoryBrands.length;index < index_length;index++) {
                 categoryBrands[index].innerHTML = '';
             }
             return;
@@ -323,14 +323,14 @@ var MENUAPP = (function(categories, brands, products)
                     if (i%4 === 0) {
                         html += '<tr>';
                     }
-                    html += `<td width="150" class="brand" align="left" onClick="obj.displayCategoryBrandProducts(${categoryId}, ${brandId})">${brands[brandId]} (${brandCount[brandId]})</td>`;
+                    html += `<td width="150" class="brand" align="left" onClick="obj.displayCategoryBrandProducts(${categoryId}, ${brandId})">${brands[brandId]}(${brandCount[brandId]})</td>`;
                     if (i%4 === 3) {
                         html += '<tr>';
                     }
                     i++;
                 }
             }
-            for (i = i%4; i < 4; i++) {
+            for (i = i%4;i < 4;i++) {
                 if (i%4 === 0) {
                     html += '<tr>';
                 }
@@ -351,7 +351,7 @@ var MENUAPP = (function(categories, brands, products)
         let allChecked = true;
         let allUnChecked = true;
         var checkboxes = document.getElementsByClassName(className);
-        for (let index = 0, index_length = checkboxes.length; index < index_length; index++) {
+        for (let index = 0, index_length = checkboxes.length;index < index_length;index++) {
             if (subSubCategoryId === null && json === checkboxes[index].value) {
                  continue;
             }
@@ -374,7 +374,7 @@ var MENUAPP = (function(categories, brands, products)
             } else if (allUnChecked) {
                 document.getElementById(id).style.color = defaultColor;
             } else {
-                document.getElementById(id).style.color = partialColor;    
+                document.getElementById(id).style.color = partialColor;
             }
         }
         switch (true) {
@@ -395,7 +395,7 @@ var MENUAPP = (function(categories, brands, products)
         let allChecked = true;
         let allUnChecked = true;
         var checkboxes = document.getElementsByClassName(className);
-        for (let index = 0, index_length = checkboxes.length; index < index_length; index++) {
+        for (let index = 0, index_length = checkboxes.length;index < index_length;index++) {
             if (checkboxes[index].id === brandCheckboxId) {
                  continue;
             }
@@ -413,28 +413,34 @@ var MENUAPP = (function(categories, brands, products)
             document.getElementById(brandCheckboxId).style.color = defaultColor;
         } else {
             document.getElementById(brandCheckboxId).checked = true;
-            document.getElementById(brandCheckboxId).style.color = partialColor;    
+            document.getElementById(brandCheckboxId).style.color = partialColor;
         }
     },
     categoryCheckboxClicked = function(categoryId, subCategoryId, subSubCategoryId, checked)
     {
         if (categoryId === null) {
             var checkboxes = document.getElementsByClassName(categoryCheckboxClass);
-            for (let index = 0, index_length = checkboxes.length; index < index_length; index++) {
+            for (let index = 0, index_length = checkboxes.length;index < index_length;index++) {
                 if (checkboxes[index].id !== categoryCheckboxId) {
                     checkboxes[index].checked = checked;
                     checkboxes[index].style.color = defaultColor;
                 }
-            } 
+            }
         } else {
             var className = this.getFullIdOrClassName(categoryCheckboxClass, categoryId, subCategoryId, subSubCategoryId);
             var checkboxes = document.getElementsByClassName(className);
-            for (let index = 0, index_length = checkboxes.length; index < index_length; index++) {
+            for (let index = 0, index_length = checkboxes.length;index < index_length;index++) {
                 checkboxes[index].checked = checked;
-            }    
+            }
             this.adjustCategoryCheckbox(categoryId, subCategoryId, subSubCategoryId);
         }
-        this.updateBrands(categoryId);
+        if (categoryId === null) {
+            for (categoryId in categoryHierarchy) {
+                this.updateBrands(categoryId);
+            }
+        } else {
+            this.updateBrands(categoryId);
+        }
         this.displayCheckboxProducts('inline');
     },
     brandCheckboxClicked = function(brandId, checked)
@@ -445,18 +451,18 @@ var MENUAPP = (function(categories, brands, products)
         }
         var checkboxes = document.getElementsByClassName(brandCheckboxClass);
         var color = defaultColor;
-        for (let index = 0, index_length = checkboxes.length; index < index_length; index++) {
+        for (let index = 0, index_length = checkboxes.length;index < index_length;index++) {
             if (set) {
                 checkboxes[index].checked = checked;
                 continue;
-            } 
+            }
             if (!checkboxes[index].checked) {
                 color = partialColor;
                 break;
             }
         }
         this.adjustBrandCheckbox(brandId);
-        for(categoryId in categoryHierarchy) {
+        for (categoryId in categoryHierarchy) {
             this.updateBrands(categoryId);
         }
         this.displayCheckboxProducts('inline');
@@ -522,11 +528,11 @@ var MENUAPP = (function(categories, brands, products)
             '<div class="displayInlineBlock">
                 <div>
                     <span>
-                        <div style="float:right;"><input type="checkbox" ${this.getCategoryCheckboxAttributes(null, null, null)} style="color: #FF0000;"/></div><span><b>Filter&nbsp;::&nbsp;</b></span>
+                        <div style="float:right;"><input type="checkbox" ${this.getCategoryCheckboxAttributes(null, null, null)}style="color: #FF0000;"/></div><span><b>Filter&nbsp;::&nbsp;</b></span>
                     </span>
                 </div>
             </div>`;
-        for(categoryId in categoryHierarchy) {
+        for (categoryId in categoryHierarchy) {
             is[categoryId] = categoryId;
             html += `
             <div class="padl displayInlineBlock">
@@ -542,7 +548,7 @@ var MENUAPP = (function(categories, brands, products)
                             <tr>
                                 <td class="collapse" width="200" valign="top">
                                     <table width="200" cellpadding="0" cellspacing="2">`;
-                for(subCategoryId in categoryHierarchy[categoryId]['subCategory']) {
+                for (subCategoryId in categoryHierarchy[categoryId]['subCategory']) {
                                         html += `
                                         <tr>
                                             <td>
@@ -559,7 +565,7 @@ var MENUAPP = (function(categories, brands, products)
                                     </table>
                                 </td>
                                 <td class="collapse" width="400" valign="top">`;
-                for(subCategoryId in categoryHierarchy[categoryId]['subCategory']) {
+                for (subCategoryId in categoryHierarchy[categoryId]['subCategory']) {
                                     html += `
                                     <div id="subSubMenu-${categoryId}-${subCategoryId}" class="subSubMenu hide">`;
                     if (typeof categoryHierarchy[categoryId]['subCategory'][subCategoryId]['subCategory'] !== "undefined") {
@@ -569,7 +575,7 @@ var MENUAPP = (function(categories, brands, products)
                                                 <td valign="top">
                                                     <table width="100%" cellpadding="0" cellspacing="2">
                                                         <tr>`;
-                        for(subSubCategoryId in categoryHierarchy[categoryId]['subCategory'][subCategoryId]['subCategory']) {
+                        for (subSubCategoryId in categoryHierarchy[categoryId]['subCategory'][subCategoryId]['subCategory']) {
                                                 html += `
                                                 <tr>
                                                     <td>
@@ -616,13 +622,13 @@ var MENUAPP = (function(categories, brands, products)
                     <div class="subMenu" id="subMenu-brand">`;
                     html += `
                         <table width="200" cellpadding="0" cellspacing="5">`;
-                for(brandId in brands) {
+                for (brandId in brands) {
                         html += `
                             <tr>
                                 <td width="200" valign="top">
                                     <table width="100%" cellpadding="0" cellspacing="2">
                                         <tr>
-                                            <td width="17" align="center"><input type="checkbox" id="${brandCheckboxId}-${brandId}" class="${brandCheckboxClass} ${brandCheckboxClass}-${brandId}" checked  value="${brandId}" onClick="obj.brandCheckboxClicked(${brandId}, this.checked);"/></td>
+                                            <td width="17" align="center"><input type="checkbox" id="${brandCheckboxId}-${brandId}" class="${brandCheckboxClass}${brandCheckboxClass}-${brandId}" checked  value="${brandId}" onClick="obj.brandCheckboxClicked(${brandId}, this.checked);"/></td>
                                             <td class="subMenus" align="left" onClick="obj.displayBrandProducts(${brandId})"><a href="javascript:void();">${brands[brandId]}</a></td>
                                         </tr>
                                     </table>
@@ -654,7 +660,7 @@ var MENUAPP = (function(categories, brands, products)
 
         document.getElementById('menu').innerHTML = html;
         this.displayCategoryProducts(null, null, null, false);
-        for(index in is) {
+        for (index in is) {
             this.updateBrands(index);
         }
     };

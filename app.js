@@ -19,7 +19,7 @@ var MENUAPP = (function(categories, brands, products)
     var productNameKey = 'productName';
     var productImageKey = 'productImage';
 
-    var partialColor = 'orange';
+    var partialColor = 'red';
     var defaultColor = '#000000';
 
     var categoryHierarchy = {};
@@ -585,7 +585,7 @@ var MENUAPP = (function(categories, brands, products)
         var html = `
             <div class="displayInlineBlock">
                 <div>
-                    <span onClick="obj.categoryCheckboxClicked(null, null, null, true);" style="color:Red;"><a hredf="javascript:void(0);"><b>Home</b></a></span>
+                    <span onClick="obj.categoryCheckboxClicked(null, null, null, true);" style="color:Blue;cursor:pointer;"><a hredf="javascript:void(0);"><b>Home</b></a></span>
                 </div>
             </div>`;
         for (let categoryId in categoryHierarchy) {

@@ -286,24 +286,22 @@ var MENUAPP = (function(categories, brands, products)
         }
         this.generateProductHtml(productIds);
     },
-    displayCheckboxProducts = function(mode)
+    displayCheckboxProducts = function()
     {
         this.setCategoryBreadcrum(null, null, null, false);
         var productIds = [];
-        if (this.isCheckboxIdChecked(categoryCheckboxId)) {
-            // Display Product
-            var brandIds = getActiveBrandIds();
-            var productIds = [];
-            for (let index in products) {
-                if (brandIds.indexOf(products[index][brandIdKey]) === -1) {
-                    continue;
-                }
-                for (let categoryIdsIndex in products[index][categoryIdsKey]) {
-                    let categoryIds = products[index][categoryIdsKey][categoryIdsIndex];
-                    if (this.isCheckboxIdChecked(`${categoryCheckboxId}-${categoryIds[0]}-${categoryIds[1]}-${categoryIds[2]}`)) {
-                        productIds[index] = index;
-                        break;
-                    }
+        // Display Product
+        var brandIds = getActiveBrandIds();
+        var productIds = [];
+        for (let index in products) {
+            if (brandIds.indexOf(products[index][brandIdKey]) === -1) {
+                continue;
+            }
+            for (let categoryIdsIndex in products[index][categoryIdsKey]) {
+                let categoryIds = products[index][categoryIdsKey][categoryIdsIndex];
+                if (this.isCheckboxIdChecked(`${categoryCheckboxId}-${categoryIds[0]}-${categoryIds[1]}-${categoryIds[2]}`)) {
+                    productIds[index] = index;
+                    break;
                 }
             }
         }
@@ -420,7 +418,7 @@ var MENUAPP = (function(categories, brands, products)
             document.getElementById(id).checked = true;
         } else if (allUnChecked) {
             document.getElementById(id).checked = false;
-        } else {
+        } else if (categoryId !== null) {
             document.getElementById(id).checked = true;
         }
         if (id !== categoryCheckboxId) {
@@ -438,9 +436,6 @@ var MENUAPP = (function(categories, brands, products)
                 break;
             case subCategoryId !== null:
                 this.adjustCategoryCheckbox(categoryId, null, null);
-                break;
-            case categoryId !== null:
-                this.adjustCategoryCheckbox(null, null, null);
                 break;
         }
     },
@@ -497,7 +492,7 @@ var MENUAPP = (function(categories, brands, products)
         } else {
             this.updateBrands(categoryId);
         }
-        this.displayCheckboxProducts('inline');
+        this.displayCheckboxProducts();
     },
     brandCheckboxClicked = function(brandId, checked)
     {
@@ -522,7 +517,7 @@ var MENUAPP = (function(categories, brands, products)
         for (let categoryId in categoryHierarchy) {
             this.updateBrands(categoryId);
         }
-        this.displayCheckboxProducts('inline');
+        this.displayCheckboxProducts();
     },
     displayCategoryBrandProducts = function(categoryId, brandId)
     {

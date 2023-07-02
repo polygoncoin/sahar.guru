@@ -669,7 +669,7 @@ var MENUAPP = (function(categories, brands, products)
             </div>`;
         }
         html += `
-            <div class="padl displayInlineBlock">
+            <div class="displayInlineBlock" style="float:right;">
                 <div onmouseleave="obj.hideId('subMenu-brand');">
                     <span onmouseenter="obj.displayId('subMenu-brand');">
                         <div style="float:left;"><input type="checkbox" id="${brandCheckboxId}" class="${brandCheckboxClass}" checked class="brandBacklink" onClick="obj.brandCheckboxClicked(null, this.checked);"/></div>&nbsp;<span>Brands</span>

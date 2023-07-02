@@ -289,30 +289,25 @@ var MENUAPP = (function(categories, brands, products)
     displayCheckboxProducts = function(mode)
     {
         this.setCategoryBreadcrum(null, null, null, false);
-        // if (
-        //     (this.isCheckboxIdChecked('searchCheckbox') && mode === 'inline') ||
-        //     (!this.isCheckboxIdChecked('searchCheckbox') && mode === 'search')
-        // ) {
+        var productIds = [];
+        if (this.isCheckboxIdChecked(categoryCheckboxId)) {
+            // Display Product
+            var brandIds = getActiveBrandIds();
             var productIds = [];
-            if (this.isCheckboxIdChecked(categoryCheckboxId)) {
-                // Display Product
-                var brandIds = getActiveBrandIds();
-                var productIds = [];
-                for (let index in products) {
-                    if (brandIds.indexOf(products[index][brandIdKey]) === -1) {
-                        continue;
-                    }
-                    for (let categoryIdsIndex in products[index][categoryIdsKey]) {
-                        let categoryIds = products[index][categoryIdsKey][categoryIdsIndex];
-                        if (this.isCheckboxIdChecked(`${categoryCheckboxId}-${categoryIds[0]}-${categoryIds[1]}-${categoryIds[2]}`)) {
-                            productIds[index] = index;
-                            break;
-                        }
+            for (let index in products) {
+                if (brandIds.indexOf(products[index][brandIdKey]) === -1) {
+                    continue;
+                }
+                for (let categoryIdsIndex in products[index][categoryIdsKey]) {
+                    let categoryIds = products[index][categoryIdsKey][categoryIdsIndex];
+                    if (this.isCheckboxIdChecked(`${categoryCheckboxId}-${categoryIds[0]}-${categoryIds[1]}-${categoryIds[2]}`)) {
+                        productIds[index] = index;
+                        break;
                     }
                 }
             }
-            this.generateProductHtml(productIds);
-        // }
+        }
+        this.generateProductHtml(productIds);
     },
     getSelectedCategories = function(categoryId)
     {
@@ -588,11 +583,9 @@ var MENUAPP = (function(categories, brands, products)
     {
         var is = {};
         var html = `
-            '<div class="displayInlineBlock">
+            <div class="displayInlineBlock">
                 <div>
-                    <span>
-                        <div style="float:right;"><input type="checkbox" ${this.getCategoryCheckboxAttributes(null, null, null)} style="color: #FF0000;"/></div><span><b>Filter&nbsp;::&nbsp;</b></span>
-                    </span>
+                    <span onClick="obj.categoryCheckboxClicked(null, null, null, true);" style="color:Red;"><a hredf="javascript:void(0);"><b>Home</b></a></span>
                 </div>
             </div>`;
         for (let categoryId in categoryHierarchy) {
@@ -702,12 +695,7 @@ var MENUAPP = (function(categories, brands, products)
                         </table>
                     </div>
                 </div>
-            </div>
-            <!--<div class="padl displayInlineBlock">
-                <div class="filter">
-                    <div style="float:left;"><input type="checkbox" id="searchCheckbox" style="color: #FF0000;"/></div><span onClick="obj.displayCheckboxProducts('search');" class="searchSpan">Search</span>
-                </div>
-            </div>-->`;
+            </div>`;
 
         document.getElementById('menu').innerHTML = html;
         this.displayCategoryProducts(null, null, null, false);

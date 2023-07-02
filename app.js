@@ -289,10 +289,10 @@ var MENUAPP = (function(categories, brands, products)
     displayCheckboxProducts = function(mode)
     {
         this.setCategoryBreadcrum(null, null, null, false);
-        if (
-            (this.isCheckboxIdChecked('searchCheckbox') && mode === 'inline') ||
-            (!this.isCheckboxIdChecked('searchCheckbox') && mode === 'search')
-        ) {
+        // if (
+        //     (this.isCheckboxIdChecked('searchCheckbox') && mode === 'inline') ||
+        //     (!this.isCheckboxIdChecked('searchCheckbox') && mode === 'search')
+        // ) {
             var productIds = [];
             if (this.isCheckboxIdChecked(categoryCheckboxId)) {
                 // Display Product
@@ -312,7 +312,7 @@ var MENUAPP = (function(categories, brands, products)
                 }
             }
             this.generateProductHtml(productIds);
-        }
+        // }
     },
     getSelectedCategories = function(categoryId)
     {
@@ -703,23 +703,11 @@ var MENUAPP = (function(categories, brands, products)
                     </div>
                 </div>
             </div>
-            <div class="padl displayInlineBlock">
+            <!--<div class="padl displayInlineBlock">
                 <div class="filter">
                     <div style="float:left;"><input type="checkbox" id="searchCheckbox" style="color: #FF0000;"/></div><span onClick="obj.displayCheckboxProducts('search');" class="searchSpan">Search</span>
                 </div>
-            </div>
-            <div class="displayInlineBlock" style="float:right;">
-                <input type="text" placeholder="Search.." id="search" onkeyup="filterFunction()">
-                <div id="searchResults" style="display:none;">
-                    <span>About</span>
-                    <span>Base</span>
-                    <span>Blog</span>
-                    <span>Contact</span>
-                    <span>Custom</span>
-                    <span>Support</span>
-                    <span>Tools</span>
-                </div>
-            </div>`;
+            </div>-->`;
 
         document.getElementById('menu').innerHTML = html;
         this.displayCategoryProducts(null, null, null, false);

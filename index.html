@@ -9,7 +9,18 @@
             <div class="content">
                 <div class="displayInlineBlock" style="width: 100%;">
                     <div class="displayInlineBlock" style="float: left;width: 270px;height: 70px; background-color: yellow;padding-left: 20px;"><h1>Customer Logo</h1></div>
-                    <div class="displayInlineBlock" style="float: right;width: 468px;height: 60px; background-color: yellow;margin-top: 5px;">Ads...</div>
+                    <div class="displayInlineBlock" style="float: right;width: 468px;height: 60px; margin-top: 5px;">
+                        <input type="text" placeholder="Search.." id="search" onkeyup="filterFunction()">
+                        <div id="searchResults" style="display:none;">
+                            <span>About</span>
+                            <span>Base</span>
+                            <span>Blog</span>
+                            <span>Contact</span>
+                            <span>Custom</span>
+                            <span>Support</span>
+                            <span>Tools</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

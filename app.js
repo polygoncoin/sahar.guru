@@ -468,6 +468,9 @@ var MENUAPP = (function(categories, brands, products)
     },
     categoryCheckboxClicked = function(categoryId, subCategoryId, subSubCategoryId, checked)
     {
+        if (categoryId === null) {
+            this.brandCheckboxClicked(null, true);
+        }
         this.setCategoryBreadcrum(null, null, null, false);
         if (categoryId === null) {
             var checkboxes = document.getElementsByClassName(categoryCheckboxClass);

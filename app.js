@@ -216,6 +216,9 @@ var MENUAPP = (function(categories, brands, products)
                 breadcrumHtml += ` &gt; ${categories[subSubCategoryIdOld]}`;
             }
         }
+        if (breadcrumHtml.length > 0) {
+            breadcrumHtml += ` <a href="javascript:void(0);" onClick="obj.displayCategoryProducts(null, null, null, false);">X</a>`;
+        }
         document.getElementById('breadcrum').innerHTML = breadcrumHtml;
     },
     setBrandBreadcrum = function(brandId)
@@ -223,6 +226,9 @@ var MENUAPP = (function(categories, brands, products)
         var breadcrumHtml = '';
         if (brandId !== null) {
             breadcrumHtml = `Brand :: ${brands[brandId]}`;
+        }
+        if (breadcrumHtml.length > 0) {
+            breadcrumHtml += ` <a href="javascript:void(0);" onClick="obj.displayCategoryProducts(null, null, null, false);">X</a>`;
         }
         document.getElementById('breadcrum').innerHTML = breadcrumHtml;
     },

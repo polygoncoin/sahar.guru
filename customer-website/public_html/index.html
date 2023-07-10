@@ -1,0 +1,99 @@
+<html>
+    <head>
+        <title></title>
+        <link rel="stylesheet" href="../../cdn/S3/style.css" />
+    </head>
+    <body>
+        <!--Header start-->
+        <div class="header">
+            <div class="content">
+                <div class="displayInlineBlock" style="width: 100%;">
+                    <div class="displayInlineBlock" style="float: left;width: 270px;height: 70px; background-color: yellow;padding-left: 20px;"><h1>Customer Logo</h1></div>
+                    <div class="displayInlineBlock" style="float: right;width: 468px;height: 60px; margin-top: 5px;">
+                        <input type="text" placeholder="Search.." id="search" onkeyup="filterFunction()">
+                        <div id="searchResults" style="display:none;">
+                            <span>About</span>
+                            <span>Base</span>
+                            <span>Blog</span>
+                            <span>Contact</span>
+                            <span>Custom</span>
+                            <span>Support</span>
+                            <span>Tools</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Menu start-->
+        <div class="menu">
+            <div class="content">
+                <div id="menu"></div>
+            </div>
+        </div>
+        <!--Menu end-->
+        <!--Body start-->
+        <div class="body">
+            <div class="content">
+                <table width="100%">
+                    <tr>
+                        <td align="left" id="breadcrum"></td>
+                        <td align="right">
+                            Sort :: <a href="javascript:void();">Asc</a> <a href="javascript:void();">Desc</a> 
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="content" id="products"></div>
+        </div>
+        <!--Body end-->
+        <!--Footer start-->
+        <div class="footer">
+            <div class="content">
+                <div class="aboutUs">
+                    <b>About Us</b>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+                </div>
+                <div class="address">
+                    <b>Address</b>
+                    <p>
+                        C22, 829, Sector 8, Charkop Kandivali West, Mumbai - 400067.
+                        <a href="#" style="text-decoration: none;">Directions</a>
+                    </p>
+                </div>
+                <div class="timings">
+                    <b>Timings</b>
+                    <p>
+                        Mon - Sun Open 24 Hrs
+                    </p>
+                </div>
+                <div class="copyright">
+                    <p>Copyright &#169; sahar.guru - 2023</p>
+                </div>
+            </div>
+        </div>
+        <!--Footer end-->
+        <script src="../../cdn/S3/website-ids/productDetails.js"></script>
+        <script src="../../cdn/S3/app.js?1"></script>
+        <script>
+        var obj = MENUAPP(category, brands, products);
+        obj.generateCategoryHierarchy();
+        obj.genMenu();
+
+        function filterFunction() {
+            var input, filter, ul, li, a, i;
+            input = document.getElementById("search");
+            filter = input.value.toUpperCase();
+            div = document.getElementById("searchResults");
+            spans = div.getElementsByTagName("span");
+            for (i = 0; i < spans.length; i++) {
+                txtValue = spans[i].textContent || a[i].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    spans[i].style.display = "";
+                } else {
+                    spans[i].style.display = "none";
+                }
+            }
+        }
+        </script>
+    </body>
+</html>

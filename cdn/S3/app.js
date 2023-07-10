@@ -144,7 +144,7 @@ var MENUAPP = (function(categories, brands, products)
                     tagClass = 'gridListingColumn';
                 }
                 html += `<div class="${tagClass} displayInlineBlock">
-                        <img src="pimage.jpg" width="200" height="200">
+                        <img src="../../cdn/S3/website-ids/pimage.jpg" width="200" height="200">
                         <div class="productName">${products[index][productNameKey]}</div>
                         <div class="productName">${brands[products[index][brandIdKey]]}</div>
                     </div>`;

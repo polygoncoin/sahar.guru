@@ -10,5 +10,27 @@ return [
     'where' => [
         'is_deleted' => ['custom', 'No'],
         'http_id' => ['uriParams', 'http_id']
-    ]
+    ],
+    'validate' => [
+		[
+			'fn' => 'primaryKeyExist',
+			'fnArgs' => [
+                'table' => ['custom', getenv('https')],
+                'primary' => ['custom', 'http_id'],
+                'id' => ['payload', 'http_id']
+            ],
+			'errorMessage' => 'Invalid Http Id'
+		],
+		[
+			'fn' => 'checkColumnValueExist',
+			'fnArgs' => [
+                'table' => ['custom', getenv('https')],
+                'column' => ['custom', 'is_deleted'],
+                'columnValue' => ['custom', 'No'],
+                'primary' => ['custom', 'http_id'],
+                'id' => ['payload', 'http_id'],
+            ],
+			'errorMessage' => 'Record is already deleted'
+		]
+	]
 ];

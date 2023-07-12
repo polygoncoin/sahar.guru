@@ -10,5 +10,27 @@ return [
     'where' => [
         'is_deleted' => ['custom', 'No'],
         'client_id' => ['uriParams', 'client_id']
-    ]
+    ],
+    'validate' => [
+		[
+			'fn' => 'primaryKeyExist',
+			'fnArgs' => [
+                'table' => ['custom', getenv('clients')],
+                'primary' => ['custom', 'client_id'],
+                'id' => ['payload', 'client_id']
+            ],
+			'errorMessage' => 'Invalid Client Id'
+		],
+		[
+			'fn' => 'checkColumnValueExist',
+			'fnArgs' => [
+                'table' => ['custom', getenv('clients')],
+                'column' => ['custom', 'is_deleted'],
+                'columnValue' => ['custom', 'No'],
+                'primary' => ['custom', 'client_id'],
+                'id' => ['payload', 'client_id'],
+            ],
+			'errorMessage' => 'Record is already deleted'
+		]
+	]
 ];

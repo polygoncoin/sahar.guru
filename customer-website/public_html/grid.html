@@ -1,0 +1,545 @@
+<html><head>
+    <title></title>
+    <style>
+        html, body {
+    background-color:#ffe6ee;
+    margin: 0 0 0 0;
+}
+.header {
+    margin: 0 0 0 0;
+}
+.menu {
+    margin: 0 0 0 0;
+    padding: 5 0 5 0;
+    background-color: #cccccc;
+}
+.body {
+    background-color: #ffffe6;
+    margin: 0 0 0 0;
+}
+.gridListingRow {
+    margin: 0;
+    padding: 5 0 5 0;
+}
+.gridListingColumnLeft {
+    margin: 0;
+    padding: 5 10 5 0;
+}
+.gridListingColumn {
+    margin: 0;
+    padding: 5 10 5 10;
+}
+.gridListingColumnRight {
+    margin: 0;
+    padding: 5 0 5 10;
+}
+.productName {
+    margin: 0;
+    padding: 5 5 0 5;
+}
+.footer {
+    margin: 0 0 0 0;
+}
+.aboutUs {
+    margin: 0;
+    padding: 20 0 0 0;
+}
+.map {
+    margin: 0;
+    padding: 5 0 5 5;
+    width: 475;
+}
+.content {
+    max-width: 860px;
+    margin: auto;
+    padding: 0 0 0 0;
+}
+div.displayInlineBlock {
+    display: inline-block;
+}
+.menu {
+    position: relative;
+}
+.padl {
+    position: relative;
+    padding-left: 10px;;
+}
+.subMenu {
+    position: absolute;
+    display: none;
+    background-color: #ffe6ee;
+    z-index: 2;
+}
+.collapse {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 0px;
+    margin: 0px;
+}
+.brand {
+    border: 0px;
+    background-color: #ffffe6;
+    padding: 3px;
+    margin: 0px;
+}
+.subMenus:hover, .subSubMenus:hover {
+    background-color: #C3C39A;
+}
+.hide {
+    display: none;
+}
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+    padding: 0;
+    color: #000000;
+    width: 15px;
+    height: 15px;
+    border: 1px solid;
+    display: grid;
+    place-content: center;
+}
+input[type="checkbox"]::before {
+    content: "";
+    width: 9px;
+    height: 9px;
+    transform: scale(0);
+    background-color: #5f894a;
+}
+input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}
+.filter {
+    border: 2px solid #5f894a;
+    cursor: pointer;
+    margin: 0;
+    padding: 3 3 0 3;
+    background-color:#C3C39A;
+    text-align: right;
+    width: 70px;
+}
+#searchResults {
+    position: absolute;
+    background-color: #f6f6f6;
+    border: 1px solid #ddd;
+    z-index: 100;
+}
+#searchResults span {
+    color: black;
+    padding: 0;
+    text-decoration: none;
+    display: block;
+    width: 144px;
+}
+#searchResults span:hover {background-color: #f1f1f1}
+.show {display:block;}
+
+    </style>
+</head>
+<body>
+    <!--Header start-->
+    <div class="header">
+        <div class="content">
+            <div class="displayInlineBlock" style="width: 100%;">
+                <div class="displayInlineBlock" style="float: left;width: 270px;height: 70px; background-color: yellow;padding-left: 20px;"><h1>Customer Logo</h1></div>
+                <div class="displayInlineBlock" style="float: right;width: 468px;height: 60px; margin-top: 5px;">
+                    <input type="text" placeholder="Search.." id="search" onkeyup="filterFunction()">
+                    <div id="searchResults" style="display:none;">
+                        <span>About</span>
+                        <span>Base</span>
+                        <span>Blog</span>
+                        <span>Contact</span>
+                        <span>Custom</span>
+                        <span>Support</span>
+                        <span>Tools</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Menu start-->
+    <div class="menu">
+        <div class="content">
+            <div id="menu">
+        <div class="displayInlineBlock">
+            <div>
+                <span onclick="obj.categoryCheckboxClicked(null, null, null, true);" style="color:Blue;cursor:pointer;"><a hredf="javascript:void(0);"><b>Home</b></a></span>
+            </div>
+        </div>
+        <div class="padl displayInlineBlock">
+            <div onmouseleave="obj.hideId('subMenu-1');">
+                <span onmouseenter="obj.displayId('subMenu-1');">
+                    <div style="float:left;"><input type="checkbox" id="cid-1" class="ccl ccl-1" value="[1]" onclick="obj.categoryCheckboxClicked(1, null, null, this.checked);" checked=""></div>&nbsp;<span onclick="obj.displayCategoryProducts(1,null,null, true)"><a href="javascript:void(0);">Category 1</a></span>
+                </span>
+                <!-- Sub Menu start-->
+                <div class="subMenu" id="subMenu-1">
+                    <table width="600" height="200" cellpadding="0" cellspacing="5">
+                        <tbody><tr>
+                            <td class="collapse" width="200" valign="top">
+                                <table width="200" cellpadding="0" cellspacing="2">
+                                    <tbody><tr>
+                                        <td>
+                                            <table width="100%" cellpadding="0" cellspacing="2">
+                                                <tbody><tr>
+                                                    <td width="17" align="center"><input type="checkbox" id="cid-1-2" class="ccl ccl-1 ccl-1-2" value="[1,2]" onclick="obj.categoryCheckboxClicked(1, 2, null, this.checked);" checked=""></td>
+                                                    <td class="subMenus" align="left" onmouseenter="obj.hideClass('subSubMenu');obj.displayId('subSubMenu-1-2');" onclick="obj.displayCategoryProducts(1, 2,null, true)"><a href="javascript:void(0);">Category 2</a></td>
+                                                </tr>
+                                            </tbody></table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <table width="100%" cellpadding="0" cellspacing="2">
+                                                <tbody><tr>
+                                                    <td width="17" align="center"><input type="checkbox" id="cid-1-3" class="ccl ccl-1 ccl-1-3" value="[1,3]" onclick="obj.categoryCheckboxClicked(1, 3, null, this.checked);" checked=""></td>
+                                                    <td class="subMenus" align="left" onmouseenter="obj.hideClass('subSubMenu');obj.displayId('subSubMenu-1-3');" onclick="obj.displayCategoryProducts(1, 3,null, true)"><a href="javascript:void(0);">Category 3</a></td>
+                                                </tr>
+                                            </tbody></table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <table width="100%" cellpadding="0" cellspacing="2">
+                                                <tbody><tr>
+                                                    <td width="17" align="center"><input type="checkbox" id="cid-1-4" class="ccl ccl-1 ccl-1-4" value="[1,4]" onclick="obj.categoryCheckboxClicked(1, 4, null, this.checked);" checked=""></td>
+                                                    <td class="subMenus" align="left" onmouseenter="obj.hideClass('subSubMenu');obj.displayId('subSubMenu-1-4');" onclick="obj.displayCategoryProducts(1, 4,null, true)"><a href="javascript:void(0);">Category 4</a></td>
+                                                </tr>
+                                            </tbody></table>
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                            <td class="collapse" width="400" valign="top">
+                                <div id="subSubMenu-1-2" class="subSubMenu hide">
+                                    <table width="100%" cellpadding="0" cellspacing="2">
+                                        <tbody><tr>
+                                            <td valign="top">
+                                                <table width="100%" cellpadding="0" cellspacing="2">
+                                                    <tbody><tr>
+                                            </tr><tr>
+                                                <td>
+                                                    <table width="100%" cellpadding="0" cellspacing="2">
+                                                        <tbody><tr>
+                                                            <td width="17" align="center"><input type="checkbox" id="cid-1-2-3" class="ccl ccl-1 ccl-1-2 ccl-1-2-3" value="[1,2,3]" onclick="obj.categoryCheckboxClicked(1, 2, 3, this.checked);" checked=""></td>
+                                                            <td class="subSubMenus" align="left" onclick="obj.displayCategoryProducts(1, 2, 3, true)"><a href="javascript:void(0);">Category 3</a></td>
+                                                        </tr>
+                                                    </tbody></table>
+                                                </td>
+                                            </tr>
+                                                    
+                                                </tbody></table>
+                                            </td>
+                                        </tr>
+                                    </tbody></table>
+                                </div>
+                                <div id="subSubMenu-1-3" class="subSubMenu hide">
+                                    <table width="100%" cellpadding="0" cellspacing="2">
+                                        <tbody><tr>
+                                            <td valign="top">
+                                                <table width="100%" cellpadding="0" cellspacing="2">
+                                                    <tbody><tr>
+                                            </tr><tr>
+                                                <td>
+                                                    <table width="100%" cellpadding="0" cellspacing="2">
+                                                        <tbody><tr>
+                                                            <td width="17" align="center"><input type="checkbox" id="cid-1-3-4" class="ccl ccl-1 ccl-1-3 ccl-1-3-4" value="[1,3,4]" onclick="obj.categoryCheckboxClicked(1, 3, 4, this.checked);" checked=""></td>
+                                                            <td class="subSubMenus" align="left" onclick="obj.displayCategoryProducts(1, 3, 4, true)"><a href="javascript:void(0);">Category 4</a></td>
+                                                        </tr>
+                                                    </tbody></table>
+                                                </td>
+                                            </tr>
+                                                    
+                                                </tbody></table>
+                                            </td>
+                                        </tr>
+                                    </tbody></table>
+                                </div>
+                                <div id="subSubMenu-1-4" class="subSubMenu hide">
+                                    <table width="100%" cellpadding="0" cellspacing="2">
+                                        <tbody><tr>
+                                            <td valign="top">
+                                                <table width="100%" cellpadding="0" cellspacing="2">
+                                                    <tbody><tr>
+                                            </tr><tr>
+                                                <td>
+                                                    <table width="100%" cellpadding="0" cellspacing="2">
+                                                        <tbody><tr>
+                                                            <td width="17" align="center"><input type="checkbox" id="cid-1-4-5" class="ccl ccl-1 ccl-1-4 ccl-1-4-5" value="[1,4,5]" onclick="obj.categoryCheckboxClicked(1, 4, 5, this.checked);" checked=""></td>
+                                                            <td class="subSubMenus" align="left" onclick="obj.displayCategoryProducts(1, 4, 5, true)"><a href="javascript:void(0);">Category 5</a></td>
+                                                        </tr>
+                                                    </tbody></table>
+                                                </td>
+                                            </tr>
+                                                    
+                                                </tbody></table>
+                                            </td>
+                                        </tr>
+                                    </tbody></table>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="27" valign="top" colspan="2" class="collapse cb" id="cb-1"><table width="100%" cellpadding="0" cellspacing="5"><tbody><tr><td width="150" class="brand" align="left" onclick="obj.displayCategoryBrandProducts(1, 1)">Brand 1 (3)</td><td width="150" class="brand" align="left" onclick="obj.displayCategoryBrandProducts(1, 2)">Brand 2 (1)</td><td width="150" class="brand" align="left" onclick="obj.displayCategoryBrandProducts(1, 4)">Brand 4 (1)</td><td width="150">&nbsp;</td></tr><tr></tr></tbody></table></td>
+                        </tr>
+                    </tbody></table>
+                </div>
+            </div>
+        </div>
+        <div class="padl displayInlineBlock">
+            <div onmouseleave="obj.hideId('subMenu-2');">
+                <span onmouseenter="obj.displayId('subMenu-2');">
+                    <div style="float:left;"><input type="checkbox" id="cid-2" class="ccl ccl-2" value="[2]" onclick="obj.categoryCheckboxClicked(2, null, null, this.checked);" checked=""></div>&nbsp;<span onclick="obj.displayCategoryProducts(2,null,null, true)"><a href="javascript:void(0);">Category 2</a></span>
+                </span>
+                <!-- Sub Menu start-->
+                <div class="subMenu" id="subMenu-2">
+                    <table width="600" height="200" cellpadding="0" cellspacing="5">
+                        <tbody><tr>
+                            <td class="collapse" width="200" valign="top">
+                                <table width="200" cellpadding="0" cellspacing="2">
+                                    <tbody><tr>
+                                        <td>
+                                            <table width="100%" cellpadding="0" cellspacing="2">
+                                                <tbody><tr>
+                                                    <td width="17" align="center"><input type="checkbox" id="cid-2-3" class="ccl ccl-2 ccl-2-3" value="[2,3]" onclick="obj.categoryCheckboxClicked(2, 3, null, this.checked);" checked=""></td>
+                                                    <td class="subMenus" align="left" onmouseenter="obj.hideClass('subSubMenu');obj.displayId('subSubMenu-2-3');" onclick="obj.displayCategoryProducts(2, 3,null, true)"><a href="javascript:void(0);">Category 3</a></td>
+                                                </tr>
+                                            </tbody></table>
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                            <td class="collapse" width="400" valign="top">
+                                <div id="subSubMenu-2-3" class="subSubMenu hide">
+                                    <table width="100%" cellpadding="0" cellspacing="2">
+                                        <tbody><tr>
+                                            <td valign="top">
+                                                <table width="100%" cellpadding="0" cellspacing="2">
+                                                    <tbody><tr>
+                                            </tr><tr>
+                                                <td>
+                                                    <table width="100%" cellpadding="0" cellspacing="2">
+                                                        <tbody><tr>
+                                                            <td width="17" align="center"><input type="checkbox" id="cid-2-3-4" class="ccl ccl-2 ccl-2-3 ccl-2-3-4" value="[2,3,4]" onclick="obj.categoryCheckboxClicked(2, 3, 4, this.checked);" checked=""></td>
+                                                            <td class="subSubMenus" align="left" onclick="obj.displayCategoryProducts(2, 3, 4, true)"><a href="javascript:void(0);">Category 4</a></td>
+                                                        </tr>
+                                                    </tbody></table>
+                                                </td>
+                                            </tr>
+                                                    
+                                                </tbody></table>
+                                            </td>
+                                        </tr>
+                                    </tbody></table>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="27" valign="top" colspan="2" class="collapse cb" id="cb-2"><table width="100%" cellpadding="0" cellspacing="5"><tbody><tr><td width="150" class="brand" align="left" onclick="obj.displayCategoryBrandProducts(2, 2)">Brand 2 (1)</td><td width="150" class="brand" align="left" onclick="obj.displayCategoryBrandProducts(2, 3)">Brand 3 (1)</td><td width="150">&nbsp;</td><td width="150">&nbsp;</td></tr><tr></tr></tbody></table></td>
+                        </tr>
+                    </tbody></table>
+                </div>
+            </div>
+        </div>
+        <div class="padl displayInlineBlock">
+            <div onmouseleave="obj.hideId('subMenu-3');">
+                <span onmouseenter="obj.displayId('subMenu-3');">
+                    <div style="float:left;"><input type="checkbox" id="cid-3" class="ccl ccl-3" value="[3]" onclick="obj.categoryCheckboxClicked(3, null, null, this.checked);" checked=""></div>&nbsp;<span onclick="obj.displayCategoryProducts(3,null,null, true)"><a href="javascript:void(0);">Category 3</a></span>
+                </span>
+                <!-- Sub Menu start-->
+                <div class="subMenu" id="subMenu-3">
+                    <table width="600" height="200" cellpadding="0" cellspacing="5">
+                        <tbody><tr>
+                            <td class="collapse" width="200" valign="top">
+                                <table width="200" cellpadding="0" cellspacing="2">
+                                    <tbody><tr>
+                                        <td>
+                                            <table width="100%" cellpadding="0" cellspacing="2">
+                                                <tbody><tr>
+                                                    <td width="17" align="center"><input type="checkbox" id="cid-3-4" class="ccl ccl-3 ccl-3-4" value="[3,4]" onclick="obj.categoryCheckboxClicked(3, 4, null, this.checked);" checked=""></td>
+                                                    <td class="subMenus" align="left" onmouseenter="obj.hideClass('subSubMenu');obj.displayId('subSubMenu-3-4');" onclick="obj.displayCategoryProducts(3, 4,null, true)"><a href="javascript:void(0);">Category 4</a></td>
+                                                </tr>
+                                            </tbody></table>
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                            <td class="collapse" width="400" valign="top">
+                                <div id="subSubMenu-3-4" class="subSubMenu hide">
+                                    <table width="100%" cellpadding="0" cellspacing="2">
+                                        <tbody><tr>
+                                            <td valign="top">
+                                                <table width="100%" cellpadding="0" cellspacing="2">
+                                                    <tbody><tr>
+                                            </tr><tr>
+                                                <td>
+                                                    <table width="100%" cellpadding="0" cellspacing="2">
+                                                        <tbody><tr>
+                                                            <td width="17" align="center"><input type="checkbox" id="cid-3-4-5" class="ccl ccl-3 ccl-3-4 ccl-3-4-5" value="[3,4,5]" onclick="obj.categoryCheckboxClicked(3, 4, 5, this.checked);" checked=""></td>
+                                                            <td class="subSubMenus" align="left" onclick="obj.displayCategoryProducts(3, 4, 5, true)"><a href="javascript:void(0);">Category 5</a></td>
+                                                        </tr>
+                                                    </tbody></table>
+                                                </td>
+                                            </tr>
+                                                    
+                                                </tbody></table>
+                                            </td>
+                                        </tr>
+                                    </tbody></table>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="27" valign="top" colspan="2" class="collapse cb" id="cb-3"><table width="100%" cellpadding="0" cellspacing="5"><tbody><tr><td width="150" class="brand" align="left" onclick="obj.displayCategoryBrandProducts(3, 2)">Brand 2 (2)</td><td width="150" class="brand" align="left" onclick="obj.displayCategoryBrandProducts(3, 5)">Brand 5 (1)</td><td width="150">&nbsp;</td><td width="150">&nbsp;</td></tr><tr></tr></tbody></table></td>
+                        </tr>
+                    </tbody></table>
+                </div>
+            </div>
+        </div>
+        <div class="displayInlineBlock" style="float:right;">
+            <div onmouseleave="obj.hideId('subMenu-brand');">
+                <span onmouseenter="obj.displayId('subMenu-brand');">
+                    <div style="float:left;"><input type="checkbox" id="bid" class="bcl" checked="" onclick="obj.brandCheckboxClicked(null, this.checked);"></div>&nbsp;<span>Brands</span>
+                </span>
+                <!-- Sub Menu start-->
+                <div class="subMenu" id="subMenu-brand">
+                    <table width="200" cellpadding="0" cellspacing="5">
+                        <tbody><tr>
+                            <td width="200" valign="top">
+                                <table width="100%" cellpadding="0" cellspacing="2">
+                                    <tbody><tr>
+                                        <td width="17" align="center"><input type="checkbox" id="bid-1" class="bcl bcl-1" checked="" value="1" onclick="obj.brandCheckboxClicked(1, this.checked);"></td>
+                                        <td class="subMenus" align="left" onclick="obj.displayBrandProducts(1)"><a href="javascript:void(0);">Brand 1</a></td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="200" valign="top">
+                                <table width="100%" cellpadding="0" cellspacing="2">
+                                    <tbody><tr>
+                                        <td width="17" align="center"><input type="checkbox" id="bid-2" class="bcl bcl-2" checked="" value="2" onclick="obj.brandCheckboxClicked(2, this.checked);"></td>
+                                        <td class="subMenus" align="left" onclick="obj.displayBrandProducts(2)"><a href="javascript:void(0);">Brand 2</a></td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="200" valign="top">
+                                <table width="100%" cellpadding="0" cellspacing="2">
+                                    <tbody><tr>
+                                        <td width="17" align="center"><input type="checkbox" id="bid-3" class="bcl bcl-3" checked="" value="3" onclick="obj.brandCheckboxClicked(3, this.checked);"></td>
+                                        <td class="subMenus" align="left" onclick="obj.displayBrandProducts(3)"><a href="javascript:void(0);">Brand 3</a></td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="200" valign="top">
+                                <table width="100%" cellpadding="0" cellspacing="2">
+                                    <tbody><tr>
+                                        <td width="17" align="center"><input type="checkbox" id="bid-4" class="bcl bcl-4" checked="" value="4" onclick="obj.brandCheckboxClicked(4, this.checked);"></td>
+                                        <td class="subMenus" align="left" onclick="obj.displayBrandProducts(4)"><a href="javascript:void(0);">Brand 4</a></td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="200" valign="top">
+                                <table width="100%" cellpadding="0" cellspacing="2">
+                                    <tbody><tr>
+                                        <td width="17" align="center"><input type="checkbox" id="bid-5" class="bcl bcl-5" checked="" value="5" onclick="obj.brandCheckboxClicked(5, this.checked);"></td>
+                                        <td class="subMenus" align="left" onclick="obj.displayBrandProducts(5)"><a href="javascript:void(0);">Brand 5</a></td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </div>
+            </div>
+        </div></div>
+        </div>
+    </div>
+    <!--Menu end-->
+    <!--Body start-->
+    <div class="body">
+        <div class="content">
+            <table width="100%">
+                <tbody><tr>
+                    <td align="left" id="breadcrum"></td>
+                    <td align="right">
+                        Sort :: <a href="javascript:void();">Asc</a> <a href="javascript:void();">Desc</a> 
+                    </td>
+                </tr>
+            </tbody></table>
+        </div>
+        <div class="content" id="products"><div class="gridListingRow"></div><div class="gridListingRow"><div class="gridListingColumnLeft displayInlineBlock">
+                    <img src="../../cdn/S3/website-ids/pimage.jpg" width="200" height="200">
+                    <div class="productName">Product Name 1</div>
+                    <div class="productName">Brand 1</div>
+                </div><div class="gridListingColumn displayInlineBlock">
+                    <img src="../../cdn/S3/website-ids/pimage.jpg" width="200" height="200">
+                    <div class="productName">Product Name 2</div>
+                    <div class="productName">Brand 2</div>
+                </div><div class="gridListingColumn displayInlineBlock">
+                    <img src="../../cdn/S3/website-ids/pimage.jpg" width="200" height="200">
+                    <div class="productName">Product Name 3</div>
+                    <div class="productName">Brand 2</div>
+                </div><div class="gridListingColumnRight displayInlineBlock">
+                    <img src="../../cdn/S3/website-ids/pimage.jpg" width="200" height="200">
+                    <div class="productName">Product Name 4</div>
+                    <div class="productName">Brand 2</div>
+                </div></div><div class="gridListingRow"><div class="gridListingColumnLeft displayInlineBlock">
+                    <img src="../../cdn/S3/website-ids/pimage.jpg" width="200" height="200">
+                    <div class="productName">Product Name 5</div>
+                    <div class="productName">Brand 1</div>
+                </div><div class="gridListingColumn displayInlineBlock">
+                    <img src="../../cdn/S3/website-ids/pimage.jpg" width="200" height="200">
+                    <div class="productName">Product Name 6</div>
+                    <div class="productName">Brand 5</div>
+                </div><div class="gridListingColumn displayInlineBlock">
+                    <img src="../../cdn/S3/website-ids/pimage.jpg" width="200" height="200">
+                    <div class="productName">Product Name 7</div>
+                    <div class="productName">Brand 4</div>
+                </div><div class="gridListingColumnRight displayInlineBlock">
+                    <img src="../../cdn/S3/website-ids/pimage.jpg" width="200" height="200">
+                    <div class="productName">Product Name 8</div>
+                    <div class="productName">Brand 3</div>
+                </div></div><div class="gridListingRow"><div class="gridListingColumnLeft displayInlineBlock">
+                    <img src="../../cdn/S3/website-ids/pimage.jpg" width="200" height="200">
+                    <div class="productName">Product Name 9</div>
+                    <div class="productName">Brand 2</div>
+                </div><div class="gridListingColumn displayInlineBlock">
+                    <img src="../../cdn/S3/website-ids/pimage.jpg" width="200" height="200">
+                    <div class="productName">Product Name 10</div>
+                    <div class="productName">Brand 1</div>
+                </div></div></div>
+    </div>
+    <!--Body end-->
+    <!--Footer start-->
+    <div class="footer">
+        <div class="content">
+            <div class="aboutUs">
+                <b>About Us</b>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+            </div>
+            <div class="address">
+                <b>Address</b>
+                <p>
+                    C22, 829, Sector 8, Charkop Kandivali West, Mumbai - 400067.
+                    <a href="#" style="text-decoration: none;">Directions</a>
+                </p>
+            </div>
+            <div class="timings">
+                <b>Timings</b>
+                <p>
+                    Mon - Sun Open 24 Hrs
+                </p>
+            </div>
+            <div class="copyright">
+                <p>Copyright © sahar.guru - 2023</p>
+            </div>
+        </div>
+    </div>
+    <!--Footer end-->
+</body></html>

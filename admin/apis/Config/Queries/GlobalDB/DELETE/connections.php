@@ -10,5 +10,27 @@ return [
     'where' => [
         'is_deleted' => ['custom', 'No'],
         'connection_id' => ['uriParams', 'connection_id']
-    ]
+    ],
+    'validate' => [
+		[
+			'fn' => 'primaryKeyExist',
+			'fnArgs' => [
+                'table' => ['custom', getenv('connections')],
+                'primary' => ['custom', 'connection_id'],
+                'id' => ['payload', 'connection_id']
+            ],
+			'errorMessage' => 'Invalid Connection Id'
+		],
+		[
+			'fn' => 'checkColumnValueExist',
+			'fnArgs' => [
+                'table' => ['custom', getenv('connections')],
+                'column' => ['custom', 'is_deleted'],
+                'columnValue' => ['custom', 'No'],
+                'primary' => ['custom', 'connection_id'],
+                'id' => ['payload', 'connection_id'],
+            ],
+			'errorMessage' => 'Record is already deleted'
+		]
+	]
 ];

@@ -10,5 +10,27 @@ return [
     'where' => [
         'is_deleted' => ['custom', 'No'],
         'link_id' => ['uriParams', 'link_id']
-    ]
+    ],
+    'validate' => [
+		[
+			'fn' => 'primaryKeyExist',
+			'fnArgs' => [
+                'table' => ['custom', getenv('links')],
+                'primary' => ['custom', 'link_id'],
+                'id' => ['payload', 'link_id']
+            ],
+			'errorMessage' => 'Invalid Link Id'
+		],
+		[
+			'fn' => 'checkColumnValueExist',
+			'fnArgs' => [
+                'table' => ['custom', getenv('links')],
+                'column' => ['custom', 'is_deleted'],
+                'columnValue' => ['custom', 'No'],
+                'primary' => ['custom', 'link_id'],
+                'id' => ['payload', 'link_id'],
+            ],
+			'errorMessage' => 'Record is already deleted'
+		]
+	]
 ];

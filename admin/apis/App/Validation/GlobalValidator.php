@@ -28,7 +28,7 @@ class GlobalValidator
 
     public function __construct()
     {
-        $this->db = Database::getDb();
+        $this->db = Database::getObject();
     }
 
     /**
@@ -52,7 +52,7 @@ class GlobalValidator
                 }
             }
             $fn = $v['fn'];
-            if (!(bool)$this->$fn($args)) {
+            if (!$this->$fn($args)) {
                 $errors[] = $v['errorMessage'];
                 $isValidData = false;
             }

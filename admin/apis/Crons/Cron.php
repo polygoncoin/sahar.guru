@@ -2,7 +2,8 @@
 namespace Crons;
 
 use App\HttpErrorResponse;
-use App\Servers\Database;
+use App\Servers\Cache\Cache;
+use App\Servers\Database\Database;
 
 /**
  * Class for a particular cron.
@@ -42,8 +43,6 @@ class Cron
     public function process()
     {
         // Create and call functions to manage cron functionality here.
-        // In functions one can also perform DB operations with $this->authorize object
-        // $this->authorize->connectClientDB();
 
         // ...
 

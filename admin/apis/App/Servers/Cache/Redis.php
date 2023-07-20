@@ -2,7 +2,7 @@
 namespace App\Servers\Cache;
 
 use App\HttpErrorResponse;
-
+use App\Servers\Cache\AbstractCache;
 /**
  * Loading Redis server
  *
@@ -16,7 +16,7 @@ use App\HttpErrorResponse;
  * @version    Release: @1.0.0@
  * @since      Class available since Release 1.0.0
  */
-class Redis
+class Redis extends AbstractCache
 {
     /**
      * Cache hostname
@@ -54,7 +54,13 @@ class Redis
     private $redis = null;
 
     /**
-     * Cache constructor
+     * Cache connection
+     *
+     * @param string $hostname  Hostname .env string
+     * @param string $port      Port .env string
+     * @param string $password  Password .env string
+     * @param string $database  Database .env string
+     * @return void
      */
     public function __construct(
         $hostname,
@@ -74,10 +80,9 @@ class Redis
     /**
      * Cache connection
      *
-     * @param string $mode Can be one of string among master/slave
      * @return void
      */
-    function connect()
+    public function connect()
     {
         if (!is_null($this->redis)) return;
         try {

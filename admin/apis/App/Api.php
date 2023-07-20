@@ -137,7 +137,7 @@ class Api
         $this->selectSubQuery($input, $config);
         $this->jsonEncodeObj = null;
     }
-    
+
     /**
      * Process update request
      *
@@ -153,6 +153,9 @@ class Api
 
         // Load Payload
         parse_str(file_get_contents('php://input'), $payloadArr);
+        if (!isset($payloadArr['data'])) {
+            HttpErrorResponse::return4xx(404, 'Invalid data payload');
+        }
         $payloadArr = json_decode($payloadArr['data'], true);
         $isAssoc = $this->isAssoc($payloadArr);
         if ($isAssoc) {
@@ -167,30 +170,62 @@ class Api
             HttpErrorResponse::return5xx(501, 'Path cannot be empty');
         }
         $config = include $this->authorize->__file__;
+        $requiredPayloadFields = $this->getRequiredPayloadFields($config);
 
         $response = [];
-        // Perform action
-        foreach ($payloadArr as &$payload) {
-            $isValidData = true;
-            if ($this->authorize->requestMethod === 'PATCH') {
-                if (count($payload) !== 1) {
-                    HttpErrorResponse::return4xx(404, 'Invalid payload: PATCH can update only one field');
+        // Required payload validation
+        foreach ($payloadArr as $key => &$payload) {
+            if (count($payload) == count($requiredPayloadFields)) {
+                foreach ($payload as $column => $value) {
+                    if (!in_array($column, $requiredPayloadFields)) {
+                        if ($isAssoc) {
+                            $response[] = 'Invalid payload: '.$column;
+                        } else {
+                            $response[$key][] = 'Invalid payload: '.$column;
+                        }
+                    }
+                }
+            } else {
+                if ($isAssoc) {
+                    $response[] = 'Invalid payload';
+                } else {
+                    $response[$key][] = 'Invalid payload';
                 }
             }
-            if (isset($payload['password'])) {
-                $payload['password'] = password_hash($payload['password']);
-            }
-            $input['payload'] = &$payload;
-            // Required validations.
-            if (isset($config['validate'])) {
-                list($isValidData, $errors) = $this->validate($input, $config['validate']);
-            }
-            if ($isValidData!==true) {
-                $response[] = ['data' => $payload, 'Error' => $errors];
-            } else {
-                $res = $this->insertUpdateSubQuery($input, $config);
-                if ('POST' === $_SERVER['REQUEST_METHOD']) {
-                    $response[] = $res;
+        }
+        // Perform action
+        if (count($response) === 0) {
+            foreach ($payloadArr as &$payload) {
+                $isValidData = true;
+                if ($this->authorize->requestMethod === 'PATCH') {
+                    if (count($payload) !== 1) {
+                        HttpErrorResponse::return4xx(404, 'Invalid payload: PATCH can update only one field');
+                    }
+                }
+                if (isset($payload['password'])) {
+                    $payload['password'] = password_hash($payload['password']);
+                }
+                $input['payload'] = &$payload;
+
+                if (isset($config['validate'])) {
+                    list($isValidData, $errors) = $this->validate($input, $config['validate']);
+                }
+                
+                // Configured Validation
+                if (isset($config['validate'])) {
+                    list($isValidData, $errors) = $this->validate($input, $config['validate']);
+                }
+                if ($isValidData!==true) {
+                    if ($isAssoc) {
+                        $response = ['data' => $payload, 'Error' => $errors];
+                    } else {
+                        $response[] = ['data' => $payload, 'Error' => $errors];
+                    }
+                } else {
+                    $res = $this->insertUpdateSubQuery($input, $config);
+                    if ('POST' === $_SERVER['REQUEST_METHOD']) {
+                        $response[] = $res;
+                    }
                 }
             }
         }
@@ -354,6 +389,51 @@ class Api
             }
         }
         return $insertIds;
+    }
+
+    /**
+     * Returns Query and Params for execution.
+     *
+     * @param array $subQuery Config from file
+     * @param bool  $start    Flag to know start for recursive calls.
+     * @return array
+     */
+    private function getRequiredPayloadFields($subQuery, $start = true)
+    {
+        $requiredPayloadFields = [];
+        $subQuery = ($start) ? [$subQuery] : $subQuery;
+        foreach ($subQuery as &$queryDetails) {
+            if (isset($queryDetails['payload'])) {
+                $queryPayload = &$queryDetails['payload'];
+                foreach ($queryPayload as $var => [$type, $typeKey]) {
+                    if ($type === 'payload') {
+                        if (!in_array($typeKey, $requiredPayloadFields)) {
+                            $requiredPayloadFields[] = $typeKey;
+                        }
+                    }
+                }
+            }
+            if (isset($queryDetails['where'])) {
+                $queryWhere = &$queryDetails['where'];
+                foreach ($queryWhere as $var => [$type, $typeKey]) {
+                    if ($type === 'payload') {
+                        if (!in_array($typeKey, $requiredPayloadFields)) {
+                            $requiredPayloadFields[] = $typeKey;
+                        }
+                    }
+                }
+            }
+            if (isset($queryDetails['subQuery'])) {
+                if (($rPayloadFields = $this->getRequired($queryDetails['subQuery'], false)) && count($rPayloadFields) > 0) {
+                    foreach ($rPayloadFields as $r) {
+                        if (!in_array($r, $requiredPayloadFields)) {
+                            $requiredPayloadFields[] = $r;
+                        }
+                    }
+                }
+            }
+        }
+        return $requiredPayloadFields;
     }
 
     /**

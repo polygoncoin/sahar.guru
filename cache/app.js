@@ -144,7 +144,7 @@ var MENUAPP = (function(categories, brands, products)
                     tagClass = 'gridListingColumn';
                 }
                 html += `<div class="${tagClass} displayInlineBlock">
-                        <img src="../../cdn/S3/website-ids/pimage.jpg" width="200" height="200">
+                        <img src="/sahar.guru/cache/website-ids/pimage.jpg" width="200" height="200">
                         <div class="productName">${products[index][productNameKey]}</div>
                         <div class="productName">${brands[products[index][brandIdKey]]}</div>
                     </div>`;
@@ -192,7 +192,7 @@ var MENUAPP = (function(categories, brands, products)
         if (categoryIdOld !== null) {
             breadcrumHtml = 'Categories ::';
             if (
-                (subCategoryIdOld !== null) && (subCategoryId === null)
+                subCategoryIdOld === null || ((subCategoryIdOld !== null) && (subCategoryId === null))
             ) {
                 breadcrumHtml += ` ${categories[categoryIdOld]}`;
             } else {
@@ -217,7 +217,7 @@ var MENUAPP = (function(categories, brands, products)
             }
         }
         if (breadcrumHtml.length > 0) {
-            breadcrumHtml += ` <a href="javascript:void(0);" onClick="obj.displayCategoryProducts(null, null, null, false);">X</a>`;
+            breadcrumHtml += ` <a href="javascript:void(0);" onClick="obj.displayCheckboxProducts();">X</a>`;
         }
         document.getElementById('breadcrum').innerHTML = breadcrumHtml;
     },
@@ -228,7 +228,7 @@ var MENUAPP = (function(categories, brands, products)
             breadcrumHtml = `Brand :: ${brands[brandId]}`;
         }
         if (breadcrumHtml.length > 0) {
-            breadcrumHtml += ` <a href="javascript:void(0);" onClick="obj.displayCategoryProducts(null, null, null, false);">X</a>`;
+            breadcrumHtml += ` <a href="javascript:void(0);" onClick="obj.displayCheckboxProducts();">X</a>`;
         }
         document.getElementById('breadcrum').innerHTML = breadcrumHtml;
     },

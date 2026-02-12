@@ -1,0 +1,6 @@
+.env
+.session.env
+/App/SessionHandlers/sessions/*
+/Logs/*
+/vendor/
+/WebCookies/*

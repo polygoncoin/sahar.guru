@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  Environment
- * @package   Microservices
+ * @package   sahar.guru
  * @author    Ramesh N Jangid <polygon.co.in@gmail.com>
  * @copyright 2025 Ramesh N Jangid
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/Microservices
+ * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0
  */
 
@@ -22,11 +22,11 @@ use Microservices\App\SessionHandlers\Session;
  * php version 8.3
  *
  * @category  Environment
- * @package   Microservices
+ * @package   sahar.guru
  * @author    Ramesh N Jangid <polygon.co.in@gmail.com>
  * @copyright 2025 Ramesh N Jangid
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/Microservices
+ * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0
  */
 class Env
@@ -99,7 +99,6 @@ class Env
 
     public static $clientsTable = null;
     public static $groupsTable = null;
-    public static $clientUsersTable = null;
 
     public static $maxResultsPerPage = null;
     public static $defaultPerPage = null;
@@ -210,7 +209,6 @@ class Env
 
         self::$clientsTable = getenv(name: 'clientsTable');
         self::$groupsTable = getenv(name: 'groupsTable');
-        self::$clientUsersTable = getenv(name: 'clientUsersTable');
 
         self::$maxResultsPerPage = (int)getenv(name: 'maxResultsPerPage');
         self::$defaultPerPage = (int)getenv(name: 'defaultPerPage');

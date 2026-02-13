@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  RouteParser
- * @package   Microservices
+ * @package   sahar.guru
  * @author    Ramesh N Jangid <polygon.co.in@gmail.com>
  * @copyright 2025 Ramesh N Jangid
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/Microservices
+ * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0
  */
 
@@ -26,11 +26,11 @@ use Microservices\App\HttpStatus;
  * php version 8.3
  *
  * @category  RouteParser
- * @package   Microservices
+ * @package   sahar.guru
  * @author    Ramesh N Jangid <polygon.co.in@gmail.com>
  * @copyright 2025 Ramesh N Jangid
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/Microservices
+ * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0
  */
 class RouteParser
@@ -149,7 +149,11 @@ class RouteParser
 
         $configuredRoute = [];
 
-        foreach ($this->routeElements as $key => $element) {
+        for ($key = 0, $keyCount = count($this->routeElements); $key < $keyCount; $key++) {
+            $element = $this->routeElements[$key];
+            if ($element === '') {
+                continue;
+            }
             if (
                 in_array(
                     needle: $key,
@@ -203,7 +207,7 @@ class RouteParser
                 break;
             } else {
                 if (
-                    (isset($routes['__FILE__']) && count(value: $routes) > 1)
+                    (isset($routes['__FILE__']) && count(value: $routes) > 2)
                     || (!isset($routes['__FILE__']) && count(value: $routes) > 0)
                 ) {
                     [
@@ -338,19 +342,24 @@ class RouteParser
     private function validateConfigFile(&$routes): void
     {
         // Set route code file
-        if (
-            !(
-                isset($routes['__FILE__'])
-                && (
+        if (!isset($routes['__FILE__'])) {
+            if (count($routes) > 0) {
+                throw new \Exception(
+                    message: 'Route not supported',
+                    code: HttpStatus::$BadRequest
+                );
+            }
+            if (
+                !(
                     $routes['__FILE__'] === false
                     || file_exists(filename: $routes['__FILE__'])
                 )
-            )
-        ) {
-            throw new \Exception(
-                message: 'Missing config for ' . $this->api->req->METHOD . ' method',
-                code: HttpStatus::$InternalServerError
-            );
+            ) {
+                throw new \Exception(
+                    message: 'Missing config for ' . $this->api->req->METHOD . ' method',
+                    code: HttpStatus::$InternalServerError
+                );
+            }
         }
 
         if (
@@ -423,6 +432,9 @@ class RouteParser
         $foundStringRoute = false;
         $foundStringParamName = false;
         foreach (array_keys(array: $routes) as $routeElement) {
+            if (in_array($routeElement, ['dataType'])) {
+                continue;
+            }
             if (
                 strpos(haystack: $routeElement, needle: '{') === 0
                 && isset($routes[$routeElement]['dataType'])

@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  HTTP_Request
- * @package   Microservices
+ * @package   sahar.guru
  * @author    Ramesh N Jangid <polygon.co.in@gmail.com>
  * @copyright 2025 Ramesh N Jangid
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/Microservices
+ * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0
  */
 
@@ -21,6 +21,7 @@ use Microservices\App\CacheKey;
 use Microservices\App\DataRepresentation\DataDecode;
 use Microservices\App\DataRepresentation\DataEncode;
 use Microservices\App\DbFunctions;
+use Microservices\App\Env;
 use Microservices\App\HttpStatus;
 use Microservices\App\Middleware\Auth;
 use Microservices\App\RouteParser;
@@ -30,11 +31,11 @@ use Microservices\App\RouteParser;
  * php version 8.3
  *
  * @category  HTTP_Request
- * @package   Microservices
+ * @package   sahar.guru
  * @author    Ramesh N Jangid <polygon.co.in@gmail.com>
  * @copyright 2025 Ramesh N Jangid
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/Microservices
+ * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0
  */
 class HttpRequest
@@ -108,6 +109,13 @@ class HttpRequest
      * @var null|int
      */
     public $cId = null;
+
+    /**
+     * Client users table
+     *
+     * @var null|string
+     */
+    public $usersTable = null;
 
     /**
      * Constructor
@@ -217,6 +225,7 @@ class HttpRequest
             ),
             associative: true
         );
+        $this->usersTable = getenv(name: $this->s['cDetails']['usersTable']);
         $this->cId = $this->s['cDetails']['id'];
     }
 

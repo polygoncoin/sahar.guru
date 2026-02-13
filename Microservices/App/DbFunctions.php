@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  DbFunctions
- * @package   Microservices
+ * @package   sahar.guru
  * @author    Ramesh N Jangid <polygon.co.in@gmail.com>
  * @copyright 2025 Ramesh N Jangid
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/Microservices
+ * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0
  */
 
@@ -25,11 +25,11 @@ use Microservices\App\HttpStatus;
  * php version 8.3
  *
  * @category  DbFunctions
- * @package   Microservices
+ * @package   sahar.guru
  * @author    Ramesh N Jangid <polygon.co.in@gmail.com>
  * @copyright 2025 Ramesh N Jangid
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/Microservices
+ * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0
  */
 class DbFunctions
@@ -141,7 +141,7 @@ class DbFunctions
     ): object {
         if (!in_array($cacheServerType, ['Redis', 'Memcached', 'MongoDb'])) {
             throw new \Exception(
-                message: 'Invalid Cache type',
+                message: 'Invalid Cache type: ' . $cacheServerType,
                 code: HttpStatus::$InternalServerError
             );
         }

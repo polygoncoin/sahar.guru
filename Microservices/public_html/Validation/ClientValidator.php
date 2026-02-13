@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  Validator
- * @package   Microservices
+ * @package   sahar.guru
  * @author    Ramesh N Jangid <polygon.co.in@gmail.com>
  * @copyright 2025 Ramesh N Jangid
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/Microservices
+ * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0
  */
 
@@ -26,11 +26,11 @@ use Microservices\public_html\Validation\ValidatorTrait;
  * php version 8.3
  *
  * @category  Validator_Client
- * @package   Microservices
+ * @package   sahar.guru
  * @author    Ramesh N Jangid <polygon.co.in@gmail.com>
  * @copyright 2025 Ramesh N Jangid
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/Microservices
+ * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0
  */
 class ClientValidator implements ValidatorInterface

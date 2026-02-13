@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  CustomAPI_Interface
- * @package   Microservices
+ * @package   sahar.guru
  * @author    Ramesh N Jangid <polygon.co.in@gmail.com>
  * @copyright 2025 Ramesh N Jangid
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/Microservices
+ * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0
  */
 
@@ -18,6 +18,7 @@ namespace Microservices\public_html\Supplement\Custom;
 use Microservices\App\CacheKey;
 use Microservices\App\Common;
 use Microservices\App\DbFunctions;
+use Microservices\App\Env;
 use Microservices\public_html\Supplement\Custom\CustomInterface;
 use Microservices\public_html\Supplement\Custom\CustomTrait;
 
@@ -26,11 +27,11 @@ use Microservices\public_html\Supplement\Custom\CustomTrait;
  * php version 8.3
  *
  * @category  CustomAPI_Password
- * @package   Microservices
+ * @package   sahar.guru
  * @author    Ramesh N Jangid <polygon.co.in@gmail.com>
  * @copyright 2025 Ramesh N Jangid
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/Microservices
+ * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0
  */
 class Password implements CustomInterface
@@ -92,9 +93,9 @@ class Password implements CustomInterface
                 algo: PASSWORD_DEFAULT
             );
 
-            $table = getenv(name: 'clientUsersTable');
+            $usersTable = $this->api->req->usersTable;
             $sql = "
-                UPDATE `{$table}`
+                UPDATE `{$usersTable}`
                 SET password_hash = :password_hash
                 WHERE username = :username AND is_deleted = :is_deleted
             ";

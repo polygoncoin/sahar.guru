@@ -5,11 +5,11 @@
  * php version 7
  *
  * @category  SessionHandler
- * @package   Microservices
+ * @package   sahar.guru
  * @author    Ramesh N Jangid <polygon.co.in@gmail.com>
  * @copyright 2025 Ramesh N Jangid
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/Microservices
+ * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0
  */
 
@@ -24,11 +24,11 @@ use Microservices\App\SessionHandlers\Containers\SessionContainerInterface;
  * php version 7
  *
  * @category  CustomSessionHandler_Config
- * @package   Microservices
+ * @package   sahar.guru
  * @author    Ramesh N Jangid <polygon.co.in@gmail.com>
  * @copyright 2025 Ramesh N Jangid
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/Microservices
+ * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0
  */
 class Session
@@ -416,7 +416,7 @@ class Session
     public static function initSessionHandler($sessionMode, $options = []): void
     {
         $env = parse_ini_file(filename: Constants::$DOC_ROOT
-            . DIRECTORY_SEPARATOR . '.session.env'
+            . DIRECTORY_SEPARATOR . '.env.session'
         );
         foreach ($env as $var => $value) {
             self::$$var = $value;

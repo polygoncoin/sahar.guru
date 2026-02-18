@@ -19,7 +19,15 @@ use Microservices\App\DatabaseDataTypes;
 
 return [
     '__QUERY__' => "INSERT INTO `{$this->api->req->usersTable}` SET __SET__",
+    '__VARIABLES__' => [
+        '__GLOBAL_COUNTER__' => true
+    ],
     '__SET__' => [
+        [
+            'column' => 'id',
+            'fetchFrom' => 'variables',
+            'fetchFromValue' => '__GLOBAL_COUNTER__'
+        ],
         [
             'column' => 'client_id',
             'fetchFrom' => 'cDetails',

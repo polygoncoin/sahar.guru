@@ -17,7 +17,15 @@ namespace Microservices\public_html\Config\Queries\Auth\ClientDB\Groups\UserGrou
 
 return [
     '__QUERY__' => "INSERT INTO `{$this->api->req->usersTable}` SET __SET__",
+    '__VARIABLES__' => [
+        '__GLOBAL_COUNTER__' => true
+    ],
     '__SET__' => [
+        [
+            'column' => 'id',
+            'fetchFrom' => 'variables',
+            'fetchFromValue' => '__GLOBAL_COUNTER__'
+        ],
         [
             'column' => 'client_id',
             'fetchFrom' => 'cDetails',
@@ -68,7 +76,15 @@ return [
     '__SUB-QUERY__' => [
         'address' => [
             '__QUERY__' => 'INSERT INTO `address` SET __SET__',
+            '__VARIABLES__' => [
+                '__GLOBAL_COUNTER__' => true
+            ],
             '__SET__' => [
+                [
+                    'column' => 'id',
+                    'fetchFrom' => 'variables',
+                    'fetchFromValue' => '__GLOBAL_COUNTER__'
+                ],
                 [
                     'column' => 'client_id',
                     'fetchFrom' => 'cDetails',

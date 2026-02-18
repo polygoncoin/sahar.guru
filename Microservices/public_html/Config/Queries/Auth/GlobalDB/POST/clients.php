@@ -17,7 +17,15 @@ namespace Microservices\public_html\Config\Queries\Auth\GlobalDB\POST;
 
 return [
     '__QUERY__' => "INSERT INTO `{$Env::$clientsTable}` SET __SET__",
+    '__VARIABLES__' => [
+        '__GLOBAL_COUNTER__' => true
+    ],
     '__SET__' => [
+        [
+            'column' => 'id',
+            'fetchFrom' => 'variables',
+            'fetchFromValue' => '__GLOBAL_COUNTER__'
+        ],
         [
             'column' => 'name',
             'fetchFrom' => 'payload',

@@ -19,7 +19,15 @@ use Microservices\App\DatabaseDataTypes;
 
 return [
     '__QUERY__' => "INSERT INTO `{$Env::$groupsTable}` SET __SET__",
+    '__VARIABLES__' => [
+        '__GLOBAL_COUNTER__' => true
+    ],
     '__SET__' => [
+        [
+            'column' => 'id',
+            'fetchFrom' => 'variables',
+            'fetchFromValue' => '__GLOBAL_COUNTER__'
+        ],
         [
             'column' => 'name',
             'fetchFrom' => 'payload',

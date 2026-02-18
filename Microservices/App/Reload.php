@@ -18,6 +18,7 @@ namespace Microservices\App;
 use Microservices\App\AppTrait;
 use Microservices\App\CacheKey;
 use Microservices\App\DbFunctions;
+use Microservices\App\Env;
 use Microservices\App\Functions;
 
 /**

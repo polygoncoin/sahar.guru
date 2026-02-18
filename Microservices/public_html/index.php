@@ -38,6 +38,10 @@ foreach (['.env','.env.rateLimiting','.env.enable','.env.cidr','.env.container']
     }
 }
 
+Constants::init();
+Env::$timestamp = time();
+Env::init();
+
 // Process the request
 $http = [];
 
@@ -45,7 +49,7 @@ $http['server']['host'] = $_SERVER['HTTP_HOST'];
 $http['server']['method'] = $_SERVER['REQUEST_METHOD'];
 
 if (
-    ((int)getenv('DISABLE_REQUESTS_VIA_PROXIES')) === 1
+    Env::$DISABLE_REQUESTS_VIA_PROXIES
     && !isset($_SERVER['REMOTE_ADDR'])
 ) {
     die("Invalid request");
@@ -79,10 +83,6 @@ $http['hash'] = Functions::uniqueHttpRequestHash(
         $_SERVER['HTTP_USER_AGENT'] ?? ''
     ]
 );
-
-Constants::init();
-Env::$timestamp = time();
-Env::init(http: $http);
 
 if (
     isset($http['get'][ROUTE_URL_PARAM])

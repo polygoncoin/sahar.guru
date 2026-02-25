@@ -7,7 +7,7 @@
  * @category  NoSql
  * @package   sahar.guru
  * @author    Ramesh N Jangid <polygon.co.in@gmail.com>
- * @copyright 2025 Ramesh N Jangid
+ * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
  * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0
@@ -25,7 +25,7 @@ use Microservices\App\Servers\Containers\NoSql\NoSqlInterface;
  * @category  Memcached
  * @package   sahar.guru
  * @author    Ramesh N Jangid <polygon.co.in@gmail.com>
- * @copyright 2025 Ramesh N Jangid
+ * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
  * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0

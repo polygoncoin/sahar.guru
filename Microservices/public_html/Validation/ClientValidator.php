@@ -7,7 +7,7 @@
  * @category  Validator
  * @package   sahar.guru
  * @author    Ramesh N Jangid <polygon.co.in@gmail.com>
- * @copyright 2025 Ramesh N Jangid
+ * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
  * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0
@@ -28,7 +28,7 @@ use Microservices\public_html\Validation\ValidatorTrait;
  * @category  Validator_Client
  * @package   sahar.guru
  * @author    Ramesh N Jangid <polygon.co.in@gmail.com>
- * @copyright 2025 Ramesh N Jangid
+ * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
  * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0

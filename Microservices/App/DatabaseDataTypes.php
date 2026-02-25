@@ -422,6 +422,15 @@ class DatabaseDataTypes
         }
 
         $returnFlag = true;
+
+        if (
+            $returnFlag
+            && isset($dataType['canBeNull'])
+            && $dataType['canBeNull'] === true
+            && $data === null
+        ) {
+            return true;
+        }
         if (
             $returnFlag
             && isset($dataType['minValue'])

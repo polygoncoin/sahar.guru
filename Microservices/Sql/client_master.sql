@@ -60,7 +60,6 @@ INSERT INTO `users` VALUES
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
-
 ------------- Tables for logging --------------
 -- (Only for authorised requests)
 DROP TABLE IF EXISTS `sahar.guru`.`requests`;

@@ -57,7 +57,7 @@ return [
                 );
         }],
         [
-            'column' => 'allowed_cidrs',
+            'column' => 'allowed_cidr',
             'fetchFrom' => 'custom',
             'fetchFromValue' => '0.0.0.0/0'],
         [

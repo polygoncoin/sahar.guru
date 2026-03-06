@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `user`;
 
-CREATE TABLE `users` (
+CREATE TABLE `user` (
   `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   `client_id` int NOT NULL,
   `group_id` int NOT NULL,
@@ -52,18 +52,18 @@ CREATE TABLE `api_cache` (
     UNIQUE INDEX api_cache_key (`key`)
 ) ENGINE=InnoDB;
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES
-(1,1,1,'0.0.0.0/0','shared-user-1','clients','user1@email.com','client','$2y$10$o8hFTjBIXQS.fOED2Ut1ZOCSdDjTnS3lyELI4rWyFEnu4GUyJr3O6','',0,NULL,NULL,NULL,0,'2023-02-22 04:12:50',NULL,NULL,0,'2023-04-20 16:53:57','Yes','No','No'),
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES
+(1,1,1,'0.0.0.0/0','shared-user-1','client','user1@email.com','client','$2y$10$o8hFTjBIXQS.fOED2Ut1ZOCSdDjTnS3lyELI4rWyFEnu4GUyJr3O6','',0,NULL,NULL,NULL,0,'2023-02-22 04:12:50',NULL,NULL,0,'2023-04-20 16:53:57','Yes','No','No'),
 (1,2,2,'0.0.0.0/0','mum-user-1','bai','user2@email.com','mumbai','$2y$10$o8hFTjBIXQS.fOED2Ut1ZOCSdDjTnS3lyELI4rWyFEnu4GUyJr3O6','',0,NULL,NULL,NULL,0,'2023-02-22 04:12:50',NULL,NULL,0,'2023-04-20 16:53:57','Yes','No','No');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
 ------------- Tables for logging --------------
--- (Only for authorised requests)
-DROP TABLE IF EXISTS `sahar.guru`.`requests`;
-CREATE TABLE `sahar.guru`.`requests` (
+-- (Only for authorised request)
+DROP TABLE IF EXISTS `sahar.guru`.`request`;
+CREATE TABLE `sahar.guru`.`request` (
     `request_no` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     `for` ENUM('Customer','Website') NOT NULL,
     `for_no` BIGINT NOT NULL,
@@ -75,7 +75,7 @@ CREATE TABLE `sahar.guru`.`requests` (
     `request_operator_ip` VARCHAR(25) NOT NULL
 );
 
--- (Only for authorised requests)
+-- (Only for authorised request)
 DROP TABLE IF EXISTS `sahar.guru`.`dml_logs`;
 CREATE TABLE `sahar.guru`.`dml_logs` (
     `request_no` BIGINT NOT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE `sahar.guru`.`dml_logs` (
     `operator_ip` VARCHAR(25) NOT NULL
 );
 
--- (Only for authorised requests)
+-- (Only for authorised request)
 DROP TABLE IF EXISTS `sahar.guru`.`dml_error_logs`;
 CREATE TABLE `sahar.guru`.`dml_error_logs` (
     `request_no` BIGINT NOT NULL,
@@ -109,7 +109,7 @@ CREATE TABLE `sahar.guru`.`dml_error_logs` (
 
 ------------- Tables @product level --------------
 -- @product level -- 3 groups (Vendors/Customers/Wensites)
-DROP TABLE IF EXISTS `groups`;
+DROP TABLE IF EXISTS `group`;
 CREATE TABLE `customer_groups` (
     `group_no` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     `group_name` varchar(100) NOT NULL,

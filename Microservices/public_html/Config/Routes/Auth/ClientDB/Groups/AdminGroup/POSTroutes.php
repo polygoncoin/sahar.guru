@@ -18,28 +18,28 @@ namespace Microservices\public_html\Config\Routes\Auth\ClientDB\Groups\AdminGrou
 use Microservices\App\Constants;
 
 return [
-    'registration' => [
-        '__FILE__' => Constants::$AUTH_QUERIES_DIR
-            . DIRECTORY_SEPARATOR . 'ClientDB'
-            . DIRECTORY_SEPARATOR . 'Groups'
-            . DIRECTORY_SEPARATOR . 'AdminGroup'
-            . DIRECTORY_SEPARATOR . 'POST'
-            . DIRECTORY_SEPARATOR . 'Registration.php',
-    ],
-    'address' => [
-        '__FILE__' => Constants::$AUTH_QUERIES_DIR
-            . DIRECTORY_SEPARATOR . 'ClientDB'
-            . DIRECTORY_SEPARATOR . 'Groups'
-            . DIRECTORY_SEPARATOR . 'AdminGroup'
-            . DIRECTORY_SEPARATOR . 'POST'
-            . DIRECTORY_SEPARATOR . 'Address.php',
-    ],
-    'registration-with-address' => [
-        '__FILE__' => Constants::$AUTH_QUERIES_DIR
-            . DIRECTORY_SEPARATOR . 'ClientDB'
-            . DIRECTORY_SEPARATOR . 'Groups'
-            . DIRECTORY_SEPARATOR . 'AdminGroup'
-            . DIRECTORY_SEPARATOR . 'POST'
-            . DIRECTORY_SEPARATOR . 'Registration-With-Address.php',
-    ],
+	'registration' => [
+		'__FILE__' => Constants::$AUTH_QUERIES_DIR
+				DIRECTORY_SEPARATOR . 'ClientDB'
+				DIRECTORY_SEPARATOR . 'Groups'
+				DIRECTORY_SEPARATOR . 'AdminGroup'
+				DIRECTORY_SEPARATOR . 'POST'
+				DIRECTORY_SEPARATOR . 'Registration.php',
+	],
+	'address' => [
+		'__FILE__' => Constants::$AUTH_QUERIES_DIR
+				DIRECTORY_SEPARATOR . 'ClientDB'
+				DIRECTORY_SEPARATOR . 'Groups'
+				DIRECTORY_SEPARATOR . 'AdminGroup'
+				DIRECTORY_SEPARATOR . 'POST'
+				DIRECTORY_SEPARATOR . 'Address.php',
+	],
+	'registration-with-address' => [
+		'__FILE__' => Constants::$AUTH_QUERIES_DIR
+				DIRECTORY_SEPARATOR . 'ClientDB'
+				DIRECTORY_SEPARATOR . 'Groups'
+				DIRECTORY_SEPARATOR . 'AdminGroup'
+				DIRECTORY_SEPARATOR . 'POST'
+				DIRECTORY_SEPARATOR . 'Registration-With-Address.php',
+	],
 ];

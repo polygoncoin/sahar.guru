@@ -20,44 +20,44 @@ use Microservices\App\DatabaseDataTypes;
 use Microservices\App\Env;
 
 return [
-    'registration' => [
-        '{id:int}'  => [
-            'dataType' => DatabaseDataTypes::$PrimaryKey,
-            '__FILE__' => Constants::$AUTH_QUERIES_DIR
-                . DIRECTORY_SEPARATOR . 'ClientDB'
-                . DIRECTORY_SEPARATOR . 'Groups'
-                . DIRECTORY_SEPARATOR . 'UserGroup'
-                . DIRECTORY_SEPARATOR . 'GET'
-                . DIRECTORY_SEPARATOR . 'Registration-single.php',
-        ],
-    ],
-    'address' => [
-        '{id:int}'  => [
-            'dataType' => DatabaseDataTypes::$PrimaryKey,
-            '__FILE__' => Constants::$AUTH_QUERIES_DIR
-                . DIRECTORY_SEPARATOR . 'ClientDB'
-                . DIRECTORY_SEPARATOR . 'Groups'
-                . DIRECTORY_SEPARATOR . 'UserGroup'
-                . DIRECTORY_SEPARATOR . 'GET'
-                . DIRECTORY_SEPARATOR . 'Address-single.php',
-        ],
-    ],
-    'registration-with-address' => [
-        '{id:int}'  => [
-            'dataType' => DatabaseDataTypes::$PrimaryKey,
-            '__FILE__' => Constants::$AUTH_QUERIES_DIR
-                . DIRECTORY_SEPARATOR . 'ClientDB'
-                . DIRECTORY_SEPARATOR . 'Groups'
-                . DIRECTORY_SEPARATOR . 'UserGroup'
-                . DIRECTORY_SEPARATOR . 'GET'
-                . DIRECTORY_SEPARATOR . 'Registration-With-Address-single.php',
-        ],
-    ],
-    Env::$routesRequestRoute => [
-        '__FILE__' => false,
-        '{method:string}' => [
-            'dataType' => DatabaseDataTypes::$HttpMethods,
-            '__FILE__' => false
-        ]
-    ]
+	'registration' => [
+		'{id:int}'  => [
+			'dataType' => DatabaseDataTypes::$PrimaryKey,
+			'__FILE__' => Constants::$AUTH_QUERIES_DIR
+					DIRECTORY_SEPARATOR . 'ClientDB'
+					DIRECTORY_SEPARATOR . 'Groups'
+					DIRECTORY_SEPARATOR . 'UserGroup'
+					DIRECTORY_SEPARATOR . 'GET'
+					DIRECTORY_SEPARATOR . 'Registration-single.php',
+		],
+	],
+	'address' => [
+		'{id:int}'  => [
+			'dataType' => DatabaseDataTypes::$PrimaryKey,
+			'__FILE__' => Constants::$AUTH_QUERIES_DIR
+					DIRECTORY_SEPARATOR . 'ClientDB'
+					DIRECTORY_SEPARATOR . 'Groups'
+					DIRECTORY_SEPARATOR . 'UserGroup'
+					DIRECTORY_SEPARATOR . 'GET'
+					DIRECTORY_SEPARATOR . 'Address-single.php',
+		],
+	],
+	'registration-with-address' => [
+		'{id:int}'  => [
+			'dataType' => DatabaseDataTypes::$PrimaryKey,
+			'__FILE__' => Constants::$AUTH_QUERIES_DIR
+					DIRECTORY_SEPARATOR . 'ClientDB'
+					DIRECTORY_SEPARATOR . 'Groups'
+					DIRECTORY_SEPARATOR . 'UserGroup'
+					DIRECTORY_SEPARATOR . 'GET'
+					DIRECTORY_SEPARATOR . 'Registration-With-Address-single.php',
+		],
+	],
+	Env::$routesRequestRoute => [
+		'__FILE__' => false,
+		'{method:string}' => [
+			'dataType' => DatabaseDataTypes::$HttpMethods,
+			'__FILE__' => false
+		]
+	]
 ];

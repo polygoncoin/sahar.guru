@@ -19,9 +19,9 @@ use Microservices\App\Constants;
 use Microservices\App\DatabaseDataTypes;
 
 return [
-    'login' => [
-        '__FILE__' => Constants::$OPEN_QUERIES_DIR
-            . DIRECTORY_SEPARATOR . 'GET'
-            . DIRECTORY_SEPARATOR . 'Login.php',
-    ]
+	'login' => [
+		'__FILE__' => Constants::$OPEN_QUERIES_DIR
+				DIRECTORY_SEPARATOR . 'GET'
+				DIRECTORY_SEPARATOR . 'Login.php',
+	]
 ];

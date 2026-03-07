@@ -16,51 +16,51 @@
 namespace Microservices\public_html\Config\Queries\Auth\GlobalDB\POST;
 
 return [
-    '__QUERY__' => "INSERT INTO `{$Env::$clientsTable}` SET __SET__",
-    '__VARIABLES__' => [
-        '__GLOBAL_COUNTER__' => true
-    ],
-    '__SET__' => [
-        [
-            'column' => 'id',
-            'fetchFrom' => 'variables',
-            'fetchFromValue' => '__GLOBAL_COUNTER__'
-        ],
-        [
-            'column' => 'name',
-            'fetchFrom' => 'payload',
-            'fetchFromValue' => 'name'
-        ],
-        [
-            'column' => 'comments',
-            'fetchFrom' => 'payload',
-            'fetchFromValue' => 'comments'
-        ],
-        [
-            'column' => 'created_by',
-            'fetchFrom' => 'uDetails',
-            'fetchFromValue' => 'id'
-        ],
-        [
-            'column' => 'created_on',
-            'fetchFrom' => 'custom',
-            'fetchFromValue' => date(format: 'Y-m-d H:i:s')
-        ],
-        [
-            'column' => 'is_approved',
-            'fetchFrom' => 'custom',
-            'fetchFromValue' => 'No'
-        ],
-        [
-            'column' => 'is_disabled',
-            'fetchFrom' => 'custom',
-            'fetchFromValue' => 'No'
-        ],
-        [
-            'column' => 'is_deleted',
-            'fetchFrom' => 'custom',
-            'fetchFromValue' => 'No'
-        ]
-    ],
-    '__INSERT-IDs__' => 'client:id',
+	'__QUERY__' => "INSERT INTO `{$Env::$clientsTable}` SET __SET__",
+	'__VARIABLES__' => [
+		'__GLOBAL_COUNTER__' => true
+	],
+	'__SET__' => [
+		[
+			'column' => 'id',
+			'fetchFrom' => 'variables',
+			'fetchFromValue' => '__GLOBAL_COUNTER__'
+		],
+		[
+			'column' => 'name',
+			'fetchFrom' => 'payload',
+			'fetchFromValue' => 'name'
+		],
+		[
+			'column' => 'comments',
+			'fetchFrom' => 'payload',
+			'fetchFromValue' => 'comments'
+		],
+		[
+			'column' => 'created_by',
+			'fetchFrom' => 'uDetails',
+			'fetchFromValue' => 'id'
+		],
+		[
+			'column' => 'created_on',
+			'fetchFrom' => 'custom',
+			'fetchFromValue' => date(format: 'Y-m-d H:i:s')
+		],
+		[
+			'column' => 'is_approved',
+			'fetchFrom' => 'custom',
+			'fetchFromValue' => 'No'
+		],
+		[
+			'column' => 'is_disabled',
+			'fetchFrom' => 'custom',
+			'fetchFromValue' => 'No'
+		],
+		[
+			'column' => 'is_deleted',
+			'fetchFrom' => 'custom',
+			'fetchFromValue' => 'No'
+		]
+	],
+	'__INSERT-IDs__' => 'client:id',
 ];

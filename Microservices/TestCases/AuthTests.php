@@ -16,11 +16,11 @@
 namespace Microservices\TestCases;
 
 if (!defined('GET')) {
-    define('GET', __DIR__ . DIRECTORY_SEPARATOR . 'GET');
-    define('POST', __DIR__ . DIRECTORY_SEPARATOR . 'POST');
-    define('PUT', __DIR__ . DIRECTORY_SEPARATOR . 'PUT');
-    define('PATCH', __DIR__ . DIRECTORY_SEPARATOR . 'PATCH');
-    define('DELETE', __DIR__ . DIRECTORY_SEPARATOR . 'DELETE');
+	define('GET', __DIR__ . DIRECTORY_SEPARATOR . 'GET');
+	define('POST', __DIR__ . DIRECTORY_SEPARATOR . 'POST');
+	define('PUT', __DIR__ . DIRECTORY_SEPARATOR . 'PUT');
+	define('PATCH', __DIR__ . DIRECTORY_SEPARATOR . 'PATCH');
+	define('DELETE', __DIR__ . DIRECTORY_SEPARATOR . 'DELETE');
 }
 
 // $apiVersion = 'X-API-Version: v1.0.0';
@@ -40,8 +40,8 @@ $homeURL = 'http://api.localhost/sahar.guru/Microservices/public_html/index.php'
 $response[] = include GET . DIRECTORY_SEPARATOR . 'Reload.php';
 
 $payload = [
-    'username' => 'client',
-    'password' => 'shames11'
+	'username' => 'client',
+	'password' => 'shames11'
 ];
 $response[] = include POST . DIRECTORY_SEPARATOR . 'Login.php';
 
@@ -55,7 +55,7 @@ $response[] = include POST . DIRECTORY_SEPARATOR . 'RegistrationWithAddress.php'
 $response[] = include GET . DIRECTORY_SEPARATOR . 'RegistrationSingle.php';
 $response[] = include GET . DIRECTORY_SEPARATOR . 'AddressSingle.php';
 $response[] = include GET . DIRECTORY_SEPARATOR .
-    'RegistrationWithAddressSingle.php';
+	'RegistrationWithAddressSingle.php';
 
 $response[] = include PUT . DIRECTORY_SEPARATOR . 'Registration.php';
 $response[] = include PUT . DIRECTORY_SEPARATOR . 'Address.php';
@@ -70,8 +70,8 @@ $homeURL = 'http://api.mum.localhost/sahar.guru/Microservices/public_html/index.
 
 // Admin login
 $payload = [
-    'username' => 'mumbai',
-    'password' => 'shames11'
+	'username' => 'mumbai',
+	'password' => 'shames11'
 ];
 $response[] = include POST . DIRECTORY_SEPARATOR . 'Login.php';
 
@@ -84,7 +84,7 @@ $response[] = include POST . DIRECTORY_SEPARATOR . 'RegistrationWithAddress.php'
 $response[] = include GET . DIRECTORY_SEPARATOR . 'RegistrationSingle.php';
 $response[] = include GET . DIRECTORY_SEPARATOR . 'AddressSingle.php';
 $response[] = include GET . DIRECTORY_SEPARATOR .
-    'RegistrationWithAddressSingle.php';
+	'RegistrationWithAddressSingle.php';
 
 $response[] = include PUT . DIRECTORY_SEPARATOR . 'Registration.php';
 $response[] = include PUT . DIRECTORY_SEPARATOR . 'Address.php';

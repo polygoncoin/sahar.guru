@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  Hook
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 
@@ -24,11 +24,11 @@ use Microservices\public_html\Hooks\HookTrait;
  * php version 8.3
  *
  * @category  Hook_Example
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 class Hook_Example implements HookInterface

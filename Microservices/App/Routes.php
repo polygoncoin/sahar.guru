@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  Routes
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 
@@ -24,11 +24,11 @@ use Microservices\App\Env;
  * php version 8.3
  *
  * @category  Routes
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 class Routes
@@ -51,7 +51,7 @@ class Routes
 	 *
 	 * @var string
 	 */
-	private $routesFolder = DIRECTORY_SEPARATOR . 'Config'
+	private $routesFolder = DIRECTORY_SEPARATOR . 'Config' .
 			DIRECTORY_SEPARATOR . 'Routes';
 
 	/**
@@ -105,20 +105,20 @@ class Routes
 
 		$httpRoutes = [];
 		if ($this->api->req->open) {
-			$userRoutesFolder = Constants::$PUBLIC_HTML . $this->routesFolder
-					DIRECTORY_SEPARATOR . 'Open';
-			else {
-			$userRoutesFolder = Constants::$PUBLIC_HTML . $this->routesFolder
-					DIRECTORY_SEPARATOR . 'Auth'
-					DIRECTORY_SEPARATOR . 'ClientDB'
-					DIRECTORY_SEPARATOR . 'Groups'
-					DIRECTORY_SEPARATOR . $this->api->req->s['gDetails']['name'];
+			$userRoutesFolder = Constants::$PUBLIC_HTML . $this->routesFolder .
+				DIRECTORY_SEPARATOR . 'Open';
+		} else {
+			$userRoutesFolder = Constants::$PUBLIC_HTML . $this->routesFolder .
+				DIRECTORY_SEPARATOR . 'Auth' .
+				DIRECTORY_SEPARATOR . 'ClientDB' .
+				DIRECTORY_SEPARATOR . 'Groups' .
+				DIRECTORY_SEPARATOR . $this->api->req->s['gDetails']['name'];
 		}
 
 		foreach ($this->httpMethods as $method) {
 			$httpRoutes[$method] = [];
-			$routeFileLocation =  $userRoutesFolder
-					DIRECTORY_SEPARATOR . $method . 'routes.php';
+			$routeFileLocation =  $userRoutesFolder .
+				DIRECTORY_SEPARATOR . $method . 'routes.php';
 			if (!file_exists(filename: $routeFileLocation)) {
 				continue;
 			}

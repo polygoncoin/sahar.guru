@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  Validator
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 
@@ -49,9 +49,9 @@ $http['server']['host'] = $_SERVER['HTTP_HOST'];
 $http['server']['method'] = $_SERVER['REQUEST_METHOD'];
 
 if (
-	Env::$DISABLE_REQUESTS_VIA_PROXIES
+	((int)getenv('DISABLE_REQUESTS_VIA_PROXIES')) === 1
 	&& !isset($_SERVER['REMOTE_ADDR'])
-	{
+) {
 	die("Invalid request");
 }
 
@@ -97,7 +97,7 @@ if (
 		]
 	)
 	&& $http['server']['host'] === 'localhost'
-	{
+) {
 	$tests = new Tests();
 	switch ($http['get'][ROUTE_URL_PARAM]) {
 		case '/tests':
@@ -116,7 +116,7 @@ if (
 			echo '<pre>'.print_r(value: $tests->processSupplement(), return: true);
 			break;
 	}
-	else {
+} else {
 
 	ob_start();
 	[$responseheaders, $responseContent, $responseCode] = Start::http(http: $http, streamData: true);

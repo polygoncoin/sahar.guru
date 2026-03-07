@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  Export
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 
@@ -24,11 +24,11 @@ use Microservices\App\HttpStatus;
  * php version 8.3
  *
  * @category  Export
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 class Export
@@ -202,11 +202,11 @@ class Export
 		if (!is_null(value: $exportFile)) {
 			$tmpFilename = $exportFile;
 			$shellCommand .= ' > ' . escapeshellarg(arg: $tmpFilename);
-			elseif ($this->useTmpFile) {
+		} elseif ($this->useTmpFile) {
 			// Generate temporary file for storing output of shell command on server
 			$tmpFilename = tempnam(directory: sys_get_temp_dir(), prefix: 'CSV');
 			$shellCommand .= ' > ' . escapeshellarg(arg: $tmpFilename);
-			else {
+		} else {
 			$tmpFilename = null;
 			$shellCommand .= ' 2>&1';
 		}
@@ -249,7 +249,7 @@ class Export
 				exportFile: $tmpFilename,
 				downloadFile: $downloadFile
 			);
-			else {
+		} else {
 			// Set headers
 			$headers = $this->getCsvHeaders(filename: $downloadFile);
 

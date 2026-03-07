@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  Validator
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 
@@ -26,11 +26,11 @@ use Microservices\public_html\Validation\ValidatorTrait;
  * php version 8.3
  *
  * @category  Validator_Client
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 class ClientValidator implements ValidatorInterface
@@ -70,7 +70,7 @@ class ClientValidator implements ValidatorInterface
 			foreach ($v['fnArgs'] as $attr => [$mode, $key]) {
 				if ($mode === 'custom') {
 					$args[$attr] = $key;
-					else {
+				} else {
 					$args[$attr] = $this->api->req->s[$mode][$key];
 				}
 			}

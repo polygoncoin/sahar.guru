@@ -5,11 +5,11 @@
  * php version 7
  *
  * @category  SessionHandler
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 
@@ -24,11 +24,11 @@ use Microservices\App\SessionHandlers\Containers\SessionContainerHelper;
  * php version 7
  *
  * @category  CustomSessionHandler_MongoDb
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 class MongoDbBasedSessionContainer extends SessionContainerHelper implements
@@ -80,7 +80,7 @@ class MongoDbBasedSessionContainer extends SessionContainerHelper implements
 					return $this->decryptData(cipherText: $document['sessionData']);
 				}
 			}
-			catch (\Exception $e) {
+		} catch (\Exception $e) {
 			$this->manageException(e: $e);
 		}
 		return false;
@@ -105,7 +105,7 @@ class MongoDbBasedSessionContainer extends SessionContainerHelper implements
 			if ($this->collection->insertOne($document)) {
 				return true;
 			}
-			catch (\Exception $e) {
+		} catch (\Exception $e) {
 			$this->manageException(e: $e);
 		}
 		return false;
@@ -132,7 +132,7 @@ class MongoDbBasedSessionContainer extends SessionContainerHelper implements
 			if ($this->collection->updateOne($filter, $update)) {
 				return true;
 			}
-			catch (\Exception $e) {
+		} catch (\Exception $e) {
 			$this->manageException(e: $e);
 		}
 		return false;
@@ -159,7 +159,7 @@ class MongoDbBasedSessionContainer extends SessionContainerHelper implements
 			if ($this->collection->updateOne($filter, $update)) {
 				return true;
 			}
-			catch (\Exception $e) {
+		} catch (\Exception $e) {
 			$this->manageException(e: $e);
 		}
 		return false;
@@ -192,7 +192,7 @@ class MongoDbBasedSessionContainer extends SessionContainerHelper implements
 			if ($this->collection->deleteOne($filter)) {
 				return true;
 			}
-			catch (\Exception $e) {
+		} catch (\Exception $e) {
 			$this->manageException(e: $e);
 		}
 		return false;
@@ -231,7 +231,7 @@ class MongoDbBasedSessionContainer extends SessionContainerHelper implements
 
 			// Select a collection
 			$this->collection = $this->database->selectCollection($this->MONGODB_COLLECTION);
-			catch (\Exception $e) {
+		} catch (\Exception $e) {
 			$this->manageException(e: $e);
 		}
 	}

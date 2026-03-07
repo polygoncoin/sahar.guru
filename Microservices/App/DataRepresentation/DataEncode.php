@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  DataEncode
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 
@@ -25,11 +25,11 @@ use Microservices\App\Common;
  * php version 8.3
  *
  * @category  DataEncoder
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 class DataEncode
@@ -98,13 +98,13 @@ class DataEncode
 		if ($this->api->http['server']['method'] === 'GET') {
 			if ($this->api->res->oRepresentation === 'PHP') {
 				$this->tempStream = [];
-				else {
+			} else {
 				$this->tempStream = fopen(filename: "php://temp", mode: "rw+b");
 			}
-			else {
+		} else {
 			if ($this->api->res->oRepresentation === 'PHP') {
 				$this->tempStream = [];
-				else {
+			} else {
 				$this->tempStream = fopen(filename: "php://memory", mode: "rw+b");
 			}
 		}

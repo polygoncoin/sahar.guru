@@ -5,11 +5,11 @@
  * php version 7
  *
  * @category  SessionHandler
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 
@@ -24,11 +24,11 @@ use Microservices\App\SessionHandlers\Containers\SessionContainerHelper;
  * php version 7
  *
  * @category  CustomSessionHandler_MySQL
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 class MySqlBasedSessionContainer extends SessionContainerHelper implements
@@ -77,7 +77,7 @@ class MySqlBasedSessionContainer extends SessionContainerHelper implements
 		if (
 			($row = $this->getSql(sql: $sql, params: $params))
 			&& isset($row['sessionData'])
-			{
+		) {
 			return $this->decryptData(cipherText: $row['sessionData']);
 		}
 		return false;
@@ -223,7 +223,7 @@ class MySqlBasedSessionContainer extends SessionContainerHelper implements
 					\PDO::ATTR_EMULATE_PREPARES => false,
 				]
 			);
-			catch (\Exception $e) {
+		} catch (\Exception $e) {
 			$this->manageException(e: $e);
 		}
 	}
@@ -257,7 +257,7 @@ class MySqlBasedSessionContainer extends SessionContainerHelper implements
 					break;
 			}
 			$stmt->closeCursor();
-			catch (\Exception $e) {
+		} catch (\Exception $e) {
 			$this->manageException(e: $e);
 		}
 		return $row;
@@ -280,7 +280,7 @@ class MySqlBasedSessionContainer extends SessionContainerHelper implements
 			);
 			$stmt->execute(params: $params);
 			$stmt->closeCursor();
-			catch (\Exception $e) {
+		} catch (\Exception $e) {
 			$this->manageException(e: $e);
 		}
 		return true;

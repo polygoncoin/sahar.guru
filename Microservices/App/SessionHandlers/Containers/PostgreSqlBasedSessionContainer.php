@@ -5,11 +5,11 @@
  * php version 7
  *
  * @category  SessionHandler
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 
@@ -24,11 +24,11 @@ use Microservices\App\SessionHandlers\Containers\SessionContainerHelper;
  * php version 7
  *
  * @category  CustomSessionHandler_PgSql
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 class PostgreSqlBasedSessionContainer extends SessionContainerHelper implements
@@ -215,7 +215,7 @@ class PostgreSqlBasedSessionContainer extends SessionContainerHelper implements
 			if (
 				$this->PGSQL_USERNAME !== null
 				&& $this->PGSQL_PASSWORD !== null
-				{
+			) {
 				$UP = "user={$this->PGSQL_USERNAME} password={$this->PGSQL_PASSWORD}";
 			}
 			$this->pgSqlConn = pg_connect(
@@ -223,7 +223,7 @@ class PostgreSqlBasedSessionContainer extends SessionContainerHelper implements
 				"port={$this->PGSQL_PORT} " .
 				"dbname={$this->PGSQL_DATABASE} {$UP}"
 			);
-			catch (\Exception $e) {
+		} catch (\Exception $e) {
 			$this->manageException(e: $e);
 		}
 	}
@@ -250,7 +250,7 @@ class PostgreSqlBasedSessionContainer extends SessionContainerHelper implements
 				pg_free_result($result);
 				return $row;
 			}
-			catch (\Exception $e) {
+		} catch (\Exception $e) {
 			$this->manageException(e: $e);
 		}
 		return false;
@@ -271,7 +271,7 @@ class PostgreSqlBasedSessionContainer extends SessionContainerHelper implements
 			if ($result) {
 				return true;
 			}
-			catch (\Exception $e) {
+		} catch (\Exception $e) {
 			$this->manageException(e: $e);
 		}
 		return false;

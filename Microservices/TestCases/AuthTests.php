@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  TestCases
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 
@@ -29,18 +29,20 @@ $cacheControl = 'Cache-Control: no-cache';
 // $contentType = 'Content-Type: multipart/form-data; charset=utf-8';
 $contentType = 'Content-Type: text/plain; charset=utf-8';
 
+$curlFile = __DIR__ . '/category.csv';
+
 $defaultHeaders = [];
 // $defaultHeaders[] = $apiVersion;
 $defaultHeaders[] = $cacheControl;
 
 $response = [];
 
-$homeURL = 'http://api.localhost/sahar.guru/Microservices/public_html/index.php';
+$homeURL = 'http://api.client001.localhost/Microservices/public_html/index.php';
 
 $response[] = include GET . DIRECTORY_SEPARATOR . 'Reload.php';
 
 $payload = [
-	'username' => 'client',
+	'username' => 'client_1_group_1_user_1',
 	'password' => 'shames11'
 ];
 $response[] = include POST . DIRECTORY_SEPARATOR . 'Login.php';
@@ -48,10 +50,14 @@ $response[] = include POST . DIRECTORY_SEPARATOR . 'Login.php';
 $response[] = include GET . DIRECTORY_SEPARATOR . 'Routes.php';
 
 $response[] = include POST . DIRECTORY_SEPARATOR . 'Config.php';
+$response[] = include POST . DIRECTORY_SEPARATOR . 'Category.php';
 $response[] = include POST . DIRECTORY_SEPARATOR . 'Registration.php';
 $response[] = include POST . DIRECTORY_SEPARATOR . 'Address.php';
 $response[] = include POST . DIRECTORY_SEPARATOR . 'RegistrationWithAddress.php';
 
+$response[] = include GET . DIRECTORY_SEPARATOR . 'Category.php';
+$response[] = include GET . DIRECTORY_SEPARATOR . 'CategorySingle.php';
+$response[] = include GET . DIRECTORY_SEPARATOR . 'CategoryOrderBy.php';
 $response[] = include GET . DIRECTORY_SEPARATOR . 'RegistrationSingle.php';
 $response[] = include GET . DIRECTORY_SEPARATOR . 'AddressSingle.php';
 $response[] = include GET . DIRECTORY_SEPARATOR .
@@ -66,23 +72,32 @@ $response[] = include PATCH . DIRECTORY_SEPARATOR . 'Address.php';
 $response[] = include DELETE . DIRECTORY_SEPARATOR . 'Registration.php';
 $response[] = include DELETE . DIRECTORY_SEPARATOR . 'Address.php';
 
-$homeURL = 'http://api.mum.localhost/sahar.guru/Microservices/public_html/index.php';
+$response[] = include POST . DIRECTORY_SEPARATOR . 'CategoryConfig.php';
 
 // Admin login
 $payload = [
-	'username' => 'mumbai',
+	'username' => 'client_1_admin_1',
 	'password' => 'shames11'
 ];
 $response[] = include POST . DIRECTORY_SEPARATOR . 'Login.php';
 
 $response[] = include GET . DIRECTORY_SEPARATOR . 'Routes.php';
 
+$response[] = include DELETE . DIRECTORY_SEPARATOR . 'CategoryTruncate.php';
+
+$response[] = include POST . DIRECTORY_SEPARATOR . 'Category.php';
 $response[] = include POST . DIRECTORY_SEPARATOR . 'Registration.php';
 $response[] = include POST . DIRECTORY_SEPARATOR . 'Address.php';
 $response[] = include POST . DIRECTORY_SEPARATOR . 'RegistrationWithAddress.php';
 
+$response[] = include GET . DIRECTORY_SEPARATOR . 'Category.php';
+$response[] = include GET . DIRECTORY_SEPARATOR . 'CategorySingle.php';
+$response[] = include GET . DIRECTORY_SEPARATOR . 'CategoryOrderBy.php';
+$response[] = include GET . DIRECTORY_SEPARATOR . 'Registration.php';
 $response[] = include GET . DIRECTORY_SEPARATOR . 'RegistrationSingle.php';
+$response[] = include GET . DIRECTORY_SEPARATOR . 'Address.php';
 $response[] = include GET . DIRECTORY_SEPARATOR . 'AddressSingle.php';
+$response[] = include GET . DIRECTORY_SEPARATOR . 'RegistrationWithAddress.php';
 $response[] = include GET . DIRECTORY_SEPARATOR .
 	'RegistrationWithAddressSingle.php';
 
@@ -97,5 +112,7 @@ $response[] = include PATCH . DIRECTORY_SEPARATOR . 'RegistrationWithAddress.php
 $response[] = include DELETE . DIRECTORY_SEPARATOR . 'Registration.php';
 $response[] = include DELETE . DIRECTORY_SEPARATOR . 'Address.php';
 $response[] = include DELETE . DIRECTORY_SEPARATOR . 'RegistrationWithAddress.php';
+
+$response[] = include POST . DIRECTORY_SEPARATOR . 'CategoryConfig.php';
 
 return $response;

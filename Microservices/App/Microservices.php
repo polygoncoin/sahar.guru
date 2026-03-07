@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  Microservices
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 
@@ -26,11 +26,11 @@ use Microservices\App\HttpStatus;
  * php version 8.3
  *
  * @category  Microservices
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 class Microservices
@@ -134,7 +134,7 @@ class Microservices
 					&& strpos(
 						haystack: $this->api->req->ROUTE,
 						needle: '/' . Env::$cronRequestRoutePrefix
-						=== 0
+					) === 0
 				):
 				if ($this->api->req->IP !== Env::$cronRestrictedCidr) {
 					throw new \Exception(
@@ -198,7 +198,7 @@ class Microservices
 					$this->endData();
 				}
 			}
-			catch (\Exception $e) {
+		} catch (\Exception $e) {
 			$this->log(e: $e);
 		}
 
@@ -305,7 +305,7 @@ class Microservices
 			// may also be using PUT, PATCH, HEAD etc
 			$methods = 'GET, POST, PUT, PATCH, DELETE, OPTIONS';
 			$headers['Access-Control-Allow-Methods'] = $methods;
-			else {
+		} else {
 			switch ($this->api->res->oRepresentation) {
 				case 'XML':
 				case 'XSLT':

@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  TestCases
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 
@@ -35,13 +35,13 @@ $defaultHeaders[] = $cacheControl;
 
 $response = [];
 
-$homeURL = 'http://api.mum.localhost/sahar.guru/Microservices/public_html/index.php';
+$homeURL = 'http://api.client001.localhost/Microservices/public_html/index.php';
 
 $response[] = include GET . DIRECTORY_SEPARATOR . 'Reload.php';
 
 // Client login
 $payload = [
-	'username' => 'mumbai',
+	'username' => 'client_1_group_1_user_1',
 	'password' => 'shames11'
 ];
 $response[] = include POST . DIRECTORY_SEPARATOR . 'Login.php';

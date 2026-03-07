@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  Export
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 
@@ -23,11 +23,11 @@ use Microservices\App\Export\DbInterface;
  * php version 8.3
  *
  * @category  Export
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 class MySql implements DbInterface
@@ -140,7 +140,8 @@ class MySql implements DbInterface
 				haystack: $sql,
 				needle: ':'
 				!== count(value: $params)
-			{
+			)
+		) {
 			throw new \Exception(
 				message: 'Parameterized query has mismatch in number of params'
 			);
@@ -151,7 +152,7 @@ class MySql implements DbInterface
 		foreach ($paramKeys as $value) {
 			if (substr_count(haystack: $sql, needle: $value) > 1) {
 				throw new \Exception(
-					message: 'Parameterized query has more than one '
+					message: 'Parameterized query has more than one ' .
 							"occurrence of param '{$value}'"
 				);
 			}
@@ -164,7 +165,8 @@ class MySql implements DbInterface
 					offset: $value,
 					length: strlen(string: $key)
 					!== $key
-				{
+				)
+			) {
 				throw new \Exception(message: "Invalid param key '{$key}'");
 			}
 		}
@@ -230,7 +232,7 @@ class MySql implements DbInterface
 					subject: $sql
 				);
 				$bindParams = array_merge($bindParams, $tmpParams);
-				else {
+			} else {
 				$bindParams[$key] = $values;
 			}
 		}
@@ -242,8 +244,7 @@ class MySql implements DbInterface
 					mysqli_real_escape_string(
 						mysql: $mysqli,
 						string: $value
-						.
-				"'";
+					) . "'";
 			}
 			$sql = str_replace(search: $key, replace: $value, subject: $sql);
 		}
@@ -267,12 +268,12 @@ class MySql implements DbInterface
 		$sql = $this->generateRawSqlQuery(sql: $sql, params: $params);
 
 		// Shell command.
-		$shellCommand = $this->binaryLoc . ' '
-				'--host=' . escapeshellarg(arg: $this->hostname) . ' '
-				'--port=' . escapeshellarg(arg: $this->port) . ' '
-				'--user=' . escapeshellarg(arg: $this->username) . ' '
-				'--password=' . escapeshellarg(arg: $this->password) . ' '
-				'--database=' . escapeshellarg(arg: $this->database) . ' '
+		$shellCommand = $this->binaryLoc . ' ' .
+				'--host=' . escapeshellarg(arg: $this->hostname) . ' ' .
+				'--port=' . escapeshellarg(arg: $this->port) . ' ' .
+				'--user=' . escapeshellarg(arg: $this->username) . ' ' .
+				'--password=' . escapeshellarg(arg: $this->password) . ' ' .
+				'--database=' . escapeshellarg(arg: $this->database) . ' ' .
 				'--execute=' . escapeshellarg(arg: $sql);
 
 		return $shellCommand;

@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  NoSql
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 
@@ -23,11 +23,11 @@ use Microservices\App\Servers\Containers\NoSql\NoSqlInterface;
  * php version 8.3
  *
  * @category  Redis
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 class Redis implements NoSqlInterface
@@ -91,7 +91,7 @@ class Redis implements NoSqlInterface
 		$password,
 		$database,
 		$table
-		{
+	) {
 		$this->hostname = $hostname;
 		$this->port = $port;
 		$this->username = $username;
@@ -122,7 +122,7 @@ class Redis implements NoSqlInterface
 			if (
 				($this->username !== '')
 				&& ($this->password !== '')
-				{
+			) {
 				$connParams['auth'] = [
 					$this->username,
 					$this->password
@@ -140,7 +140,7 @@ class Redis implements NoSqlInterface
 					code: HttpStatus::$InternalServerError
 				);
 			}
-			catch (\Exception $e) {
+		} catch (\Exception $e) {
 			throw new \Exception(
 				message: $e->getMessage(),
 				code: HttpStatus::$InternalServerError
@@ -191,7 +191,7 @@ class Redis implements NoSqlInterface
 
 		if ($expire === null) {
 			return $this->cache->set($key, $value);
-			else {
+		} else {
 			return $this->cache->set($key, $value, $expire);
 		}
 	}

@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  NoSql
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 
@@ -24,11 +24,11 @@ use Microservices\App\Servers\Containers\NoSql\NoSqlInterface;
  * php version 8.3
  *
  * @category  MongoDb
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 class MongoDb implements NoSqlInterface
@@ -117,7 +117,7 @@ class MongoDb implements NoSqlInterface
 		$password,
 		$database,
 		$table
-		{
+	) {
 		$this->hostname = $hostname;
 		$this->port = $port;
 		$this->username = $username;
@@ -161,7 +161,7 @@ class MongoDb implements NoSqlInterface
 				['expireAt' => 1],
 				['expireAfterSeconds' => 0]
 			);
-			catch (\Exception $e) {
+		} catch (\Exception $e) {
 			throw new \Exception(
 				message: $e->getMessage(),
 				code: HttpStatus::$InternalServerError
@@ -225,7 +225,7 @@ class MongoDb implements NoSqlInterface
 			if ($this->collectionObj->insertOne($document)) {
 				return true;
 			}
-			else {
+		} else {
 			// Current UTC timestamp
 			$document['expireAt'] = new MongoDB\BSON\UTCDateTime(
 				(Env::$timestamp + $expire) * 1000

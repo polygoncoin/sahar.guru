@@ -5,11 +5,11 @@
  * php version 7
  *
  * @category  SessionHandler
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 
@@ -24,11 +24,11 @@ use Microservices\App\SessionHandlers\Containers\SessionContainerHelper;
  * php version 7
  *
  * @category  CustomSessionHandler_Cookie
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 class CookieBasedSessionContainer extends SessionContainerHelper implements
@@ -61,7 +61,7 @@ class CookieBasedSessionContainer extends SessionContainerHelper implements
 		if (
 			isset($_COOKIE[$this->sessionDataName])
 			&& !empty($_COOKIE[$this->sessionDataName])
-			{
+		) {
 			$sessionData = $this->decryptData(
 				cipherText: $_COOKIE[$this->sessionDataName]
 			);
@@ -70,7 +70,7 @@ class CookieBasedSessionContainer extends SessionContainerHelper implements
 				isset($sessionDataArr['_TS_'])
 				&& ($time = $sessionDataArr['_TS_'] + $this->sessionMaxLifetime)
 				&& $time > Env::$timestamp
-				{
+			) {
 				return $sessionData;
 			}
 		}
@@ -95,8 +95,8 @@ class CookieBasedSessionContainer extends SessionContainerHelper implements
 		if (strlen(string: $cookieData) > 4096) {
 			ob_end_clean();
 			die(
-				'Session data length exceeds max 4 kilobytes (KB)'
-						supported per Cookie'
+				'Session data length exceeds max 4 kilobytes (KB)' .
+					' supported per Cookie'
 			);
 		}
 
@@ -114,8 +114,8 @@ class CookieBasedSessionContainer extends SessionContainerHelper implements
 						strpos(
 							haystack: $_SERVER['HTTP_HOST'],
 							needle: 'localhost'
-							=== false
-							true : false
+						) === false
+					) ? true : false
 				),
 				'httponly' => true,
 				'samesite' => 'Strict'
@@ -154,8 +154,8 @@ class CookieBasedSessionContainer extends SessionContainerHelper implements
 		if (strlen(string: $cookieData) > 4096) {
 			ob_end_clean();
 			die(
-				'Session data length exceeds max 4 kilobytes (KB)'
-						supported per Cookie'
+				'Session data length exceeds max 4 kilobytes (KB)' .
+					' supported per Cookie'
 			);
 		}
 
@@ -174,7 +174,9 @@ class CookieBasedSessionContainer extends SessionContainerHelper implements
 							haystack: $_SERVER['HTTP_HOST'],
 							needle: 'localhost'
 							=== false
-							true : false
+						)
+						? true : false
+					)
 				),
 				'httponly' => true,
 				'samesite' => 'Strict'

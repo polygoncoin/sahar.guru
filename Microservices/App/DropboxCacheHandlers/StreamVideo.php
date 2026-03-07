@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  StreamVideo
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 
@@ -23,11 +23,11 @@ use Microservices\App\HttpStatus;
  * php version 8.3
  *
  * @category  StreamVideo
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 class StreamVideo
@@ -96,7 +96,8 @@ class StreamVideo
 				haystack: $this->http['header']['range'],
 				needle: 'bytes='
 				!== false
-			{
+			)
+		) {
 			return HttpStatus::$BadRequest;
 		}
 
@@ -167,11 +168,11 @@ class StreamVideo
 				needle: $this->streamTill,
 				haystack: ['', '1']
 			)
-			{
+		) {
 			// Mac Safari does not support HTTP/1.1 206 response for first
 			// request while fetching video content.
 			// Regex pattern from https://regex101.com/r/gRLirS/1
-			$safariBrowserPattern = '`(\s|^)AppleWebKit/[\d\.]+\s+\(.+\)\s+'
+			$safariBrowserPattern = '`(\s|^)AppleWebKit/[\d\.]+\s+\(.+\)\s+' .
 					'Version/(1[0-9]|[2-9][0-9]|\d{3,})(\.|$|\s)`i';
 			$safariBrowser = preg_match(
 				pattern: $safariBrowserPattern,
@@ -181,23 +182,23 @@ class StreamVideo
 				$this->streamTill = $this->size - 1;
 				$headers['Content-Length'] = $this->size;
 				return [$headers, $status];
-				else {
+			} else {
 				$chunkSize = $this->size > $this->chunkSize ?
 					$this->chunkSize : $this->size;
 				$this->streamTill = $chunkSize - 1;
 				$streamSize = $this->streamTill - $this->streamFrom + 1;
 			}
-			else {
+		} else {
 			if ($this->size > ($this->streamFrom + $this->chunkSize)) {
 				$this->streamTill = $this->streamFrom + $this->chunkSize;
-				else {
+			} else {
 				$this->streamTill = $this->size - 1;
 			}
 			$streamSize = $this->streamTill - $this->streamFrom + 1;
 		}
 		$status = HttpStatus::$PartialContent;
 		$headers['Content-Length'] = $streamSize;
-		$headers['Content-Range'] = 'bytes ' . $this->streamFrom . '-'
+		$headers['Content-Range'] = 'bytes ' . $this->streamFrom . '-' .
 				$this->streamTill . '/' . $this->size;
 
 		return [$headers, $status];

@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  NoSql
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 
@@ -23,11 +23,11 @@ use Microservices\App\Servers\Containers\NoSql\NoSqlInterface;
  * php version 8.3
  *
  * @category  Memcached
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 class Memcached implements NoSqlInterface
@@ -70,7 +70,7 @@ class Memcached implements NoSqlInterface
 		$password,
 		$database,
 		$table
-		{
+	) {
 		$this->hostname = $hostname;
 		$this->port = $port;
 	}
@@ -97,7 +97,7 @@ class Memcached implements NoSqlInterface
 		try {
 			$this->cache = new \Memcached();
 			$this->cache->addServer($this->hostname, $this->port);
-			catch (\Exception $e) {
+		} catch (\Exception $e) {
 			throw new \Exception(
 				message: $e->getMessage(),
 				code: HttpStatus::$InternalServerError
@@ -148,7 +148,7 @@ class Memcached implements NoSqlInterface
 
 		if ($expire === null) {
 			return $this->cache->set($key, $value);
-			else {
+		} else {
 			return $this->cache->set($key, $value, $expire);
 		}
 	}

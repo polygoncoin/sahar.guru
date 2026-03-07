@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  CustomAPI_Interface
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 
@@ -18,7 +18,6 @@ namespace Microservices\public_html\Supplement\Custom;
 use Microservices\App\CacheKey;
 use Microservices\App\Common;
 use Microservices\App\DbFunctions;
-use Microservices\App\Env;
 use Microservices\public_html\Supplement\Custom\CustomInterface;
 use Microservices\public_html\Supplement\Custom\CustomTrait;
 
@@ -27,11 +26,11 @@ use Microservices\public_html\Supplement\Custom\CustomTrait;
  * php version 8.3
  *
  * @category  CustomAPI_Password
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 class Password implements CustomInterface
@@ -77,7 +76,7 @@ class Password implements CustomInterface
 	{
 		if ($this->api->req->s['payloadType'] === 'Object') {
 			$payload = $this->api->req->dataDecode->get();
-			else {
+		} else {
 			$payload = $this->api->req->dataDecode->get('0');
 		}
 		$this->api->req->s['payload'] = $payload;

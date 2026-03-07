@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  DataEncode_JSON
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 
@@ -24,11 +24,11 @@ use Microservices\App\HttpStatus;
  * php version 8.3
  *
  * @category  JSON_Encoder
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 class JsonEncode implements DataEncodeInterface
@@ -120,7 +120,7 @@ class JsonEncode implements DataEncodeInterface
 		}
 		if (is_array(value: $data)) {
 			$this->write(data: json_encode(value: $data));
-			else {
+		} else {
 			$this->write(data: $this->escape(data: $data));
 		}
 		if ($this->currentObject) {

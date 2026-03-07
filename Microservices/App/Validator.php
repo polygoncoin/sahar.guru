@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  Validator
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 
@@ -27,11 +27,11 @@ use Microservices\public_html\Validation\ValidatorInterface;
  * php version 8.3
  *
  * @category  Validator
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 class Validator
@@ -60,7 +60,7 @@ class Validator
 		$this->api = &$api;
 		if (DbFunctions::$masterDb[$this->api->req->cId]->database === Env::$gDbServerDatabase) {
 			$this->v = new GlobalValidator($this->api);
-			else {
+		} else {
 			$this->v = new ClientValidator($this->api);
 		}
 	}
@@ -77,11 +77,11 @@ class Validator
 		if (
 			isset(($this->api->req->s['necessary']))
 			&& count(value: $this->api->req->s['necessary']) > 0
-			{
+		) {
 			if (
 				([$isValidData, $errors] = $this->validateRequired())
 				&& !$isValidData
-				{
+			) {
 				return [$isValidData, $errors];
 			}
 		}

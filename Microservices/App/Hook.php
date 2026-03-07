@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  Hook
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 
@@ -23,11 +23,11 @@ use Microservices\App\HttpStatus;
  * php version 8.3
  *
  * @category  Hook
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 class Hook
@@ -61,8 +61,8 @@ class Hook
 		if (is_array(value: $hookConfig)) {
 			for ($i = 0, $iCount = count(value: $hookConfig); $i < $iCount; $i++) {
 				$hook = $hookConfig[$i];
-				$hookFile = Constants::$PUBLIC_HTML
-						DIRECTORY_SEPARATOR . 'Hooks'
+				$hookFile = Constants::$PUBLIC_HTML .
+						DIRECTORY_SEPARATOR . 'Hooks' .
 						DIRECTORY_SEPARATOR . $hook . '.php';
 				if (file_exists(filename: $hookFile)) {
 					$hookClass = 'Microservices\\public_html\\Hooks\\' . $hook;
@@ -70,7 +70,7 @@ class Hook
 					if ($hookObj->init()) {
 						$hookObj->process();
 					}
-					else {
+				} else {
 					throw new \Exception(
 						message: "Hook '{$hook}' missing",
 						code: HttpStatus::$InternalServerError

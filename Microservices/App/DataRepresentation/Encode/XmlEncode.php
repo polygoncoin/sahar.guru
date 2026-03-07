@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  DataEncode_XML
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 
@@ -24,11 +24,11 @@ use Microservices\App\HttpStatus;
  * php version 8.3
  *
  * @category  Xml_Encoder
- * @package   sahar.guru
+ * @package   Microservices
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/sahar.guru
+ * @link      https://github.com/polygoncoin/Microservices
  * @since     Class available since Release 1.0.0
  */
 class XmlEncode implements DataEncodeInterface
@@ -112,14 +112,14 @@ class XmlEncode implements DataEncodeInterface
 					$this->write(
 						data: "<{$key}>{$this->escape(data: $value)}</{$key}>"
 					);
-					else {
+				} else {
 					$this->addKeyData(key: $key, data: $value);
 				}
 			}
 			if (!$isObject) {
 				$this->write(data: "</{$this->currentObject->key}>");
 			}
-			else {
+		} else {
 			$this->write(data: $this->escape(data: $data));
 		}
 	}

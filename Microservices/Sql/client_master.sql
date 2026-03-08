@@ -24,7 +24,7 @@ CREATE TABLE `user` (
 	`is_approved` enum('Yes','No') NOT NULL DEFAULT 'No',
 	`is_disabled` enum('Yes','No') NOT NULL DEFAULT 'No',
 	`is_deleted` enum('Yes','No') NOT NULL DEFAULT 'No'
-	ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+);
 
 DROP TABLE IF EXISTS `address`;
 
@@ -42,7 +42,7 @@ CREATE TABLE `address` (
 	`is_approved` enum('Yes','No') NOT NULL DEFAULT 'No',
 	`is_disabled` enum('Yes','No') NOT NULL DEFAULT 'No',
 	`is_deleted` enum('Yes','No') NOT NULL DEFAULT 'No'
-	ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 DROP TABLE IF EXISTS `api_cache`;
 
@@ -50,7 +50,7 @@ CREATE TABLE `api_cache` (
 	`key` CHAR(128) NOT NULL,
 	`value` BLOB,
 	UNIQUE INDEX api_cache_key (`key`)
-	ENGINE=InnoDB;
+) ENGINE=InnoDB;
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
@@ -115,7 +115,7 @@ CREATE TABLE `admin` (
 	`admin_is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
 	`admin_is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
 	`admin_is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No'
-	ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+);
 
 -- @Suoer Admin level
 DROP TABLE IF EXISTS `admin_contact`;
@@ -145,7 +145,7 @@ CREATE TABLE `admin_contact` (
 	`admin_contact_is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
 	`admin_contact_is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
 	`admin_contact_is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No'
-	ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+);
 
 DROP TABLE IF EXISTS `admin_group`;
 CREATE TABLE `admin_group` (
@@ -165,7 +165,7 @@ CREATE TABLE `admin_group` (
 	`admin_group_is_approved` enum('Yes','No') NOT NULL DEFAULT 'No',
 	`admin_group_is_disabled` enum('Yes','No') NOT NULL DEFAULT 'No',
 	`admin_group_is_deleted` enum('Yes','No') NOT NULL DEFAULT 'No'
-	ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 
 DROP TABLE IF EXISTS `admin_group_link`;
 CREATE TABLE `admin_group_link` (
@@ -182,7 +182,7 @@ CREATE TABLE `admin_group_link` (
 	`is_approved` enum('Yes','No') NOT NULL DEFAULT 'No',
 	`is_disabled` enum('Yes','No') NOT NULL DEFAULT 'No',
 	`is_deleted` enum('Yes','No') NOT NULL DEFAULT 'No'
-	ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 ------------- Tables Suoer Admin level --------------
 
 ------------- Tables Customer level (By Super Admin) --------------
@@ -207,7 +207,7 @@ CREATE TABLE `customer` (
 	`customer_is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
 	`customer_is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
 	`customer_is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No'
-	ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+);
 
 DROP TABLE IF EXISTS `customer_contact`;
 CREATE TABLE `customer_contact` (
@@ -236,7 +236,7 @@ CREATE TABLE `customer_contact` (
 	`customer_contact_is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
 	`customer_contact_is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
 	`customer_contact_is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No'
-	ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+);
 
 DROP TABLE IF EXISTS `customer_group`;
 CREATE TABLE `customer_group` (
@@ -256,7 +256,7 @@ CREATE TABLE `customer_group` (
 	`customer_group_is_approved` enum('Yes','No') NOT NULL DEFAULT 'No',
 	`customer_group_is_disabled` enum('Yes','No') NOT NULL DEFAULT 'No',
 	`customer_group_is_deleted` enum('Yes','No') NOT NULL DEFAULT 'No'
-	ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 
 DROP TABLE IF EXISTS `customer_group_link`;
 CREATE TABLE `customer_group_link` (
@@ -273,7 +273,7 @@ CREATE TABLE `customer_group_link` (
 	`is_approved` enum('Yes','No') NOT NULL DEFAULT 'No',
 	`is_disabled` enum('Yes','No') NOT NULL DEFAULT 'No',
 	`is_deleted` enum('Yes','No') NOT NULL DEFAULT 'No'
-	ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 
 ------------- Tables Customer level (By Super Admin) --------------
 
@@ -654,7 +654,7 @@ CREATE TABLE `customer_website_admin` (
 	`customer_website_admin_is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
 	`customer_website_admin_is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
 	`customer_website_admin_is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No'
-	ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+);
 
 DROP TABLE IF EXISTS `customer_website_admin_group`;
 CREATE TABLE `customer_website_admin_group` (
@@ -674,7 +674,7 @@ CREATE TABLE `customer_website_admin_group` (
 	`customer_website_admin_group_is_approved` enum('Yes','No') NOT NULL DEFAULT 'No',
 	`customer_website_admin_group_is_disabled` enum('Yes','No') NOT NULL DEFAULT 'No',
 	`customer_website_admin_group_is_deleted` enum('Yes','No') NOT NULL DEFAULT 'No'
-	ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 
 DROP TABLE IF EXISTS `customer_website_admin_group_link`;
 CREATE TABLE `customer_website_admin_group_link` (
@@ -693,7 +693,7 @@ CREATE TABLE `customer_website_admin_group_link` (
 	`is_approved` enum('Yes','No') NOT NULL DEFAULT 'No',
 	`is_disabled` enum('Yes','No') NOT NULL DEFAULT 'No',
 	`is_deleted` enum('Yes','No') NOT NULL DEFAULT 'No'
-	ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 
 ------------- Tables Customer level (Customer Entered Data) ------------
 

@@ -5,11 +5,11 @@
  * php version 8.3
  *
  * @category  WriteAPI
- * @package   Microservices
+ * @package   Sahar.Guru
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/Microservices
+ * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0
  */
 
@@ -29,11 +29,11 @@ use Microservices\App\Web;
  * php version 8.3
  *
  * @category  WriteAPIs
- * @package   Microservices
+ * @package   Sahar.Guru
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
  * @license   MIT https://opensource.org/license/mit
- * @link      https://github.com/polygoncoin/Microservices
+ * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0
  */
 class Write

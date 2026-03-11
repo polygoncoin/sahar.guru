@@ -16,10 +16,10 @@ CREATE TABLE `admin` (
     `admin_approved_on` TIMESTAMP NULL DEFAULT NULL,
     `admin_updated_by` BIGINT DEFAULT NULL,
     `admin_updated_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `admin_is_editable` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `admin_is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `admin_is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `admin_is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No',
+    `admin_is_editable` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `admin_is_approved` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `admin_is_disabled` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `admin_is_deleted` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
     PRIMARY KEY (`admin_no`)
 ) ENGINE = InnoDB;
 
@@ -46,10 +46,10 @@ CREATE TABLE `admin_contact` (
     `admin_contact_approved_on` TIMESTAMP NULL DEFAULT NULL,
     `admin_contact_updated_by` BIGINT DEFAULT NULL,
     `admin_contact_updated_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `admin_contact_is_editable` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `admin_contact_is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `admin_contact_is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `admin_contact_is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No',
+    `admin_contact_is_editable` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `admin_contact_is_approved` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `admin_contact_is_disabled` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `admin_contact_is_deleted` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
     PRIMARY KEY (`admin_contact_no`)
 ) ENGINE = InnoDB;
 
@@ -60,17 +60,17 @@ CREATE TABLE `admin_group` (
     `rateLimitMaxRequest` BIGINT DEFAULT NULL,
     `rateLimitMaxRequestWindow` BIGINT DEFAULT NULL,
     `admin_group_name` VARCHAR(100) NOT NULL,
-    `admin_group_general_information` VARCHAR(255) DEFAULT NULL,
+    `admin_group_general_information` VARCHAR(250) DEFAULT NULL,
     `admin_group_created_by` BIGINT DEFAULT NULL,
     `admin_group_created_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `admin_group_approved_by` BIGINT DEFAULT NULL,
     `admin_group_approved_on` TIMESTAMP NULL DEFAULT NULL,
     `admin_group_updated_by` BIGINT DEFAULT NULL,
     `admin_group_updated_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `admin_group_is_editable` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `admin_group_is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `admin_group_is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `admin_group_is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No',
+    `admin_group_is_editable` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `admin_group_is_approved` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `admin_group_is_disabled` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `admin_group_is_deleted` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
     PRIMARY KEY (`admin_group_no`)
 ) ENGINE = InnoDB;
 
@@ -85,10 +85,10 @@ CREATE TABLE `admin_group_link` (
     `approved_on` TIMESTAMP NULL DEFAULT NULL,
     `updated_by` BIGINT DEFAULT NULL,
     `updated_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `is_editable` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No',
+    `is_editable` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `is_approved` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `is_disabled` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `is_deleted` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
     PRIMARY KEY (`sr_no`)
 ) ENGINE = InnoDB;
 -- ----------- Tables Suoer Admin level --------------

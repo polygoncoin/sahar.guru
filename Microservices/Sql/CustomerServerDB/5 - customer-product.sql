@@ -12,10 +12,10 @@ CREATE TABLE `customer_uom` (
     `customer_uom_approved_on` TIMESTAMP NULL DEFAULT NULL,
     `customer_uom_updated_by` BIGINT DEFAULT NULL,
     `customer_uom_updated_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `customer_uom_is_editable` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_uom_is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_uom_is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_uom_is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No',
+    `customer_uom_is_editable` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_uom_is_approved` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_uom_is_disabled` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_uom_is_deleted` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
     PRIMARY KEY (`customer_uom_no`)
 ) ENGINE = InnoDB;
 
@@ -33,10 +33,10 @@ CREATE TABLE `customer_uom_conversion` (
     `customer_uom_conversion_approved_on` TIMESTAMP NULL DEFAULT NULL,
     `customer_uom_conversion_updated_by` BIGINT DEFAULT NULL,
     `customer_uom_conversion_updated_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `customer_uom_conversion_is_editable` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_uom_conversion_is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_uom_conversion_is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_uom_conversion_is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No',
+    `customer_uom_conversion_is_editable` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_uom_conversion_is_approved` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_uom_conversion_is_disabled` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_uom_conversion_is_deleted` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
     PRIMARY KEY (`customer_uom_conversion_no`)
 ) ENGINE = InnoDB;
 
@@ -65,10 +65,10 @@ CREATE TABLE `customer_manufacturer` (
     `customer_manufacturer_approved_on` TIMESTAMP NULL DEFAULT NULL,
     `customer_manufacturer_updated_by` BIGINT DEFAULT NULL,
     `customer_manufacturer_updated_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `customer_manufacturer_is_editable` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_manufacturer_is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_manufacturer_is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_manufacturer_is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No',
+    `customer_manufacturer_is_editable` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_manufacturer_is_approved` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_manufacturer_is_disabled` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_manufacturer_is_deleted` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
     PRIMARY KEY (`customer_manufacturer_no`)
 ) ENGINE = InnoDB;
 
@@ -97,10 +97,10 @@ CREATE TABLE `customer_brand` (
     `customer_brand_approved_on` TIMESTAMP NULL DEFAULT NULL,
     `customer_brand_updated_by` BIGINT DEFAULT NULL,
     `customer_brand_updated_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `customer_brand_is_editable` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_brand_is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_brand_is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_brand_is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No',
+    `customer_brand_is_editable` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_brand_is_approved` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_brand_is_disabled` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_brand_is_deleted` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
     PRIMARY KEY (`customer_brand_no`)
 ) ENGINE = InnoDB;
 
@@ -117,10 +117,10 @@ CREATE TABLE `customer_item_category` (
     `customer_item_category_approved_on` TIMESTAMP NULL DEFAULT NULL,
     `customer_item_category_updated_by` BIGINT DEFAULT NULL,
     `customer_item_category_updated_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `customer_item_category_is_editable` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_item_category_is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_item_category_is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_item_category_is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No',
+    `customer_item_category_is_editable` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_item_category_is_approved` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_item_category_is_disabled` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_item_category_is_deleted` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
     PRIMARY KEY (`customer_item_category_no`)
 ) ENGINE = InnoDB;
 
@@ -137,7 +137,7 @@ CREATE TABLE `customer_item` (
     `customer_item_version` VARCHAR(250) NOT NULL,
     `customer_item_model` VARCHAR(250) NOT NULL,
     `customer_item_type` VARCHAR(250) NOT NULL,
-    `customer_item_is_fragile` ENUM('Yes','No') NOT NULL,
+    `customer_item_is_fragile` ENUM('Yes', 'No') NOT NULL,
     `customer_item_price` FLOAT NOT NULL DEFAULT 0, -- (current rate)
     `customer_item_default_uom` VARCHAR(250) NULL DEFAULT NULL,
     `customer_item_default_sku` VARCHAR(250) NULL DEFAULT NULL, -- (stock keeping unit)
@@ -174,10 +174,10 @@ CREATE TABLE `customer_item` (
     `customer_item_approved_on` TIMESTAMP NULL DEFAULT NULL,
     `customer_item_updated_by` BIGINT DEFAULT NULL,
     `customer_item_updated_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `customer_item_is_editable` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_item_is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_item_is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_item_is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No',
+    `customer_item_is_editable` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_item_is_approved` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_item_is_disabled` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_item_is_deleted` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
     PRIMARY KEY (`customer_item_no`)
 ) ENGINE = InnoDB;
 
@@ -216,10 +216,10 @@ CREATE TABLE `customer_generic_item` (
     `customer_generic_item_approved_on` TIMESTAMP NULL DEFAULT NULL,
     `customer_generic_item_updated_by` BIGINT DEFAULT NULL,
     `customer_generic_item_updated_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `customer_generic_item_is_editable` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_generic_item_is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_generic_item_is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_generic_item_is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No',
+    `customer_generic_item_is_editable` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_generic_item_is_approved` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_generic_item_is_disabled` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_generic_item_is_deleted` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
     PRIMARY KEY (`customer_generic_item_no`)
 ) ENGINE = InnoDB;
 
@@ -249,10 +249,10 @@ CREATE TABLE `customer_item_stock` (
     `customer_item_stock_approved_on` TIMESTAMP NULL DEFAULT NULL,
     `customer_item_stock_updated_by` BIGINT DEFAULT NULL,
     `customer_item_stock_updated_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `customer_item_stock_is_editable` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_item_stock_is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_item_stock_is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_item_stock_is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No',
+    `customer_item_stock_is_editable` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_item_stock_is_approved` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_item_stock_is_disabled` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_item_stock_is_deleted` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
     PRIMARY KEY (`customer_item_stock_no`)
 ) ENGINE = InnoDB;
 
@@ -268,10 +268,10 @@ CREATE TABLE `customer_item_attribute` ( -- (color/size etc.)
     `customer_item_attribute_approved_on` TIMESTAMP NULL DEFAULT NULL,
     `customer_item_attribute_updated_by` BIGINT DEFAULT NULL,
     `customer_item_attribute_updated_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `customer_item_attribute_is_editable` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_item_attribute_is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_item_attribute_is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_item_attribute_is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No',
+    `customer_item_attribute_is_editable` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_item_attribute_is_approved` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_item_attribute_is_disabled` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_item_attribute_is_deleted` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
     PRIMARY KEY (`customer_item_attribute_no`)
 ) ENGINE = InnoDB;
 
@@ -288,10 +288,10 @@ CREATE TABLE `customer_item_attribute_value` ( -- (this item -> red)
     `customer_item_attribute_value_approved_on` TIMESTAMP NULL DEFAULT NULL,
     `customer_item_attribute_value_updated_by` BIGINT DEFAULT NULL,
     `customer_item_attribute_value_updated_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `customer_item_attribute_value_is_editable` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_item_attribute_value_is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_item_attribute_value_is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_item_attribute_value_is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No',
+    `customer_item_attribute_value_is_editable` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_item_attribute_value_is_approved` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_item_attribute_value_is_disabled` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_item_attribute_value_is_deleted` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
     PRIMARY KEY (`customer_item_attribute_value_no`)
 ) ENGINE = InnoDB;
 
@@ -307,10 +307,10 @@ CREATE TABLE `customer_item_attribute_link` (
     `approved_on` TIMESTAMP NULL DEFAULT NULL,
     `updated_by` BIGINT DEFAULT NULL,
     `updated_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `is_editable` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No',
+    `is_editable` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `is_approved` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `is_disabled` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `is_deleted` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
     PRIMARY KEY (`sr_no`)
 ) ENGINE = InnoDB;
 -- ----------- Tables Customer level (Customer Entered Data) ------------

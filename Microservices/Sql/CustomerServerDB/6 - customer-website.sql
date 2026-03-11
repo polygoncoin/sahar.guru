@@ -27,10 +27,10 @@ CREATE TABLE `customer_website` (
     `customer_website_approved_on` TIMESTAMP NULL DEFAULT NULL,
     `customer_website_updated_by` BIGINT DEFAULT NULL,
     `customer_website_updated_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `customer_website_is_editable` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_website_is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_website_is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_website_is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No',
+    `customer_website_is_editable` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_website_is_approved` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_website_is_disabled` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_website_is_deleted` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
     PRIMARY KEY (`customer_website_no`)
 ) ENGINE = InnoDB;
 
@@ -65,10 +65,10 @@ CREATE TABLE `customer_website_admin` (
     `customer_website_admin_approved_on` TIMESTAMP NULL DEFAULT NULL,
     `customer_website_admin_updated_by` BIGINT DEFAULT NULL,
     `customer_website_admin_updated_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `customer_website_admin_is_editable` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_website_admin_is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_website_admin_is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_website_admin_is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No',
+    `customer_website_admin_is_editable` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_website_admin_is_approved` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_website_admin_is_disabled` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_website_admin_is_deleted` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
     PRIMARY KEY (`customer_website_admin_no`)
 ) ENGINE = InnoDB;
 
@@ -86,10 +86,10 @@ CREATE TABLE `customer_website_admin_group` (
     `customer_website_admin_group_approved_on` TIMESTAMP NULL DEFAULT NULL,
     `customer_website_admin_group_updated_by` BIGINT DEFAULT NULL,
     `customer_website_admin_group_updated_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `customer_website_admin_group_is_editable` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_website_admin_group_is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_website_admin_group_is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `customer_website_admin_group_is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No',
+    `customer_website_admin_group_is_editable` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_website_admin_group_is_approved` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_website_admin_group_is_disabled` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `customer_website_admin_group_is_deleted` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
     PRIMARY KEY (`customer_website_admin_group_no`)
 ) ENGINE = InnoDB;
 
@@ -106,10 +106,10 @@ CREATE TABLE `customer_website_admin_group_link` (
     `approved_on` TIMESTAMP NULL DEFAULT NULL,
     `updated_by` BIGINT DEFAULT NULL,
     `updated_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `is_editable` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No',
+    `is_editable` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `is_approved` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `is_disabled` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `is_deleted` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
     PRIMARY KEY (`sr_no`)
 ) ENGINE = InnoDB;
 
@@ -128,10 +128,10 @@ CREATE TABLE `website_item` (
     `website_item_approved_on` TIMESTAMP NULL DEFAULT NULL,
     `website_item_updated_by` BIGINT DEFAULT NULL,
     `website_item_updated_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `website_item_is_editable` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `website_item_is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `website_item_is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `website_item_is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No',
+    `website_item_is_editable` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `website_item_is_approved` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `website_item_is_disabled` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `website_item_is_deleted` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
     PRIMARY KEY (`website_item_no`)
 ) ENGINE = InnoDB;
 
@@ -150,10 +150,10 @@ CREATE TABLE `website_generic_item` (
     `website_generic_item_approved_on` TIMESTAMP NULL DEFAULT NULL,
     `website_generic_item_updated_by` BIGINT DEFAULT NULL,
     `website_generic_item_updated_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `website_generic_item_is_editable` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `website_generic_item_is_approved` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `website_generic_item_is_disabled` ENUM('Yes','No') NOT NULL DEFAULT 'No',
-    `website_generic_item_is_deleted` ENUM('Yes','No') NOT NULL DEFAULT 'No',
+    `website_generic_item_is_editable` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `website_generic_item_is_approved` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `website_generic_item_is_disabled` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
+    `website_generic_item_is_deleted` ENUM('Yes', 'No') NOT NULL DEFAULT 'No',
     PRIMARY KEY (`website_generic_item_no`)
 ) ENGINE = InnoDB;
 -- ----------- Tables Website level (Website Entered Data) --------------

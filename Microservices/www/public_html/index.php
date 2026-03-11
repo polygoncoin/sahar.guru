@@ -24,7 +24,7 @@ use Microservices\TestCases\Tests;
 ini_set(option: 'display_errors', value: true);
 error_reporting(error_level: E_ALL);
 
-define('ROOT', realpath(path: __DIR__ . DIRECTORY_SEPARATOR . '../../'));
+define('ROOT', realpath(path: __DIR__ . '/../../'));
 define('ROUTE_URL_PARAM', 'route');
 
 require_once ROOT . DIRECTORY_SEPARATOR . 'Autoload.php';

@@ -22,10 +22,10 @@ use Microservices\www\Validation\ValidatorInterface;
 use Microservices\www\Validation\ValidatorTrait;
 
 /**
- * Client Validator
+ * Customer Validator
  * php version 8.3
  *
- * @category  Validator_Client
+ * @category  Validator_Customer
  * @package   Sahar.Guru
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
@@ -33,7 +33,7 @@ use Microservices\www\Validation\ValidatorTrait;
  * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0
  */
-class ClientValidator implements ValidatorInterface
+class CustomerValidator implements ValidatorInterface
 {
 	use ValidatorTrait;
 
@@ -85,7 +85,7 @@ class ClientValidator implements ValidatorInterface
 	}
 
 	/**
-	 * Client Id Exist
+	 * Customer Id Exist
 	 *
 	 * @param array $args Arguments
 	 *
@@ -95,7 +95,7 @@ class ClientValidator implements ValidatorInterface
 	{
 		extract(array: $args);
 		return $this->getPrimaryCount(
-			table: Env::$clientsTable,
+			table: Env::$customerTable,
 			primary: 'id',
 			id: $id
 		);

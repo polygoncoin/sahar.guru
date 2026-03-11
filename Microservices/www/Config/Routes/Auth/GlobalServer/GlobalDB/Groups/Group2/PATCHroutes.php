@@ -13,6 +13,6 @@
  * @since     Class available since Release 1.0.0
  */
 
-namespace Microservices\www\Config\Routes\Auth\ClientDB\Groups\Client001UserGroup1;
+namespace Microservices\www\Config\Routes\Auth\CustomerDB\Groups\Customer001UserGroup1;
 
 return [];

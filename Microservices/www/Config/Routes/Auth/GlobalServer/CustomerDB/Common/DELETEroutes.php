@@ -13,6 +13,6 @@
  * @since     Class available since Release 1.0.0
  */
 
-namespace Microservices\www\Config\Routes\Auth\CommonRoutes\Client;
+namespace Microservices\www\Config\Routes\Auth\CustomerDB\Common;
 
 return [];

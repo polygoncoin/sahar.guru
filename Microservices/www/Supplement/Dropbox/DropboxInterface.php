@@ -4,7 +4,7 @@
  * DropboxCacheAPI
  * php version 8.3
  *
- * @category  DropboxCacheAPI_Trait
+ * @category  DropboxCacheAPI_Interface
  * @package   Sahar.Guru
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
@@ -13,13 +13,13 @@
  * @since     Class available since Release 1.0.0
  */
 
-namespace Microservices\www\Supplement\DropboxCache;
+namespace Microservices\www\Supplement\Dropbox;
 
 /**
- * DropboxCacheAPI Trait
+ * DropboxCacheAPI Interface
  * php version 8.3
  *
- * @category  DropboxCacheAPI_Trait
+ * @category  DropboxCacheAPI_Interface
  * @package   Sahar.Guru
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
@@ -27,6 +27,21 @@ namespace Microservices\www\Supplement\DropboxCache;
  * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0
  */
-trait CacheTrait
+interface DropboxInterface
 {
+	/**
+	 * Initialize
+	 *
+	 * @return bool
+	 */
+	public function init(): bool;
+
+	/**
+	 * Process
+	 *
+	 * @param array $payload Payload
+	 *
+	 * @return array
+	 */
+	public function process(array $payload = []): array;
 }

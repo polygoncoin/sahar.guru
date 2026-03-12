@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Handling Database via PostgreSql
+ * DropboxCacheAPI
  * php version 8.3
  *
- * @category  Database
+ * @category  DropboxCacheAPI_Trait
  * @package   Sahar.Guru
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
@@ -13,16 +13,13 @@
  * @since     Class available since Release 1.0.0
  */
 
-namespace Microservices\App\Server\DatabaseServer;
-
-use Microservices\App\Server\DatabaseServer\DatabaseServerInterface;
-use Microservices\App\Server\Container\Sql\PostgreSql as DB_PostgreSql;
+namespace Microservices\www\Supplement\Dropbox;
 
 /**
- * PostgreSql Database
+ * DropboxCacheAPI Trait
  * php version 8.3
  *
- * @category  Database_PostgreSql
+ * @category  DropboxCacheAPI_Trait
  * @package   Sahar.Guru
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
@@ -30,6 +27,6 @@ use Microservices\App\Server\Container\Sql\PostgreSql as DB_PostgreSql;
  * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0
  */
-class PostgreSqlDatabase extends DB_PostgreSql implements DatabaseServerInterface
+trait CacheTrait
 {
 }

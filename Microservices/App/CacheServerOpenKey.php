@@ -29,7 +29,7 @@ use Microservices\App\Env;
  * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0
  */
-class DatabaseOpenCacheKey
+class CacheServerOpenKey
 {
 	/**
 	 * App key

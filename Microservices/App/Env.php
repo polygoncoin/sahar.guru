@@ -59,7 +59,7 @@ class Env
 	public static $gCacheServerPort = null;
 	public static $gCacheServerUsername = null;
 	public static $gCacheServerPassword = null;
-	public static $gCacheServerDatabase = null;
+	public static $gCacheServerDB = null;
 	public static $gCacheServerTable = null;
 
 	public static $gDbServerType = null;
@@ -67,10 +67,30 @@ class Env
 	public static $gDbServerPort = null;
 	public static $gDbServerUsername = null;
 	public static $gDbServerPassword = null;
-	public static $gDbServerDatabase = null;
 	public static $gDbServerQueryPlaceholder = null;
 
-	public static $masterDatabase = null;
+	public static $gDbServerGlobalDB = null;
+	public static $gGlobalDB_CounterTable = null;
+	public static $gGlobalDB_ApiCacheTable = null;
+
+	public static $gDbServerLogDB = null;
+	public static $gLogDB_RequestTable = null;
+	public static $gLogDB_ErrorTable = null;
+	public static $gLogDB_DebugTable = null;
+
+	public static $gDbServerAdminDB = null;
+	public static $gAdminDB_AdminTable = null;
+	public static $gAdminDB_ContactTable = null;
+	public static $gAdminDB_GroupTable = null;
+	public static $gAdminDB_AdminGroupLinkTable = null;
+
+	public static $gDbServerCustomerDB = null;
+	public static $gCustomerDB_CustomerTable = null;
+	public static $gCustomerDB_CustomerContactTable = null;
+	public static $gCustomerDB_CustomerGroupTable = null;
+	public static $gCustomerDB_CustomerGroupLinkTable = null;
+
+	public static $customerMasterDB = null;
 	public static $customerTable = null;
 	public static $groupsTable = null;
 	public static $queryPlaceholder = null;
@@ -165,7 +185,7 @@ class Env
 	public static $sqlResultsCacheServerPort = null;
 	public static $sqlResultsCacheServerUsername = null;
 	public static $sqlResultsCacheServerPassword = null;
-	public static $sqlResultsCacheServerDatabase = null;
+	public static $sqlResultsCacheServerDB = null;
 	public static $sqlResultsCacheServerTable = null;
 ///////////////
 
@@ -206,7 +226,7 @@ class Env
 		self::$gCacheServerPort = (int)getenv(name: 'gCacheServerPort');
 		self::$gCacheServerUsername = getenv(name: 'gCacheServerUsername');
 		self::$gCacheServerPassword = getenv(name: 'gCacheServerPassword');
-		self::$gCacheServerDatabase = getenv(name: 'gCacheServerDatabase');
+		self::$gCacheServerDB = getenv(name: 'gCacheServerDB');
 		self::$gCacheServerTable = getenv(name: 'gCacheServerTable');
 
 		self::$gDbServerType = getenv(name: 'gDbServerType');
@@ -214,10 +234,30 @@ class Env
 		self::$gDbServerPort = (int)getenv(name: 'gDbServerPort');
 		self::$gDbServerUsername = getenv(name: 'gDbServerUsername');
 		self::$gDbServerPassword = getenv(name: 'gDbServerPassword');
-		self::$gDbServerDatabase = getenv(name: 'gDbServerDatabase');
 		self::$gDbServerQueryPlaceholder = getenv(name: 'gDbServerQueryPlaceholder');
 
-		self::$masterDatabase = getenv(name: 'masterDatabase');
+		self::$gDbServerGlobalDB = getenv(name: 'gDbServerGlobalDB');
+		self::$gGlobalDB_CounterTable = getenv(name: 'gGlobalDB_CounterTable');
+		self::$gGlobalDB_ApiCacheTable = getenv(name: 'gGlobalDB_ApiCacheTable');
+
+		self::$gDbServerLogDB = getenv(name: 'gDbServerLogDB');
+		self::$gLogDB_RequestTable = getenv(name: 'gLogDB_RequestTable');
+		self::$gLogDB_ErrorTable = getenv(name: 'gLogDB_ErrorTable');
+		self::$gLogDB_DebugTable = getenv(name: 'gLogDB_DebugTable');
+
+		self::$gDbServerAdminDB = getenv(name: 'gDbServerAdminDB');
+		self::$gAdminDB_AdminTable = getenv(name: 'gAdminDB_AdminTable');
+		self::$gAdminDB_ContactTable = getenv(name: 'gAdminDB_ContactTable');
+		self::$gAdminDB_GroupTable = getenv(name: 'gAdminDB_GroupTable');
+		self::$gAdminDB_AdminGroupLinkTable = getenv(name: 'gAdminDB_AdminGroupLinkTable');
+
+		self::$gDbServerCustomerDB = getenv(name: 'gDbServerCustomerDB');
+		self::$gCustomerDB_CustomerTable = getenv(name: 'gCustomerDB_CustomerTable');
+		self::$gCustomerDB_CustomerContactTable = getenv(name: 'gCustomerDB_CustomerContactTable');
+		self::$gCustomerDB_CustomerGroupTable = getenv(name: 'gCustomerDB_CustomerGroupTable');
+		self::$gCustomerDB_CustomerGroupLinkTable = getenv(name: 'gCustomerDB_CustomerGroupLinkTable');
+
+		self::$customerMasterDB = getenv(name: 'customerMasterDB');
 		self::$customerTable = getenv(name: 'customerTable');
 		self::$groupsTable = getenv(name: 'groupsTable');
 		self::$queryPlaceholder = getenv(name: 'queryPlaceholder');
@@ -312,7 +352,7 @@ class Env
 		self::$sqlResultsCacheServerPort = getenv(name: 'sqlResultsCacheServerPort');
 		self::$sqlResultsCacheServerUsername = getenv(name: 'sqlResultsCacheServerUsername');
 		self::$sqlResultsCacheServerPassword = getenv(name: 'sqlResultsCacheServerPassword');
-		self::$sqlResultsCacheServerDatabase = getenv(name: 'sqlResultsCacheServerDatabase');
+		self::$sqlResultsCacheServerDB = getenv(name: 'sqlResultsCacheServerDB');
 		self::$sqlResultsCacheServerTable = getenv(name: 'sqlResultsCacheServerTable');
 		//////////////////
 

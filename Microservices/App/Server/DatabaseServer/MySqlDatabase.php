@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Export CSV
+ * Handling Database via MySql
  * php version 8.3
  *
- * @category  Export
+ * @category  Database
  * @package   Sahar.Guru
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
@@ -13,13 +13,16 @@
  * @since     Class available since Release 1.0.0
  */
 
-namespace Microservices\App\Export;
+namespace Microservices\App\Server\DatabaseServer;
+
+use Microservices\App\Server\DatabaseServer\DatabaseInterface;
+use Microservices\App\Server\Container\Sql\MySql as DB_MySql;
 
 /**
- * Export CSV Interface
+ * MySql Database
  * php version 8.3
  *
- * @category  Export
+ * @category  Database_MySql
  * @package   Sahar.Guru
  * @author    Ramesh N. Jangid (Sharma) <polygon.co.in@gmail.com>
  * @copyright © 2026 Ramesh N. Jangid (Sharma)
@@ -27,28 +30,6 @@ namespace Microservices\App\Export;
  * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0
  */
-interface DbInterface
+class MySqlDatabase extends DB_MySql implements DatabaseInterface
 {
-	/**
-	 * Initialize
-	 *
-	 * @param string $hostname Hostname
-	 * @param string $port     Port
-	 * @param string $username Username
-	 * @param string $password Password
-	 * @param string $db       Database
-	 *
-	 * @return void
-	 */
-	public function init($hostname, $port, $username, $password, $db): void;
-
-	/**
-	 * Returns Shell Command
-	 *
-	 * @param string $sql    query
-	 * @param array  $params query params
-	 *
-	 * @return string
-	 */
-	public function getShellCommand($sql, $params = null): string;
 }

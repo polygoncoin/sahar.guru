@@ -16,7 +16,7 @@
 namespace Microservices\App;
 
 use Microservices\App\HttpStatus;
-use Microservices\App\SessionHandlers\Session;
+use Microservices\App\SessionHandler\Session;
 
 /**
  * Environment
@@ -91,8 +91,6 @@ class Env
 	public static $gCustomerDB_CustomerGroupLinkTable = null;
 
 	public static $customerMasterDB = null;
-	public static $customerTable = null;
-	public static $groupsTable = null;
 	public static $queryPlaceholder = null;
 	public static $defaultPerPage = null;
 	public static $maxResultsPerPage = null;
@@ -258,8 +256,6 @@ class Env
 		self::$gCustomerDB_CustomerGroupLinkTable = getenv(name: 'gCustomerDB_CustomerGroupLinkTable');
 
 		self::$customerMasterDB = getenv(name: 'customerMasterDB');
-		self::$customerTable = getenv(name: 'customerTable');
-		self::$groupsTable = getenv(name: 'groupsTable');
 		self::$queryPlaceholder = getenv(name: 'queryPlaceholder');
 		self::$defaultPerPage = (int)getenv(name: 'defaultPerPage');
 		self::$maxResultsPerPage = (int)getenv(name: 'maxResultsPerPage');

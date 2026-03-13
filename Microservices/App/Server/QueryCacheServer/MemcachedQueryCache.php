@@ -122,12 +122,12 @@ class MemcachedQueryCache implements QueryCacheServerInterface
 
 		try {
 			$this->queryCacheServerObj = new Cache_Memcached(
-				queryCacheServerHostname: $this->queryCacheServerHostname,
-				queryCacheServerPort: $this->queryCacheServerPort,
-				queryCacheServerUsername: $this->queryCacheServerUsername,
-				queryCacheServerPassword: $this->queryCacheServerPassword,
-				queryCacheServerDB: $this->queryCacheServerDB,
-				queryCacheServerTable: $this->queryCacheServerTable
+				cacheServerHostname: $this->queryCacheServerHostname,
+				cacheServerPort: $this->queryCacheServerPort,
+				cacheServerUsername: $this->queryCacheServerUsername,
+				cacheServerPassword: $this->queryCacheServerPassword,
+				cacheServerDB: $this->queryCacheServerDB,
+				cacheServerTable: $this->queryCacheServerTable
 			);
 		} catch (\Exception $e) {
 			throw new \Exception(

@@ -30,7 +30,7 @@ use Microservices\App\Server\DatabaseServer\DatabaseServerInterface;
  * @link      https://github.com/polygoncoin/sahar.guru
  * @since     Class available since Release 1.0.0
  */
-class DbServer
+class DatabaseServer
 {
 	/**
 	 * Database Server Type
@@ -109,7 +109,7 @@ class DbServer
 	 *
 	 * @return DatabaseServerInterface
 	 */
-	public static function connectDatabaseServer(): DatabaseServerInterface
+	public function connectDatabaseServer(): DatabaseServerInterface
 	{
 		if (!in_array($this->dbServerType, ['MySql', 'PostgreSql'])) {
 			throw new \Exception(

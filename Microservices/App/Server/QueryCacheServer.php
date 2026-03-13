@@ -91,8 +91,6 @@ class QueryCacheServer
 	 * @param string      $queryCacheServerPassword Query Cache Server Password
 	 * @param null|string $queryCacheServerDB       Query Cache Server Database
 	 * @param null|string $queryCacheServerTable    Query Cache Server Table
-	 *
-	 * @return QueryCacheServerInterface
 	 */
 	public function __construct(
         $queryCacheServerType,
@@ -110,8 +108,6 @@ class QueryCacheServer
 		$this->queryCacheServerPassword = $queryCacheServerPassword;
 		$this->queryCacheServerDB = $queryCacheServerDB;
 		$this->queryCacheServerTable = $queryCacheServerTable;
-
-		return $this->connectQueryCacheServer();
 	}
 
 	/**
@@ -119,7 +115,7 @@ class QueryCacheServer
 	 *
 	 * @return QueryCacheServerInterface
 	 */
-	public static function connectQueryCacheServer(): QueryCacheServerInterface
+	public function connectQueryCacheServer(): QueryCacheServerInterface
 	{
 		if (
             !in_array(

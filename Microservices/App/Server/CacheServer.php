@@ -91,8 +91,6 @@ class CacheServer
 	 * @param string      $cacheServerPassword Cache Server Password
 	 * @param null|string $cacheServerDB       Cache Server Database
 	 * @param null|string $cacheServerTable    Cache Server Table
-	 *
-	 * @return CacheServerInterface
 	 */
 	public function __construct(
         $cacheServerType,
@@ -110,8 +108,6 @@ class CacheServer
 		$this->cacheServerPassword = $cacheServerPassword;
 		$this->cacheServerDB = $cacheServerDB;
 		$this->cacheServerTable = $cacheServerTable;
-
-		return $this->connectCacheServer();
 	}
 
 	/**
@@ -119,7 +115,7 @@ class CacheServer
 	 *
 	 * @return CacheServerInterface
 	 */
-	public static function connectCacheServer(): CacheServerInterface
+	public function connectCacheServer(): CacheServerInterface
 	{
 		if (
             !in_array(
